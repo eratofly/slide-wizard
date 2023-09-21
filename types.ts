@@ -1,5 +1,18 @@
+type SlideObject = {
+    x: number,
+    y: number,
+    width: number,
+    height: number,
+    rotateAngle: number,
+}
+enum PrimitiveType {
+    Rectangle = 'rectangle',
+    Ellipse = 'ellipse',
+    Triangle = 'triangle',
+}
+
 type Primitive = SlideObject & {
-    type: 'Rectangle' | 'Ellipse' | 'Triangle',
+    type: PrimitiveType,
     color: string,
     opacity: number,
     borderColor: string,
@@ -30,14 +43,6 @@ type Char = {
 
 type TextObject = SlideObject & {
     chars: Array<Char>,
-}
-
-type SlideObject = {
-    x: number,
-    y: number,
-    width: number,
-    height: number,
-    rotateAngle: number,
 }
 
 type Slide = {
@@ -75,10 +80,11 @@ export {
     FocusState,
     Presentation,
     Slide,
-    SlideObject,
     TextObject,
     Char,
     Image,
     Crop,
     Primitive,
+    PrimitiveType,
+    SlideObject,
 }
