@@ -1,9 +1,21 @@
+enum ObjectType {
+    Text = 'text',
+    Image = 'image',
+    Primitive = 'primitive',
+}
+
 type SlideObject = {
+    id: string,
     x: number,
     y: number,
     width: number,
     height: number,
     rotateAngle: number,
+}
+
+type Color = {
+    hex: string,
+    opacity: number,
 }
 enum PrimitiveType {
     Rectangle = 'rectangle',
@@ -12,10 +24,10 @@ enum PrimitiveType {
 }
 
 type Primitive = SlideObject & {
-    type: PrimitiveType,
-    color: string,
-    opacity: number,
-    borderColor: string,
+    objectType: ObjectType.Primitive,
+    primitiveType: PrimitiveType,
+    color: Color,
+    borderColor: Color,
     borderWidth: number,
 }
 
@@ -27,27 +39,29 @@ type Crop = {
 }
 
 type Image = SlideObject & {
+    objectType: ObjectType.Image,
     path: string,
-    crop: Crop | null,
+    crop?: Crop,
 }
 
 type Char = {
     value: string,
     fontFamily: string,
-    color: string,
+    color: Color,
     size: number,
-    opacity: number,
     bold: boolean,
     italic: boolean,
 }
 
 type TextObject = SlideObject & {
+    objectType: ObjectType.Text,
     chars: Array<Char>,
 }
 
 type Slide = {
-    backgroundImage: string | null,
-    backgroundColor: string,
+    id: string,
+    backgroundImage?: string,
+    backgroundColor: Color,
     slideObjects: Array<TextObject | Image | Primitive>,
 }
 
@@ -56,9 +70,9 @@ type Presentation = {
     slides: Array<Slide>,
 }
 
-type FocusState = {
-    focusSlide: number,
-    focusItem: number | null,
+type Selection = {
+    slideId: string,
+    objectId?: string,
 }
 
 type Command = {}
@@ -69,7 +83,7 @@ type CommandHistory = {
 
 type Editor = {
     presentation: Presentation,
-    focusState: FocusState,
+    selection: Selection,
     commandHistory: CommandHistory,
 }
 
@@ -77,7 +91,7 @@ export {
     Editor,
     CommandHistory,
     Command,
-    FocusState,
+    Selection,
     Presentation,
     Slide,
     TextObject,
@@ -87,4 +101,6 @@ export {
     Primitive,
     PrimitiveType,
     SlideObject,
+    Color,
+    ObjectType,
 }

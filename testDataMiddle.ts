@@ -1,11 +1,13 @@
 import {
     Char,
+    Color,
     Command,
     CommandHistory,
     Crop,
     Editor,
-    FocusState,
+    Selection,
     Image,
+    ObjectType,
     Presentation,
     Primitive,
     PrimitiveType,
@@ -13,29 +15,42 @@ import {
     TextObject,
 } from './types'
 
+const primitiveColor: Color = {
+    hex: '#ff00ff',
+    opacity: 0.3,
+}
+
+const textColor: Color = {
+    hex: '#ff0000',
+    opacity: 0,
+}
+
+const colorCircle: Color = {
+    hex: '#50ff78',
+    opacity: 0.5,
+}
+
+const bgcSlide1: Color = {
+    hex: '#0000ff',
+    opacity: 0.5,
+}
+
+const bgcSlide2: Color = {
+    hex: '#ff0000',
+    opacity: 0,
+}
+
 const rect: Primitive = {
+    id: 'fjnfi3',
+    objectType: ObjectType.Primitive,
     x: 11,
     y: 3,
     width: 5,
     height: 11,
     rotateAngle: 180,
-    type: PrimitiveType.Rectangle,
-    color: '#ff00ff',
-    opacity: 0.5,
-    borderColor: '#034fff',
-    borderWidth: 1,
-}
-
-const triangle: Primitive = {
-    x: 9,
-    y: 8,
-    width: 7,
-    height: 6,
-    rotateAngle: 5,
-    type: PrimitiveType.Triangle,
-    color: '#444444',
-    opacity: 0.3,
-    borderColor: '#222222',
+    primitiveType: PrimitiveType.Rectangle,
+    color: primitiveColor,
+    borderColor: primitiveColor,
     borderWidth: 1,
 }
 
@@ -47,6 +62,8 @@ const imageCrop: Crop = {
 }
 
 const image: Image = {
+    id: 'jfcy8d',
+    objectType: ObjectType.Image,
     x: 100,
     y: 50,
     width: 30,
@@ -56,74 +73,61 @@ const image: Image = {
     crop: imageCrop,
 }
 
-const letterB: Char = {
-    value: 'b',
-    fontFamily: 'Arial',
-    color: '#625678',
-    size: 20,
-    opacity: 0.5,
-    bold: false,
-    italic: true,
-}
-
 const letterA: Char = {
     value: 'A',
     fontFamily: 'Arial',
-    color: '#625678',
+    color: textColor,
     size: 14,
-    opacity: 0,
     bold: true,
     italic: false,
 }
 
 const textObject: TextObject = {
+    id: 'kgvc7g',
+    objectType: ObjectType.Text,
     x: 10,
     y: 20,
     width: 50,
     height: 14,
     rotateAngle: 0,
-    chars: [letterA, letterB],
+    chars: [letterA],
 }
 
 const circle: Primitive = {
+    id: 'd4e5f6',
+    objectType: ObjectType.Primitive,
     x: 1,
     y: 0,
     width: 51,
     height: 34,
     rotateAngle: 0,
-    type: PrimitiveType.Ellipse,
-    color: '#fffff0',
-    opacity: 0,
-    borderColor: '#000fff',
+    primitiveType: PrimitiveType.Ellipse,
+    color: colorCircle,
+    borderColor: colorCircle,
     borderWidth: 3,
 }
 
 const slide1: Slide = {
-    backgroundImage: null,
-    backgroundColor: '#000000',
+    id: 'a1b2c3',
+    backgroundColor: bgcSlide1,
     slideObjects: [textObject, circle],
 }
 
 const slide2: Slide = {
+    id: 'j1k2l3',
     backgroundImage: 'https://',
-    backgroundColor: '#ffffff',
-    slideObjects: [image, rect, triangle, circle, textObject],
-}
-
-const slide3: Slide = {
-    backgroundImage: null,
-    backgroundColor: '#000000',
-    slideObjects: [],
+    backgroundColor: bgcSlide2,
+    slideObjects: [image, rect],
 }
 
 const presentation: Presentation = {
     title: 'The best presentation',
-    slides: [slide1, slide2, slide3],
+    slides: [slide1, slide2],
 }
 
-const focusState: FocusState = {
-    focusSlide: 0,
-    focusItem: null,
+const selection: Selection = {
+    slideId: 'a1b2c3',
+    objectId: 'd4e5f6',
 }
 
 const commands: Array<Command> = [{}]
@@ -134,7 +138,7 @@ const commandHistory: CommandHistory = {
 
 const editor: Editor = {
     presentation: presentation,
-    focusState: focusState,
+    selection: selection,
     commandHistory: commandHistory,
 }
 
