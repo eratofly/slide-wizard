@@ -20,6 +20,11 @@ const primitiveColor: Color = {
     opacity: 0.3,
 }
 
+const colorCircleBorder: Color = {
+    hex: '#5400ff',
+    opacity: 0.9,
+}
+
 const textColor: Color = {
     hex: '#ff0000',
     opacity: 0,
@@ -42,16 +47,14 @@ const bgcSlide2: Color = {
 
 const rect: Primitive = {
     id: 'fjnfi3',
-    objectType: ObjectType.Primitive,
+    objectType: ObjectType.PRIMITIVE,
     x: 11,
     y: 3,
     width: 5,
     height: 11,
     rotateAngle: 180,
-    primitiveType: PrimitiveType.Rectangle,
+    primitiveType: PrimitiveType.RECTANGLE,
     color: primitiveColor,
-    borderColor: primitiveColor,
-    borderWidth: 1,
 }
 
 const imageCrop: Crop = {
@@ -63,7 +66,7 @@ const imageCrop: Crop = {
 
 const image: Image = {
     id: 'jfcy8d',
-    objectType: ObjectType.Image,
+    objectType: ObjectType.IMAGE,
     x: 100,
     y: 50,
     width: 30,
@@ -84,7 +87,7 @@ const letterA: Char = {
 
 const textObject: TextObject = {
     id: 'kgvc7g',
-    objectType: ObjectType.Text,
+    objectType: ObjectType.TEXT,
     x: 10,
     y: 20,
     width: 50,
@@ -95,16 +98,14 @@ const textObject: TextObject = {
 
 const circle: Primitive = {
     id: 'd4e5f6',
-    objectType: ObjectType.Primitive,
+    objectType: ObjectType.PRIMITIVE,
     x: 1,
     y: 0,
     width: 51,
     height: 34,
     rotateAngle: 0,
-    primitiveType: PrimitiveType.Ellipse,
+    primitiveType: PrimitiveType.ELLIPSE,
     color: colorCircle,
-    borderColor: colorCircle,
-    borderWidth: 3,
 }
 
 const slide1: Slide = {
@@ -133,13 +134,13 @@ const selection: Selection = {
 const commands: Array<Command> = [{}]
 
 const commandHistory: CommandHistory = {
-    commands: commands,
+    commands,
 }
 
 const editor: Editor = {
-    presentation: presentation,
-    selection: selection,
-    commandHistory: commandHistory,
+    presentation,
+    selection,
+    commandHistory,
 }
 
 console.log(editor);

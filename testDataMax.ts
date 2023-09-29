@@ -15,7 +15,7 @@ import {
     TextObject,
 } from './types'
 
-const borderColorTriangle: Color = {
+const triangleBorderColor: Color = {
     hex: '#fff000',
     opacity: 0.8,
 }
@@ -23,6 +23,26 @@ const borderColorTriangle: Color = {
 const primitiveColor: Color = {
     hex: '#ff00ff',
     opacity: 0.3,
+}
+
+const circleBorderColor: Color = {
+    hex: '#5400ff',
+    opacity: 0.9,
+}
+
+const rectBorderColor: Color = {
+    hex: '#A436ff',
+    opacity: 1,
+}
+
+const imgBorderColor: Color = {
+    hex: '#4400bf',
+    opacity: 0.5,
+}
+
+const textBorderColor: Color = {
+    hex: '#5476ff',
+    opacity: 0.1,
 }
 
 const textColor: Color = {
@@ -50,32 +70,55 @@ const bgcSlide3: Color = {
     opacity: 0,
 }
 
+const rectBorder = {
+    color: rectBorderColor,
+    width: 2,
+}
+
+const triangleBorder = {
+    color: triangleBorderColor,
+    width: 1,
+}
+
+const circleBorder = {
+    color: circleBorderColor,
+    width: 0,
+}
+
+const imgBorder = {
+    color: imgBorderColor,
+    width: 10,
+}
+
+const textBorder = {
+    color: textBorderColor,
+    width: 5,
+}
+
 const rect: Primitive = {
     id: 'fjnfi3',
-    objectType: ObjectType.Primitive,
+    objectType: ObjectType.PRIMITIVE,
     x: 11,
     y: 3,
     width: 5,
     height: 11,
     rotateAngle: 180,
-    primitiveType: PrimitiveType.Rectangle,
+    primitiveType: PrimitiveType.RECTANGLE,
     color: primitiveColor,
-    borderColor: primitiveColor,
-    borderWidth: 1,
+    border: rectBorder,
 }
 
 const triangle: Primitive = {
     id: 'hf3bs3',
-    objectType: ObjectType.Primitive,
+    objectType: ObjectType.PRIMITIVE,
     x: 9,
     y: 8,
     width: 7,
     height: 6,
     rotateAngle: 5,
-    primitiveType: PrimitiveType.Triangle,
+    primitiveType: PrimitiveType.TRIANGLE,
     color: primitiveColor,
-    borderColor: borderColorTriangle,
-    borderWidth: 1,
+    border: triangleBorder,
 }
 
 const imageCrop: Crop = {
@@ -87,7 +130,7 @@ const imageCrop: Crop = {
 
 const image: Image = {
     id: 'jfcy8d',
-    objectType: ObjectType.Image,
+    objectType: ObjectType.IMAGE,
     x: 100,
     y: 50,
     width: 30,
@@ -95,6 +138,7 @@ const image: Image = {
     rotateAngle: 90,
     path: 'https://',
     crop: imageCrop,
+    border: imgBorder,
 }
 
 const letterB: Char = {
@@ -117,27 +161,27 @@ const letterA: Char = {
 
 const textObject: TextObject = {
     id: 'kgvc7g',
-    objectType: ObjectType.Text,
+    objectType: ObjectType.TEXT,
     x: 10,
     y: 20,
     width: 50,
     height: 14,
     rotateAngle: 0,
     chars: [letterA, letterB],
+    border: textBorder,
 }
 
 const circle: Primitive = {
     id: 'd4e5f6',
-    objectType: ObjectType.Primitive,
+    objectType: ObjectType.PRIMITIVE,
     x: 1,
     y: 0,
     width: 51,
     height: 34,
     rotateAngle: 0,
-    primitiveType: PrimitiveType.Ellipse,
+    primitiveType: PrimitiveType.ELLIPSE,
     color: colorCircle,
-    borderColor: colorCircle,
-    borderWidth: 3,
+    border: circleBorder,
 }
 
 const slide1: Slide = {
@@ -172,13 +216,13 @@ const selection: Selection = {
 const commands: Array<Command> = [{}]
 
 const commandHistory: CommandHistory = {
-    commands: commands,
+    commands,
 }
 
 const editor: Editor = {
-    presentation: presentation,
-    selection: selection,
-    commandHistory: commandHistory,
+    presentation,
+    selection,
+    commandHistory,
 }
 
 console.log(editor);

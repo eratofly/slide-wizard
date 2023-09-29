@@ -31,13 +31,13 @@ const selection: Selection = {
 const commands: Array<Command> = [{}]
 
 const commandHistory: CommandHistory = {
-    commands: commands,
+    commands,
 }
 
 const editor: Editor = {
-    presentation: presentation,
-    selection: selection,
-    commandHistory: commandHistory,
+    presentation,
+    selection,
+    commandHistory,
 }
 
 console.log(editor);

@@ -1,7 +1,7 @@
 enum ObjectType {
-    Text = 'text',
-    Image = 'image',
-    Primitive = 'primitive',
+    TEXT = 'text',
+    IMAGE = 'image',
+    PRIMITIVE = 'primitive',
 }
 
 type SlideObject = {
@@ -17,18 +17,22 @@ type Color = {
     hex: string,
     opacity: number,
 }
+
+type Border = {
+    color: Color,
+    width: number,
+}
 enum PrimitiveType {
-    Rectangle = 'rectangle',
-    Ellipse = 'ellipse',
-    Triangle = 'triangle',
+    RECTANGLE = 'rectangle',
+    ELLIPSE = 'ellipse',
+    TRIANGLE = 'triangle',
 }
 
 type Primitive = SlideObject & {
-    objectType: ObjectType.Primitive,
+    objectType: ObjectType.PRIMITIVE,
     primitiveType: PrimitiveType,
     color: Color,
-    borderColor: Color,
-    borderWidth: number,
+    border?: Border,
 }
 
 type Crop = {
@@ -39,9 +43,10 @@ type Crop = {
 }
 
 type Image = SlideObject & {
-    objectType: ObjectType.Image,
+    objectType: ObjectType.IMAGE,
     path: string,
     crop?: Crop,
+    border?: Border,
 }
 
 type Char = {
@@ -54,8 +59,9 @@ type Char = {
 }
 
 type TextObject = SlideObject & {
-    objectType: ObjectType.Text,
+    objectType: ObjectType.TEXT,
     chars: Array<Char>,
+    border?: Border,
 }
 
 type Slide = {
