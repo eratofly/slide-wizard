@@ -121,6 +121,19 @@ const triangle: Primitive = {
     border: triangleBorder,
 }
 
+const circle: Primitive = {
+    id: 'd4e5f6',
+    objectType: ObjectType.PRIMITIVE,
+    x: 1,
+    y: 0,
+    width: 51,
+    height: 34,
+    rotateAngle: 0,
+    primitiveType: PrimitiveType.ELLIPSE,
+    color: colorCircle,
+    border: circleBorder,
+}
+
 const imageCrop: Crop = {
     x: 15,
     y: 0,
@@ -171,8 +184,43 @@ const textObject: TextObject = {
     border: textBorder,
 }
 
-const circle: Primitive = {
-    id: 'd4e5f6',
+const image2: Image = {
+    id: 'jrcy8d',
+    objectType: ObjectType.IMAGE,
+    x: 100,
+    y: 50,
+    width: 30,
+    height: 1,
+    rotateAngle: 90,
+    path: 'https://',
+}
+
+const rect2: Primitive = {
+    id: 'fjn4i3',
+    objectType: ObjectType.PRIMITIVE,
+    x: 11,
+    y: 3,
+    width: 5,
+    height: 11,
+    rotateAngle: 180,
+    primitiveType: PrimitiveType.RECTANGLE,
+    color: primitiveColor,
+}
+
+const triangle2: Primitive = {
+    id: 'hq3bs3',
+    objectType: ObjectType.PRIMITIVE,
+    x: 9,
+    y: 8,
+    width: 7,
+    height: 6,
+    rotateAngle: 5,
+    primitiveType: PrimitiveType.TRIANGLE,
+    color: primitiveColor,
+}
+
+const circle2: Primitive = {
+    id: 'd4e5f0',
     objectType: ObjectType.PRIMITIVE,
     x: 1,
     y: 0,
@@ -181,20 +229,30 @@ const circle: Primitive = {
     rotateAngle: 0,
     primitiveType: PrimitiveType.ELLIPSE,
     color: colorCircle,
-    border: circleBorder,
+}
+
+const textObject2: TextObject = {
+    id: 'kgvc7g',
+    objectType: ObjectType.TEXT,
+    x: 10,
+    y: 20,
+    width: 50,
+    height: 14,
+    rotateAngle: 0,
+    chars: [letterA],
 }
 
 const slide1: Slide = {
     id: 'a1b2c3',
     backgroundColor: bgcSlide1,
-    slideObjects: [textObject, circle],
+    slideObjects: [textObject, circle, rect, triangle, image],
 }
 
 const slide2: Slide = {
     id: 'j1k2l3',
     backgroundImage: 'https://',
     backgroundColor: bgcSlide2,
-    slideObjects: [image, rect, triangle, circle, textObject],
+    slideObjects: [image2, rect2, triangle2, circle2, textObject2],
 }
 
 const slide3: Slide = {
