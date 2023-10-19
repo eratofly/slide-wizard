@@ -94,20 +94,21 @@ type Editor = {
 }
 
 export {
-	Editor,
-	CommandHistory,
-	Command,
-	Selection,
-	Presentation,
-	Slide,
-	TextObject,
-	Char,
-	Image,
-	Crop,
-	Primitive,
-	PrimitiveType,
-	SlideObject,
-	Color,
-	Border,
-	ObjectType,
+	PrimitiveType, ObjectType
 }
+export type {
+    Editor,
+    CommandHistory,
+    Command,
+    Selection,
+    Presentation,
+    Slide,
+    TextObject,
+    Char,
+    Image,
+    Crop,
+    Primitive, SlideObject,
+    Color,
+    Border
+}
+
