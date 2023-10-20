@@ -93,22 +93,20 @@ type Editor = {
 	commandHistory: CommandHistory
 }
 
-export {
-	PrimitiveType, ObjectType
-}
+export { PrimitiveType, ObjectType }
 export type {
-    Editor,
-    CommandHistory,
-    Command,
-    Selection,
-    Presentation,
-    Slide,
-    TextObject,
-    Char,
-    Image,
-    Crop,
-    Primitive, SlideObject,
-    Color,
-    Border
+	Editor,
+	CommandHistory,
+	Command,
+	Selection,
+	Presentation,
+	Slide,
+	TextObject,
+	Char,
+	Image,
+	Crop,
+	Primitive,
+	SlideObject,
+	Color,
+	Border,
 }
-
