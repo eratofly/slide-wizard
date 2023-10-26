@@ -13,7 +13,7 @@ import {
 	PrimitiveType,
 	Slide,
 	TextObject,
-} from './types'
+} from '../model/types'
 
 const primitiveColor: Color = {
 	hex: '#ff00ff',
@@ -138,4 +138,4 @@ const editor: Editor = {
 	commandHistory,
 }
 
-console.log(editor)
+export { editor }
