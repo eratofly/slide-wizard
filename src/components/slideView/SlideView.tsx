@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Slide } from '../model/types'
+import { Slide } from '../../model/types'
+import styles from './SlideView.module.css'
 
 type SlideViewProps = {
 	slide: Slide
@@ -13,7 +14,7 @@ function SlideView(props: SlideViewProps) {
 	}
 
 	return (
-		<div style={{ backgroundColor: background }} onClick={onClick}>
+		<div className={styles.slide} style={{ backgroundColor: background }} onClick={onClick}>
 			{background}
 		</div>
 	)
