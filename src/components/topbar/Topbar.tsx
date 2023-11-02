@@ -10,7 +10,7 @@ function Topbar() {
 			<div className={styles.titlebar}>
 				<Button text="File" typeButton="main" />
 				<PresentationTitle />
-				<img />
+				<img alt="" />
 			</div>
 			<Toolbar />
 		</div>
