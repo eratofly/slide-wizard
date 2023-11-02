@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { ObjectType, Slide } from '../model/types'
-import { Slide } from '../../model/types'
+import { ObjectType, Slide } from '../../model/types'
 import styles from './SlideView.module.css'
 
 type SlideViewProps = {

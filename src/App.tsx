@@ -1,7 +1,7 @@
 import React from 'react'
 import './App.css'
 import Topbar from './components/topbar/Topbar'
-import { EditorView } from './components/editorView'
+import { EditorView } from './components/editorView/EditorView'
 import { editor } from './data/testDataMax'
 
 function App() {
