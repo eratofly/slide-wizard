@@ -156,6 +156,7 @@ const image: Image = {
 }
 
 const letterB: Char = {
+	id: 'ghijkl',
 	value: 'b',
 	fontFamily: 'Arial',
 	color: textColor,
@@ -165,6 +166,7 @@ const letterB: Char = {
 }
 
 const letterA: Char = {
+	id: 'abcdef',
 	value: 'A',
 	fontFamily: 'Arial',
 	color: textColor,
@@ -174,7 +176,7 @@ const letterA: Char = {
 }
 
 const textObject: TextObject = {
-	id: 'kgvc7g',
+	id: 'kgvc8g',
 	objectType: ObjectType.TEXT,
 	x: 10,
 	y: 20,
