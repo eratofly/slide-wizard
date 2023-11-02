@@ -1,0 +1,19 @@
+.title {
+	box-sizing: border-box;
+	width: 400px;
+	text-align: center;
+	border-style: none;
+	outline: none;
+	font:
+		400 26px Roboto,
+		sans-serif;
+	color: #000000;
+}
+
+.title:focus {
+	border-bottom: 1px solid #9016bb;
+}
+
+.title_default {
+	color: #5b5b5b;
+}
