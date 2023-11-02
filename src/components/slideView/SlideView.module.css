@@ -1,0 +1,9 @@
+.slide {
+    display: flex;
+    flex-direction: column;
+    width: 180px;
+    height: 100px;
+    border-radius: 20px;
+    border: 2px solid #000;
+    background: #FFF;
+}

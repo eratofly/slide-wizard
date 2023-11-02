@@ -1,6 +1,6 @@
 import React from 'react'
-import { Editor } from '../model/types'
-import { SlidesPreview } from './slidePreview'
+import { Editor } from '../../model/types'
+import { SlidesPreview } from '../slidePreview/SlidePreview'
 
 type EditorViewProps = {
 	editor: Editor
