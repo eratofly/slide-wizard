@@ -1,4 +1,12 @@
-import { Color, Command, CommandHistory, Editor, Selection, Presentation, Slide } from './types'
+import {
+	Color,
+	Command,
+	CommandHistory,
+	Editor,
+	Selection,
+	Presentation,
+	Slide,
+} from '../model/types'
 
 const bgcSlide1: Color = {
 	hex: '#0000ff',
@@ -32,4 +40,4 @@ const editor: Editor = {
 	commandHistory,
 }
 
-console.log(editor)
+export { editor }

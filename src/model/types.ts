@@ -50,6 +50,7 @@ type Image = SlideObject & {
 }
 
 type Char = {
+	id: string
 	value: string
 	fontFamily: string
 	color: Color

@@ -14,7 +14,7 @@ import {
 	Slide,
 	Border,
 	TextObject,
-} from './types'
+} from '../model/types'
 
 const triangleBorderColor: Color = {
 	hex: '#fff000',
@@ -57,17 +57,17 @@ const colorCircle: Color = {
 }
 
 const bgcSlide1: Color = {
-	hex: '#0000ff',
+	hex: '#ffffff',
 	opacity: 0.5,
 }
 
 const bgcSlide2: Color = {
-	hex: '#ff0000',
+	hex: '#0000ff',
 	opacity: 0,
 }
 
 const bgcSlide3: Color = {
-	hex: '#00ff00',
+	hex: '#ff0000',
 	opacity: 0,
 }
 
@@ -156,6 +156,7 @@ const image: Image = {
 }
 
 const letterB: Char = {
+	id: 'ghijkl',
 	value: 'b',
 	fontFamily: 'Arial',
 	color: textColor,
@@ -165,6 +166,7 @@ const letterB: Char = {
 }
 
 const letterA: Char = {
+	id: 'abcdef',
 	value: 'A',
 	fontFamily: 'Arial',
 	color: textColor,
@@ -174,7 +176,7 @@ const letterA: Char = {
 }
 
 const textObject: TextObject = {
-	id: 'kgvc7g',
+	id: 'kgvc8g',
 	objectType: ObjectType.TEXT,
 	x: 10,
 	y: 20,
@@ -284,4 +286,4 @@ const editor: Editor = {
 	commandHistory,
 }
 
-console.log(editor)
+export { editor }

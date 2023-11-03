@@ -13,7 +13,7 @@ import {
 	PrimitiveType,
 	Slide,
 	TextObject,
-} from './types'
+} from '../model/types'
 
 const primitiveColor: Color = {
 	hex: '#ff00ff',
@@ -72,6 +72,7 @@ const image: Image = {
 }
 
 const letterA: Char = {
+	id: 'abcdef',
 	value: 'A',
 	fontFamily: 'Arial',
 	color: textColor,
@@ -138,4 +139,4 @@ const editor: Editor = {
 	commandHistory,
 }
 
-console.log(editor)
+export { editor }
