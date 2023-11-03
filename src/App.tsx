@@ -7,7 +7,7 @@ import { editor } from './data/testDataMax'
 function App() {
 	return (
 		<div>
-			<Topbar />
+			<Topbar presentationTitle={editor.presentation.title} />
 			<EditorView editor={editor} />
 		</div>
 	)
