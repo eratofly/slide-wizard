@@ -7,7 +7,7 @@
 .button_main {
 	width: 140px;
 	height: 40px;
-	background-color: #dec5ec;
+	background-color: #DEC5EC;
 	border-radius: 30px;
 	font:
 		400 26px Roboto,
@@ -18,7 +18,7 @@
 .button_default {
 	width: 120px;
 	height: 30px;
-	background-color: #dec5ec;
+	background-color: #DEC5EC;
 	border-radius: 5px;
 	font:
 		400 16px Roboto,
