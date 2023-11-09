@@ -1,14 +1,14 @@
 import React from 'react'
 import './App.css'
 import Topbar from './components/topbar/Topbar'
-import { SlidesPreview } from './components/slidePreview/SlidePreview'
 import { editor } from './data/testDataMax'
+import { WorkingField } from './components/editorView/WorkingField'
 
 function App() {
 	return (
 		<div>
 			<Topbar />
-			<SlidesPreview slides={editor.presentation.slides} />
+			<WorkingField editor={editor} />
 		</div>
 	)
 }
