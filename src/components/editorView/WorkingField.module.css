@@ -1,0 +1,12 @@
+.workingField {
+	display: flex;
+	justify-content: space-around;
+}
+.background {
+	width: 1100px;
+	height: 700px;
+	background-color: #cccccc;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

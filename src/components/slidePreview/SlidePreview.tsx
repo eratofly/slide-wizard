@@ -9,8 +9,17 @@ type SlidesPreviewProps = {
 
 function SlidesPreview(props: SlidesPreviewProps) {
 	const { slides } = props
-	const listSlides = slides.map((slide) => <SlideView key={slide.id} slide={slide} />)
-	return <div className={styles.slidesPreview}>{listSlides}</div>
+	const listSlides = slides.map((slide, index) => {
+		return (
+			<div className={styles.element}>
+				<span className={styles.index}>{index + 1}</span>
+				<div className={styles.container}>
+					<SlideView key={slide.id} slide={slide} state={'preview'} />
+				</div>
+			</div>
+		)
+	})
+	return <div className={styles['slides-preview']}>{listSlides}</div>
 }
 
 export { SlidesPreview }
