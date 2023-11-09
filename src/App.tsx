@@ -7,7 +7,7 @@ import { WorkingField } from './components/editorView/WorkingField'
 function App() {
 	return (
 		<div>
-			<Topbar />
+			<Topbar presentationTitle={editor.presentation.title} />
 			<WorkingField editor={editor} />
 		</div>
 	)
