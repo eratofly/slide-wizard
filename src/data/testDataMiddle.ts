@@ -72,6 +72,7 @@ const image: Image = {
 }
 
 const letterA: Char = {
+	id: 'abcdef',
 	value: 'A',
 	fontFamily: 'Arial',
 	color: textColor,

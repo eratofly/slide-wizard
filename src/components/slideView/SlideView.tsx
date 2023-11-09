@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Slide } from '../../model/types'
+import { ObjectType, Slide } from '../../model/types'
 import styles from './SlideView.module.css'
 
 type SlideViewProps = {
@@ -16,7 +16,21 @@ function SlideView(props: SlideViewProps) {
 		slideStateStyle = styles.slideSelected
 	}
 
-	return <div className={`${slideStateStyle}`} style={{ backgroundColor: background }}></div>
+	const { slide } = props
+	const listSlideObjects = slide.slideObjects.map((slideObject) => {
+		if (slideObject.objectType === ObjectType.TEXT) {
+			const listChars = slideObject.chars.map((char) => (
+				<span key={char.id}>{char.value}</span>
+			))
+			return <div key={slideObject.id}>{listChars}</div>
+		}
+	})
+
+	return (
+		<div className={`${slideStateStyle}`} style={{ backgroundColor: background }}>
+			{listSlideObjects}
+		</div>
+	)
 }
 
 export { SlideView }

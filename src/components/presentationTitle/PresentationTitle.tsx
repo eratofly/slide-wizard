@@ -1,4 +1,5 @@
 import React from 'react'
+import styles from './PresentationTitle.module.css'
 
 type PresentationTitleProps = {
 	presentationName?: string
@@ -6,8 +7,14 @@ type PresentationTitleProps = {
 
 export function PresentationTitle(props: PresentationTitleProps) {
 	if (!props.presentationName) {
-		return <div>Enter presentation title</div>
+		return (
+			<input
+				type="text"
+				className={`${styles.title} ${styles.title_default}`}
+				defaultValue="New Presentation"
+			/>
+		)
 	} else {
-		return <div>{props.presentationName}</div>
+		return <input className={styles.title} defaultValue={props.presentationName} />
 	}
 }
