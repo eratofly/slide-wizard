@@ -4,20 +4,19 @@ import styles from './SlideView.module.css'
 
 type SlideViewProps = {
 	slide: Slide
+	state: 'preview' | 'selected'
 }
 
 function SlideView(props: SlideViewProps) {
-	const [background, setBackground] = useState(props.slide.backgroundColor.hex)
-
-	function onClick(): void {
-		setBackground('#000000')
+	const [background] = useState(props.slide.backgroundColor.hex)
+	let slideStateStyle
+	if (props.state === 'preview') {
+		slideStateStyle = styles.slidePreview
+	} else if (props.state === 'selected') {
+		slideStateStyle = styles.slideSelected
 	}
 
-	return (
-		<div className={styles.slide} style={{ backgroundColor: background }} onClick={onClick}>
-			{background}
-		</div>
-	)
+	return <div className={`${slideStateStyle}`} style={{ backgroundColor: background }}></div>
 }
 
 export { SlideView }
