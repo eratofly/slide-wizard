@@ -1,0 +1,32 @@
+.button {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.button_main {
+	width: 140px;
+	height: 40px;
+	background-color: #DEC5EC;
+	border-radius: 30px;
+	font:
+		400 26px Roboto,
+		sans-serif;
+	color: #000000;
+}
+
+.button_default {
+	width: 120px;
+	height: 30px;
+	background-color: #DEC5EC;
+	border-radius: 5px;
+	font:
+		400 16px Roboto,
+		sans-serif;
+	color: #000000;
+}
+
+.button_icon {
+	width: 30px;
+	height: 30px;
+}

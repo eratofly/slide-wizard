@@ -1,5 +1,5 @@
 import React from 'react'
-import './Button.css'
+import styles from './Button.module.css'
 
 type types = 'main' | 'default' | 'icon'
 
@@ -11,14 +11,14 @@ type ButtonProps = {
 
 function Button(props: ButtonProps) {
 	if (props.typeButton === 'main') {
-		return <div className="button button_topbar">{props.text}</div>
+		return <div className={`${styles.button} ${styles.button_main}`}>{props.text}</div>
 	}
 	if (props.typeButton === 'default') {
-		return <div className="button button_toolbar">{props.text}</div>
+		return <div className={`${styles.button} ${styles.button_default}`}>{props.text}</div>
 	}
 	if (props.typeButton === 'icon') {
 		return (
-			<div className="button button_toolbar">
+			<div className={`${styles.button} ${styles.button_icon}`}>
 				<img src={props.iconPath} alt="" />
 			</div>
 		)

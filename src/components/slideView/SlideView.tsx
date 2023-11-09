@@ -5,10 +5,18 @@ import { TextObjectView } from '../textObjectView/TextObjectView'
 
 type SlideViewProps = {
 	slide: Slide
+	state: 'preview' | 'selected'
 }
 
 function SlideView(props: SlideViewProps) {
-	const [background, setBackground] = useState(props.slide.backgroundColor.hex)
+	const [background] = useState(props.slide.backgroundColor.hex)
+	let slideStateStyle
+	if (props.state === 'preview') {
+		slideStateStyle = styles.slidePreview
+	} else if (props.state === 'selected') {
+		slideStateStyle = styles.slideSelected
+	}
+
 	const { slide } = props
 	const selectedSlideWidth = 900
 	const selectedSlideHeight = 506
@@ -119,16 +127,8 @@ function SlideView(props: SlideViewProps) {
 		}
 	})
 
-	function onClick(): void {
-		setBackground('#000000')
-	}
-
 	return (
-		<div
-			className={styles.slide}
-			style={{ backgroundColor: background, position: 'relative', zIndex: -1 }}
-			onClick={onClick}
-		>
+		<div className={`${slideStateStyle}`} style={{ backgroundColor: background }}>
 			{listSlideObjects}
 		</div>
 	)

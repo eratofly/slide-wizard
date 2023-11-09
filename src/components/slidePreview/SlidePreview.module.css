@@ -1,0 +1,25 @@
+.slides-preview {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
+}
+
+.element {
+	display: flex;
+	border-radius: 20px;
+	justify-content: center;
+}
+
+.index {
+}
+
+.container {
+	width: 166px;
+	height: 96px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border: 3px solid #000000;
+	border-radius: 15px;
+	margin-left: 5px;
+}
