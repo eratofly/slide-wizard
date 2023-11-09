@@ -1,13 +1,13 @@
 import React from 'react'
-import './App.css'
 import Topbar from './components/topbar/Topbar'
 import { editor } from './data/testDataMax'
-import { WorkingField } from './components/editorView/WorkingField'
+import { WorkingField } from './components/workingField/WorkingField'
+import styles from './App.module.css'
 
 function App() {
 	return (
-		<div>
-			<Topbar />
+		<div className={styles.page}>
+			<Topbar presentationTitle={editor.presentation.title} />
 			<WorkingField editor={editor} />
 		</div>
 	)

@@ -13,3 +13,4 @@ rules:
   color-hex-length: long
   color-no-invalid-hex: true
   prettier/prettier: true
+  selector-class-pattern: null

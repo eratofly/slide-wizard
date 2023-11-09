@@ -9,15 +9,15 @@ import undo from '../../content/button-icons/undo.svg'
 export function Toolbar() {
 	return (
 		<div className={styles.toolbar}>
-			<div className={styles['toolbar__add-delete-btn']}>
+			<div className={styles.addDeleteBtn}>
 				<Button typeButton="icon" iconPath={newSlide} />
 				<Button typeButton="icon" iconPath={deleteSlide} />
 			</div>
-			<div className={styles['toolbar__undo-redo-btn']}>
+			<div className={styles.undoRedoBtn}>
 				<Button typeButton="icon" iconPath={undo} />
 				<Button typeButton="icon" iconPath={redo} />
 			</div>
-			<div className={styles['toolbar__redactor-btn']}>
+			<div className={styles.redactorBtn}>
 				<Button text="Text" typeButton="default" />
 				<Button text="Image" typeButton="default" />
 				<Button text="Primitive" typeButton="default" />

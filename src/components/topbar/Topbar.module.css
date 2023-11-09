@@ -1,15 +1,14 @@
 .topbar {
-	background-color: #FFFFFF;
+	background-color: #ffffff;
 	display: flex;
 	flex-direction: column;
-	margin: 0 20px 0 20px;
 }
 
 .titlebar {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	margin-top: 20px;
+	margin-top: 10px;
 }
 
 .logo {
