@@ -252,6 +252,18 @@ const slide1: Slide = {
 	slideObjects: [textObject, circle, rect, triangle, image],
 }
 
+const slide5: Slide = {
+	id: 'a1b2c3',
+	backgroundColor: bgcSlide1,
+	slideObjects: [textObject, circle, rect, triangle, image],
+}
+
+const slide6: Slide = {
+	id: 'a1b2c3',
+	backgroundColor: bgcSlide1,
+	slideObjects: [textObject, circle, rect, triangle, image],
+}
+
 const slide2: Slide = {
 	id: 'j1k2l3',
 	backgroundImage: 'https://',
@@ -267,7 +279,7 @@ const slide3: Slide = {
 
 const presentation: Presentation = {
 	title: 'The best presentation',
-	slides: [slide1, slide2, slide3],
+	slides: [slide1, slide2, slide3, slide5, slide6],
 }
 
 const selection: Selection = {

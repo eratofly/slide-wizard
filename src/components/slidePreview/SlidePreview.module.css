@@ -1,7 +1,21 @@
 .slides-preview {
+	min-width: 230px;
+	max-height: 480px;
+	height: 100%;
+	overflow-y: auto;
+	overflow-x: hidden;
 	display: flex;
 	flex-direction: column;
 	gap: 15px;
+}
+
+.slides-preview::-webkit-scrollbar {
+	width: 12px; /* ширина scrollbar */
+}
+
+.slides-preview::-webkit-scrollbar-thumb {
+	background-color: #dec5ec;; /* цвет плашки */
+	border-radius: 20px;
 }
 
 .element {
@@ -14,6 +28,7 @@
 }
 
 .container {
+	position: relative;
 	width: 166px;
 	height: 96px;
 	display: flex;
