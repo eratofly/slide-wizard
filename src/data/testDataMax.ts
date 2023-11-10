@@ -15,6 +15,7 @@ import {
 	Border,
 	TextObject,
 } from '../model/types'
+import logo from '../content/logo.svg'
 import redo from '../content/button-icons/redo.svg'
 
 const triangleBorderColor: Color = {
@@ -100,11 +101,11 @@ const textBorder: Border = {
 const rect: Primitive = {
 	id: 'fjnfi3',
 	objectType: ObjectType.PRIMITIVE,
-	x: 100,
-	y: 150,
+	x: 800,
+	y: 400,
 	width: 200,
 	height: 200,
-	rotateAngle: 70,
+	rotateAngle: 45,
 	primitiveType: PrimitiveType.RECTANGLE,
 	color: primitiveColor,
 	border: rectBorder,
@@ -126,10 +127,10 @@ const triangle: Primitive = {
 const circle: Primitive = {
 	id: 'd4e5f6',
 	objectType: ObjectType.PRIMITIVE,
-	x: 100,
+	x: 200,
 	y: 200,
-	width: 510,
-	height: 340,
+	width: 1000,
+	height: 500,
 	rotateAngle: 0,
 	primitiveType: PrimitiveType.ELLIPSE,
 	color: colorCircle,
@@ -151,7 +152,7 @@ const image: Image = {
 	width: 900,
 	height: 500,
 	rotateAngle: 50,
-	path: redo,
+	path: logo,
 	crop: imageCrop,
 	border: imgBorder,
 }
@@ -161,7 +162,7 @@ const letterB: Char = {
 	value: 'b',
 	fontFamily: 'Arial',
 	color: textColor,
-	size: 20,
+	size: 25,
 	bold: false,
 	italic: true,
 }
@@ -179,8 +180,8 @@ const letterA: Char = {
 const textObject: TextObject = {
 	id: 'kgvc8g',
 	objectType: ObjectType.TEXT,
-	x: 10,
-	y: 20,
+	x: 100,
+	y: 400,
 	width: 50,
 	height: 14,
 	rotateAngle: 0,
@@ -254,7 +255,7 @@ const slide1: Slide = {
 
 const slide2: Slide = {
 	id: 'j1k2l3',
-	backgroundImage: 'https://',
+	backgroundImage: logo,
 	backgroundColor: bgcSlide2,
 	slideObjects: [image2, rect2, triangle2, circle2, textObject2],
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { ObjectType, PrimitiveType, Slide } from '../../model/types'
 import styles from './SlideView.module.css'
 import { TextObjectView } from '../textObjectView/TextObjectView'
@@ -9,7 +9,12 @@ type SlideViewProps = {
 }
 
 function SlideView(props: SlideViewProps) {
-	const [background] = useState(props.slide.backgroundColor.hex)
+	const slideRef = useRef<HTMLDivElement>(null)
+	const [slideWidth, setSlideWidth] = useState(0)
+	useEffect(() => {
+		setSlideWidth(slideRef.current ? slideRef.current.offsetWidth : 0)
+	}, [slideRef.current])
+
 	let slideStateStyle
 	if (props.state === 'preview') {
 		slideStateStyle = styles.slidePreview
@@ -18,15 +23,19 @@ function SlideView(props: SlideViewProps) {
 	}
 
 	const { slide } = props
-	const selectedSlideWidth = 900
-	const selectedSlideHeight = 506
-	const previewSlideWidth = 160
-	const previewSlideHeight = 90
-	const widthRelation = previewSlideWidth / selectedSlideWidth
-	const heightRelation = previewSlideHeight / selectedSlideHeight
-	const listSlideObjects = slide.slideObjects.map((slideObject, index) => {
+	const maxElementX = 1600
+	const maxElementY = 900
+	const xRelation = 100 / maxElementX
+	const yRelation = 100 / maxElementY
+	const listSlideObjects = slide.slideObjects.map((slideObject) => {
 		if (slideObject.objectType === ObjectType.TEXT) {
-			return <TextObjectView key={slideObject.id} textObject={slideObject} zIndex={index} />
+			return (
+				<TextObjectView
+					key={slideObject.id}
+					textObject={slideObject}
+					slideWidth={slideWidth}
+				/>
+			)
 		}
 		if (slideObject.objectType === ObjectType.IMAGE) {
 			return (
@@ -35,12 +44,11 @@ function SlideView(props: SlideViewProps) {
 					src={slideObject.path}
 					alt={''}
 					style={{
-						zIndex: index,
 						position: 'absolute',
-						width: `${slideObject.width * widthRelation}px`,
-						height: `${slideObject.height * heightRelation}px`,
-						marginTop: `${slideObject.y * widthRelation}px`,
-						marginLeft: `${slideObject.x * heightRelation}px`,
+						width: `${slideObject.width * xRelation}%`,
+						height: `${slideObject.height * yRelation}%`,
+						top: `${slideObject.y * yRelation}%`,
+						left: `${slideObject.x * xRelation}%`,
 						rotate: `${slideObject.rotateAngle}deg`,
 					}}
 				/>
@@ -50,23 +58,21 @@ function SlideView(props: SlideViewProps) {
 			if (slideObject.primitiveType === PrimitiveType.RECTANGLE) {
 				return (
 					<svg
-						width={`${(slideObject.width + slideObject.x) * widthRelation}px`}
-						height={`${(slideObject.height + slideObject.y) * heightRelation}px`}
 						key={slideObject.id}
 						style={{
-							zIndex: index,
 							position: 'absolute',
-							transformOrigin: `
-								${(slideObject.width / 2 + slideObject.x) * widthRelation}px
-								${(slideObject.height / 2 + slideObject.y) * heightRelation}px`,
+							width: `${slideObject.width * xRelation}%`,
+							height: `${slideObject.height * yRelation}%`,
+							top: `${slideObject.y * yRelation}%`,
+							left: `${slideObject.x * xRelation}%`,
 							rotate: `${slideObject.rotateAngle}deg`,
 						}}
 					>
 						<rect
-							x={`${slideObject.x * widthRelation}px`}
-							y={`${slideObject.y * heightRelation}px`}
-							width={`${slideObject.width * widthRelation}px`}
-							height={`${slideObject.height * heightRelation}px`}
+							x={0}
+							y={0}
+							width={`100%`}
+							height={`100%`}
 							fill={slideObject.color.hex}
 						/>
 					</svg>
@@ -75,23 +81,21 @@ function SlideView(props: SlideViewProps) {
 			if (slideObject.primitiveType === PrimitiveType.ELLIPSE) {
 				return (
 					<svg
-						width={`${(slideObject.width + slideObject.x) * widthRelation}px`}
-						height={`${(slideObject.height + slideObject.y) * heightRelation}px`}
 						key={slideObject.id}
 						style={{
-							zIndex: index,
 							position: 'absolute',
-							transformOrigin: `
-								${(slideObject.width / 2 + slideObject.x) * widthRelation}px
-								${(slideObject.height / 2 + slideObject.y) * heightRelation}px`,
+							width: `${slideObject.width * xRelation}%`,
+							height: `${slideObject.height * yRelation}%`,
+							top: `${slideObject.y * yRelation}%`,
+							left: `${slideObject.x * xRelation}%`,
 							rotate: `${slideObject.rotateAngle}deg`,
 						}}
 					>
 						<ellipse
-							cx={`${(slideObject.width / 2 + slideObject.x) * widthRelation}px`}
-							cy={`${(slideObject.height / 2 + slideObject.y) * heightRelation}px`}
-							rx={`${(slideObject.width / 2) * widthRelation}px`}
-							ry={`${(slideObject.height / 2) * heightRelation}px`}
+							cx={`50%`}
+							cy={`50%`}
+							rx={`50%`}
+							ry={`50%`}
 							fill={slideObject.color.hex}
 						/>
 					</svg>
@@ -100,24 +104,23 @@ function SlideView(props: SlideViewProps) {
 			if (slideObject.primitiveType === PrimitiveType.TRIANGLE) {
 				return (
 					<svg
-						width={`${(slideObject.width + slideObject.x) * widthRelation}px`}
-						height={`${(slideObject.height + slideObject.y) * heightRelation}px`}
 						key={slideObject.id}
+						preserveAspectRatio="none"
+						viewBox="0 0 100 100"
 						style={{
-							zIndex: index,
 							position: 'absolute',
-							transformOrigin: `
-								${(slideObject.width / 2 + slideObject.x) * widthRelation}px
-								${(slideObject.height / 2 + slideObject.y) * heightRelation}px`,
+							width: `${slideObject.width * xRelation}%`,
+							height: `${slideObject.height * yRelation}%`,
+							top: `${slideObject.y * yRelation}%`,
+							left: `${slideObject.x * xRelation}%`,
 							rotate: `${slideObject.rotateAngle}deg`,
 						}}
 					>
 						<polygon
 							points={`
-								${slideObject.x * widthRelation} ${(slideObject.height + slideObject.y) * heightRelation},
-								${(slideObject.width + slideObject.x) * widthRelation} 
-								${(slideObject.height + slideObject.y) * heightRelation},
-								${(slideObject.width / 2 + slideObject.x) * widthRelation} ${slideObject.y * heightRelation},
+								0 100,
+								100 100,
+								50 0
 							`}
 							fill={slideObject.color.hex}
 						/>
@@ -128,7 +131,11 @@ function SlideView(props: SlideViewProps) {
 	})
 
 	return (
-		<div className={`${slideStateStyle}`} style={{ backgroundColor: background }}>
+		<div
+			className={`${slideStateStyle}`}
+			style={{ backgroundColor: slide.backgroundColor.hex }}
+			ref={slideRef}
+		>
 			{listSlideObjects}
 		</div>
 	)

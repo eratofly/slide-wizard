@@ -1,6 +1,5 @@
 .slideSelected {
-	display: flex;
-	flex-direction: column;
+	position: relative;
 	width: 800px;
 	height: 450px;
 	box-shadow: 5px 5px 10px 0 rgb(0 0 0 / 10%);
@@ -8,12 +7,10 @@
 }
 
 .slidePreview {
-	display: flex;
-	flex-direction: column;
+	position: relative;
 	width: 160px;
 	height: 90px;
-
-	/* border: 3px solid #000000; */
 	border-radius: 15px;
 	background: #ffffff;
+	overflow: hidden;
 }
