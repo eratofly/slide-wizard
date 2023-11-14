@@ -16,7 +16,7 @@ import {
 	TextObject,
 } from '../model/types'
 import logo from '../content/logo.svg'
-import redo from '../content/button-icons/redo.svg'
+import fon from '../content/fon.jpg'
 
 const triangleBorderColor: Color = {
 	hex: '#fff000',
@@ -50,7 +50,12 @@ const textBorderColor: Color = {
 
 const textColor: Color = {
 	hex: '#ff0000',
-	opacity: 0,
+	opacity: 0.5,
+}
+
+const textColor2: Color = {
+	hex: '#ffff00',
+	opacity: 0.7,
 }
 
 const colorCircle: Color = {
@@ -70,7 +75,7 @@ const bgcSlide2: Color = {
 
 const bgcSlide3: Color = {
 	hex: '#ff0000',
-	opacity: 0,
+	opacity: 0.5,
 }
 
 const rectBorder: Border = {
@@ -160,8 +165,8 @@ const image: Image = {
 const letterB: Char = {
 	id: 'ghijkl',
 	value: 'b',
-	fontFamily: 'Arial',
-	color: textColor,
+	fontFamily: 'Times New Roman',
+	color: textColor2,
 	size: 25,
 	bold: false,
 	italic: true,
@@ -182,8 +187,8 @@ const textObject: TextObject = {
 	objectType: ObjectType.TEXT,
 	x: 100,
 	y: 400,
-	width: 50,
-	height: 14,
+	width: 100,
+	height: 50,
 	rotateAngle: 0,
 	chars: [letterA, letterB],
 	border: textBorder,
@@ -197,7 +202,7 @@ const image2: Image = {
 	width: 100,
 	height: 100,
 	rotateAngle: 90,
-	path: redo,
+	path: fon,
 }
 
 const rect2: Primitive = {
@@ -255,7 +260,7 @@ const slide1: Slide = {
 
 const slide2: Slide = {
 	id: 'j1k2l3',
-	backgroundImage: logo,
+	backgroundImage: fon,
 	backgroundColor: bgcSlide2,
 	slideObjects: [image2, rect2, triangle2, circle2, textObject2],
 }
@@ -272,7 +277,7 @@ const presentation: Presentation = {
 }
 
 const selection: Selection = {
-	slideId: 'a1b2c3',
+	slideId: 'j1k2l3',
 	objectId: 'd4e5f6',
 }
 

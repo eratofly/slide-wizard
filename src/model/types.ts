@@ -11,6 +11,7 @@ type SlideObject = {
 	width: number
 	height: number
 	rotateAngle: number
+	border?: Border
 }
 
 type Color = {
@@ -32,7 +33,6 @@ type Primitive = SlideObject & {
 	objectType: ObjectType.PRIMITIVE
 	primitiveType: PrimitiveType
 	color: Color
-	border?: Border
 }
 
 type Crop = {
@@ -46,7 +46,6 @@ type Image = SlideObject & {
 	objectType: ObjectType.IMAGE
 	path: string
 	crop?: Crop
-	border?: Border
 }
 
 type Char = {
@@ -62,7 +61,6 @@ type Char = {
 type TextObject = SlideObject & {
 	objectType: ObjectType.TEXT
 	chars: Array<Char>
-	border?: Border
 }
 
 type Slide = {
