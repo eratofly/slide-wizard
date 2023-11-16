@@ -7,11 +7,16 @@ type ButtonProps = {
 	text?: string
 	iconPath?: string
 	typeButton: types
+	onClick?: () => void
 }
 
 function Button(props: ButtonProps) {
 	if (props.typeButton === 'main') {
-		return <div className={`${styles.button} ${styles.button_main}`}>{props.text}</div>
+		return (
+			<div className={`${styles.button} ${styles.button_main}`} onClick={props.onClick}>
+				{props.text}
+			</div>
+		)
 	}
 	if (props.typeButton === 'default') {
 		return <div className={`${styles.button} ${styles.button_default}`}>{props.text}</div>
