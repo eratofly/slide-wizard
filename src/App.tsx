@@ -7,7 +7,7 @@ import styles from './App.module.css'
 function App() {
 	return (
 		<div className={styles.page}>
-			<Topbar presentationTitle={editor.presentation.title} />
+			<Topbar editor={editor} />
 			<WorkingField editor={editor} />
 		</div>
 	)

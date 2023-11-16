@@ -14,7 +14,7 @@
 }
 
 .slides-preview::-webkit-scrollbar-thumb {
-	background-color: #dec5ec;; /* цвет плашки */
+	background-color: #dec5ec; /* цвет плашки */
 	border-radius: 20px;
 }
 
