@@ -1,7 +1,9 @@
-import React, { useState } from 'react'
-import { ObjectType, PrimitiveType, Slide } from '../../model/types'
+import React, { useEffect, useRef, useState } from 'react'
+import { Color, ObjectType, Slide } from '../../model/types'
 import styles from './SlideView.module.css'
 import { TextObjectView } from '../textObjectView/TextObjectView'
+import { PrimitiveObjectView } from '../primitiveObjectView/PrimitiveObjectView'
+import { ImageObjectView } from '../imageObjectView/ImageObjectView'
 
 type SlideViewProps = {
 	slide: Slide
@@ -9,7 +11,20 @@ type SlideViewProps = {
 }
 
 function SlideView(props: SlideViewProps) {
-	const [background] = useState(props.slide.backgroundColor.hex)
+	const slideRef = useRef<HTMLDivElement>(null)
+	const [slideWidth, setSlideWidth] = useState(0)
+	useEffect(() => {
+		setSlideWidth(slideRef.current ? slideRef.current.offsetWidth : 0)
+	}, [slideRef.current])
+
+	function getRgbaFromColor(color: Color) {
+		const numericValue = parseInt(color.hex.substring(1), 16)
+		const r = (numericValue >> 16) & 0xff
+		const g = (numericValue >> 8) & 0xff
+		const b = numericValue & 0xff
+		return `rgba(${r}, ${g}, ${b}, ${color.opacity})`
+	}
+
 	let slideStateStyle
 	if (props.state === 'preview') {
 		slideStateStyle = styles.slidePreview
@@ -18,117 +33,42 @@ function SlideView(props: SlideViewProps) {
 	}
 
 	const { slide } = props
-	const selectedSlideWidth = 900
-	const selectedSlideHeight = 506
-	const previewSlideWidth = 160
-	const previewSlideHeight = 90
-	const widthRelation = previewSlideWidth / selectedSlideWidth
-	const heightRelation = previewSlideHeight / selectedSlideHeight
-	const listSlideObjects = slide.slideObjects.map((slideObject, index) => {
+	const listSlideObjects = slide.slideObjects.map((slideObject) => {
 		if (slideObject.objectType === ObjectType.TEXT) {
-			return <TextObjectView key={slideObject.id} textObject={slideObject} zIndex={index} />
-		}
-		if (slideObject.objectType === ObjectType.IMAGE) {
 			return (
-				<img
+				<TextObjectView
 					key={slideObject.id}
-					src={slideObject.path}
-					alt={''}
-					style={{
-						zIndex: index,
-						position: 'absolute',
-						width: `${slideObject.width * widthRelation}px`,
-						height: `${slideObject.height * heightRelation}px`,
-						marginTop: `${slideObject.y * widthRelation}px`,
-						marginLeft: `${slideObject.x * heightRelation}px`,
-						rotate: `${slideObject.rotateAngle}deg`,
-					}}
+					textObject={slideObject}
+					slideWidth={slideWidth}
 				/>
 			)
 		}
+		if (slideObject.objectType === ObjectType.IMAGE) {
+			return (
+				<ImageObjectView key={slideObject.id} image={slideObject} slideWidth={slideWidth} />
+			)
+		}
 		if (slideObject.objectType === ObjectType.PRIMITIVE) {
-			if (slideObject.primitiveType === PrimitiveType.RECTANGLE) {
-				return (
-					<svg
-						width={`${(slideObject.width + slideObject.x) * widthRelation}px`}
-						height={`${(slideObject.height + slideObject.y) * heightRelation}px`}
-						key={slideObject.id}
-						style={{
-							zIndex: index,
-							position: 'absolute',
-							transformOrigin: `
-								${(slideObject.width / 2 + slideObject.x) * widthRelation}px
-								${(slideObject.height / 2 + slideObject.y) * heightRelation}px`,
-							rotate: `${slideObject.rotateAngle}deg`,
-						}}
-					>
-						<rect
-							x={`${slideObject.x * widthRelation}px`}
-							y={`${slideObject.y * heightRelation}px`}
-							width={`${slideObject.width * widthRelation}px`}
-							height={`${slideObject.height * heightRelation}px`}
-							fill={slideObject.color.hex}
-						/>
-					</svg>
-				)
-			}
-			if (slideObject.primitiveType === PrimitiveType.ELLIPSE) {
-				return (
-					<svg
-						width={`${(slideObject.width + slideObject.x) * widthRelation}px`}
-						height={`${(slideObject.height + slideObject.y) * heightRelation}px`}
-						key={slideObject.id}
-						style={{
-							zIndex: index,
-							position: 'absolute',
-							transformOrigin: `
-								${(slideObject.width / 2 + slideObject.x) * widthRelation}px
-								${(slideObject.height / 2 + slideObject.y) * heightRelation}px`,
-							rotate: `${slideObject.rotateAngle}deg`,
-						}}
-					>
-						<ellipse
-							cx={`${(slideObject.width / 2 + slideObject.x) * widthRelation}px`}
-							cy={`${(slideObject.height / 2 + slideObject.y) * heightRelation}px`}
-							rx={`${(slideObject.width / 2) * widthRelation}px`}
-							ry={`${(slideObject.height / 2) * heightRelation}px`}
-							fill={slideObject.color.hex}
-						/>
-					</svg>
-				)
-			}
-			if (slideObject.primitiveType === PrimitiveType.TRIANGLE) {
-				return (
-					<svg
-						width={`${(slideObject.width + slideObject.x) * widthRelation}px`}
-						height={`${(slideObject.height + slideObject.y) * heightRelation}px`}
-						key={slideObject.id}
-						style={{
-							zIndex: index,
-							position: 'absolute',
-							transformOrigin: `
-								${(slideObject.width / 2 + slideObject.x) * widthRelation}px
-								${(slideObject.height / 2 + slideObject.y) * heightRelation}px`,
-							rotate: `${slideObject.rotateAngle}deg`,
-						}}
-					>
-						<polygon
-							points={`
-								${slideObject.x * widthRelation} ${(slideObject.height + slideObject.y) * heightRelation},
-								${(slideObject.width + slideObject.x) * widthRelation} 
-								${(slideObject.height + slideObject.y) * heightRelation},
-								${(slideObject.width / 2 + slideObject.x) * widthRelation} ${slideObject.y * heightRelation},
-							`}
-							fill={slideObject.color.hex}
-						/>
-					</svg>
-				)
-			}
+			return (
+				<PrimitiveObjectView
+					key={slideObject.id}
+					primitive={slideObject}
+					slideWidth={slideWidth}
+				/>
+			)
 		}
 	})
 
 	return (
-		<div className={`${slideStateStyle}`} style={{ backgroundColor: background }}>
+		<div
+			className={`${slideStateStyle}`}
+			style={{
+				background: `center / 100% 100% no-repeat ${getRgbaFromColor(
+					slide.backgroundColor,
+				)} url(${slide.backgroundImage})`,
+			}}
+			ref={slideRef}
+		>
 			{listSlideObjects}
 		</div>
 	)

@@ -11,10 +11,10 @@ function SlidesPreview(props: SlidesPreviewProps) {
 	const { slides } = props
 	const listSlides = slides.map((slide, index) => {
 		return (
-			<div className={styles.element}>
+			<div key={slide.id} className={styles.element}>
 				<span className={styles.index}>{index + 1}</span>
 				<div className={styles.container}>
-					<SlideView key={slide.id} slide={slide} state={'preview'} />
+					<SlideView slide={slide} state={'preview'} />
 				</div>
 			</div>
 		)

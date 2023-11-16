@@ -1,21 +1,57 @@
-import { TextObject } from '../../model/types'
+import { Color, TextObject } from '../../model/types'
+import styles from './TextObjectView.module.css'
 import React from 'react'
 
 type TextObjectViewProps = {
 	textObject: TextObject
-	zIndex: number
+	slideWidth: number
 }
 
 function TextObjectView(props: TextObjectViewProps) {
-	const { textObject, zIndex } = props
-	const listChars = textObject.chars.map((char) => <span key={char.id}>{char.value}</span>)
+	const { textObject, slideWidth } = props
+	const maxElementX = 1600
+	const maxElementY = 900
+	const xRelation = 100 / maxElementX
+	const yRelation = 100 / maxElementY
+	const fontSizeRelation = 4 / 3
+
+	function getRgbaFromColor(color: Color) {
+		const numericValue = parseInt(color.hex.substring(1), 16)
+		const r = (numericValue >> 16) & 0xff
+		const g = (numericValue >> 8) & 0xff
+		const b = numericValue & 0xff
+		return `rgba(${r}, ${g}, ${b}, ${color.opacity})`
+	}
+
+	const listChars = textObject.chars.map((char) => (
+		<span
+			key={char.id}
+			style={{
+				fontFamily: char.fontFamily,
+				fontSize: `${(slideWidth * char.size * fontSizeRelation) / maxElementY}px`,
+				fontWeight: `${char.bold ? 'bold' : 'none'}`,
+				fontStyle: `${char.italic ? 'italic' : 'none'}`,
+				color: `${getRgbaFromColor(char.color)}`,
+			}}
+		>
+			{char.value}
+		</span>
+	))
 	return (
 		<div
+			className={styles.textObject}
 			style={{
-				marginTop: `${(textObject.y / 90) * 100}%`,
-				marginLeft: `${(textObject.x / 160) * 100}%`,
-				zIndex: zIndex,
-				position: 'relative',
+				width: `${textObject.width * xRelation}%`,
+				height: `${textObject.height * yRelation}%`,
+				top: `${textObject.y * yRelation}%`,
+				left: `${textObject.x * xRelation}%`,
+				position: 'absolute',
+				border:
+					textObject.border !== undefined
+						? `${
+								(slideWidth * textObject.border.width) / maxElementX
+						  }px solid ${getRgbaFromColor(textObject.border.color)}`
+						: 'none',
 			}}
 		>
 			{listChars}
