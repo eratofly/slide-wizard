@@ -20,7 +20,7 @@ const slide1: Slide = {
 }
 
 const presentation: Presentation = {
-	title: 'The best presentation',
+	title: 'The best presentation min',
 	slides: [slide1],
 }
 
@@ -40,4 +40,4 @@ const editor: Editor = {
 	commandHistory,
 }
 
-export { editor }
+export { editor as startEditor }

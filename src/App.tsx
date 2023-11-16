@@ -1,13 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Topbar from './components/topbar/Topbar'
-import { editor } from './data/testDataMax'
 import { WorkingField } from './components/workingField/WorkingField'
 import styles from './App.module.css'
+import { startEditor } from './data/testDataMin'
 
 function App() {
+	const [editor, setEditor] = useState(startEditor)
 	return (
 		<div className={styles.page}>
-			<Topbar editor={editor} />
+			<Topbar editor={editor} onExport={setEditor} />
 			<WorkingField editor={editor} />
 		</div>
 	)
