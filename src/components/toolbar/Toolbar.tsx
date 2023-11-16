@@ -2,6 +2,7 @@ import React from 'react'
 import styles from './Toolbar.module.css'
 import { Editor, ObjectType } from '../../model/types'
 import { BaseToolbar } from '../baseToolbar/BaseToolbar'
+import { PrimitiveToolbar } from '../primitiveToolbar/PrimitiveToolbar'
 // import { TextToolbar } from '../textToolbar/TextToolbar'
 
 type ToolbarProps = {
@@ -36,6 +37,7 @@ export function Toolbar(props: ToolbarProps) {
 		return (
 			<div className={styles.toolbar}>
 				<BaseToolbar />
+				<PrimitiveToolbar />
 			</div>
 		)
 	}

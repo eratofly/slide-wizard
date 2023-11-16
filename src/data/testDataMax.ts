@@ -290,7 +290,7 @@ const presentation: Presentation = {
 
 const selection: Selection = {
 	slideId: 'j1k2l3',
-	objectId: 'd4e5f6',
+	objectId: 'kgvc7g',
 }
 
 const commands: Array<Command> = [{}]
