@@ -1,8 +1,8 @@
 import React from 'react'
 import styles from './Toolbar.module.css'
 import { Editor, ObjectType } from '../../model/types'
-import { ToolbarForObject } from '../toolbarForObject/ToolbarForObject'
 import { BaseToolbar } from '../baseToolbar/BaseToolbar'
+// import { TextToolbar } from '../textToolbar/TextToolbar'
 
 type ToolbarProps = {
 	editor: Editor
@@ -28,7 +28,7 @@ export function Toolbar(props: ToolbarProps) {
 		return (
 			<div className={styles.toolbar}>
 				<BaseToolbar />
-				<ToolbarForObject />
+				{/*<TextToolbar />*/}
 			</div>
 		)
 	}
@@ -36,7 +36,6 @@ export function Toolbar(props: ToolbarProps) {
 		return (
 			<div className={styles.toolbar}>
 				<BaseToolbar />
-				<ToolbarForObject />
 			</div>
 		)
 	}
@@ -44,7 +43,6 @@ export function Toolbar(props: ToolbarProps) {
 		return (
 			<div className={styles.toolbar}>
 				<BaseToolbar />
-				<ToolbarForObject />
 			</div>
 		)
 	}

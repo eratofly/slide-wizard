@@ -15,7 +15,8 @@ import {
 	Border,
 	TextObject,
 } from '../model/types'
-import redo from '../content/buttonIcons/redo.svg'
+import fon from '../content/fon.jpg'
+import logo from '../content/logo.svg'
 
 const triangleBorderColor: Color = {
 	hex: '#fff000',
