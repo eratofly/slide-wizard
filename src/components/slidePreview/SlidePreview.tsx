@@ -1,10 +1,11 @@
 import React from 'react'
-import { Slide } from '../../model/types'
+import { Selection, Slide } from '../../model/types'
 import { SlideView } from '../slideView/SlideView'
 import styles from './SlidePreview.module.css'
 
 type SlidesPreviewProps = {
 	slides: Array<Slide>
+	selection: Selection
 }
 
 function SlidesPreview(props: SlidesPreviewProps) {
@@ -14,7 +15,7 @@ function SlidesPreview(props: SlidesPreviewProps) {
 			<div key={slide.id} className={styles.element}>
 				<span className={styles.index}>{index + 1}</span>
 				<div className={styles.container}>
-					<SlideView slide={slide} state={'preview'} />
+					<SlideView slide={slide} state={'preview'} selection={props.selection} />
 				</div>
 			</div>
 		)

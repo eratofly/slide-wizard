@@ -20,9 +20,16 @@ function WorkingField(props: EditorViewProps) {
 
 	return (
 		<div className={styles.workingField}>
-			<SlidesPreview slides={props.editor.presentation.slides} />
+			<SlidesPreview
+				slides={props.editor.presentation.slides}
+				selection={props.editor.selection}
+			/>
 			<div className={styles.background}>
-				<SlideView slide={getSelectedSlide()} state={'selected'} />
+				<SlideView
+					slide={getSelectedSlide()}
+					state={'selected'}
+					selection={props.editor.selection}
+				/>
 			</div>
 		</div>
 	)

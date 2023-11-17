@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Color, ObjectType, Slide } from '../../model/types'
+import { Color, ObjectType, Slide, Selection } from '../../model/types'
 import styles from './SlideView.module.css'
 import { TextObjectView } from '../textObjectView/TextObjectView'
 import { PrimitiveObjectView } from '../primitiveObjectView/PrimitiveObjectView'
@@ -8,13 +8,20 @@ import { ImageObjectView } from '../imageObjectView/ImageObjectView'
 type SlideViewProps = {
 	slide: Slide
 	state: 'preview' | 'selected'
+	selection: Selection
 }
 
 function SlideView(props: SlideViewProps) {
+	const maxElementX = 1600
+	const maxElementY = 900
+	const xRelation = 100 / maxElementX
+	const yRelation = 100 / maxElementY
 	const slideRef = useRef<HTMLDivElement>(null)
 	const [slideWidth, setSlideWidth] = useState(0)
+	const [slideHeight, setSlideHeight] = useState(0)
 	useEffect(() => {
 		setSlideWidth(slideRef.current ? slideRef.current.offsetWidth : 0)
+		setSlideHeight(slideRef.current ? slideRef.current.offsetHeight : 0)
 	}, [slideRef.current])
 
 	function getRgbaFromColor(color: Color) {
@@ -23,6 +30,16 @@ function SlideView(props: SlideViewProps) {
 		const g = (numericValue >> 8) & 0xff
 		const b = numericValue & 0xff
 		return `rgba(${r}, ${g}, ${b}, ${color.opacity})`
+	}
+
+	function getSelectedObject() {
+		const selectedObjectId = props.selection.objectId
+		for (const object of slide.slideObjects) {
+			if (object.id === selectedObjectId) {
+				return object
+			}
+		}
+		return null
 	}
 
 	let slideStateStyle
@@ -45,7 +62,12 @@ function SlideView(props: SlideViewProps) {
 		}
 		if (slideObject.objectType === ObjectType.IMAGE) {
 			return (
-				<ImageObjectView key={slideObject.id} image={slideObject} slideWidth={slideWidth} />
+				<ImageObjectView
+					key={slideObject.id}
+					image={slideObject}
+					slideWidth={slideWidth}
+					slideHeight={slideHeight}
+				/>
 			)
 		}
 		if (slideObject.objectType === ObjectType.PRIMITIVE) {
@@ -59,6 +81,8 @@ function SlideView(props: SlideViewProps) {
 		}
 	})
 
+	const selectedObject = getSelectedObject()
+
 	return (
 		<div
 			className={`${slideStateStyle}`}
@@ -70,6 +94,19 @@ function SlideView(props: SlideViewProps) {
 			ref={slideRef}
 		>
 			{listSlideObjects}
+			{selectedObject && props.state === 'selected' ? (
+				<div
+					className={styles.objectSelection}
+					style={{
+						position: 'absolute',
+						width: `${selectedObject.width * xRelation}%`,
+						height: `${selectedObject.height * yRelation}%`,
+						top: `${selectedObject.y * yRelation}%`,
+						left: `${selectedObject.x * xRelation}%`,
+						rotate: `${selectedObject.rotateAngle}deg`,
+					}}
+				></div>
+			) : null}
 		</div>
 	)
 }
