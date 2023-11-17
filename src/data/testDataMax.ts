@@ -16,7 +16,6 @@ import {
 	TextObject,
 } from '../model/types'
 import fon from '../content/fon.jpg'
-import logo from '../content/logo.svg'
 
 const triangleBorderColor: Color = {
 	hex: '#fff000',
@@ -143,10 +142,10 @@ const circle: Primitive = {
 }
 
 const imageCrop: Crop = {
-	x: 15,
-	y: 0,
-	width: 60,
-	height: 90,
+	x: 100,
+	y: 100,
+	width: 600,
+	height: 200,
 }
 
 const image: Image = {
@@ -156,8 +155,8 @@ const image: Image = {
 	y: 20,
 	width: 900,
 	height: 500,
-	rotateAngle: 50,
-	path: logo,
+	rotateAngle: 56,
+	path: fon,
 	crop: imageCrop,
 	border: imgBorder,
 }
@@ -197,11 +196,11 @@ const textObject: TextObject = {
 const image2: Image = {
 	id: 'jrcy8d',
 	objectType: ObjectType.IMAGE,
-	x: 100,
-	y: 50,
-	width: 100,
-	height: 100,
-	rotateAngle: 90,
+	x: 800,
+	y: 90,
+	width: 500,
+	height: 300,
+	rotateAngle: 0,
 	path: fon,
 }
 
@@ -258,14 +257,14 @@ const slide1: Slide = {
 	slideObjects: [textObject, circle, rect, triangle, image],
 }
 
-const slide5: Slide = {
-	id: 'a1b2c3',
+const slide4: Slide = {
+	id: 'a1b2c5',
 	backgroundColor: bgcSlide1,
 	slideObjects: [textObject, circle, rect, triangle, image],
 }
 
-const slide6: Slide = {
-	id: 'a1b2c3',
+const slide5: Slide = {
+	id: 'a1b2c4',
 	backgroundColor: bgcSlide1,
 	slideObjects: [textObject, circle, rect, triangle, image],
 }
@@ -285,12 +284,12 @@ const slide3: Slide = {
 
 const presentation: Presentation = {
 	title: 'The best presentation',
-	slides: [slide1, slide2, slide3, slide5, slide6],
+	slides: [slide1, slide2, slide3, slide4, slide5],
 }
 
 const selection: Selection = {
-	slideId: 'j1k2l3',
-	objectId: 'kgvc7g',
+	slideId: 'a1b2c3',
+	objectId: 'd4e5f6',
 }
 
 const commands: Array<Command> = [{}]
