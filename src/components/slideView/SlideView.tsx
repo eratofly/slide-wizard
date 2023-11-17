@@ -29,7 +29,7 @@ function SlideView(props: SlideViewProps) {
 		const r = (numericValue >> 16) & 0xff
 		const g = (numericValue >> 8) & 0xff
 		const b = numericValue & 0xff
-		return `rgba(${r}, ${g}, ${b}, ${color.opacity})`
+		return `rgba(${r}, ${g}, ${b})`
 	}
 
 	function getSelectedObject() {

@@ -14,7 +14,11 @@ function SlidesPreview(props: SlidesPreviewProps) {
 		return (
 			<div key={slide.id} className={styles.element}>
 				<span className={styles.index}>{index + 1}</span>
-				<div className={styles.container}>
+				<div
+					className={`${styles.container} ${
+						slide.id === props.selection.slideId ? styles.select : ''
+					}`}
+				>
 					<SlideView slide={slide} state={'preview'} selection={props.selection} />
 				</div>
 			</div>
