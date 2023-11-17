@@ -61,7 +61,7 @@ function Topbar(props: TopbarProps) {
 				<PresentationTitle presentationName={editor.presentation.title} />
 				<img className={styles.logo} src={logo} alt="Logo" />
 			</div>
-			<Toolbar />
+			<Toolbar editor={props.editor} />
 		</div>
 	)
 }

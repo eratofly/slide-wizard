@@ -6,18 +6,3 @@
 	margin: 10px 0 30px;
 	border-radius: 50px;
 }
-
-.addDeleteBtn {
-	display: flex;
-	gap: 20px;
-}
-
-.undoRedoBtn {
-	display: flex;
-	gap: 5px;
-}
-
-.redactorBtn {
-	display: flex;
-	gap: 20px;
-}
