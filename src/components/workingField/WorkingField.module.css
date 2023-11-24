@@ -5,6 +5,7 @@
 }
 
 .background {
+	position: relative;
 	min-width: 830px;
 	height: 480px;
 	background-color: #cccccc;

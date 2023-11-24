@@ -28,12 +28,6 @@ function PrimitiveObjectView(props: PrimitiveObjectViewProps) {
 		top: `${primitive.y * yRelation}%`,
 		left: `${primitive.x * xRelation}%`,
 		rotate: `${primitive.rotateAngle}deg`,
-		border:
-			primitive.border !== undefined
-				? `${
-						(slideWidth * primitive.border.width) / maxElementX
-				  }px solid ${getRgbaFromColor(primitive.border.color)}`
-				: 'none',
 	}
 
 	if (primitive.primitiveType === PrimitiveType.RECTANGLE) {
@@ -45,6 +39,16 @@ function PrimitiveObjectView(props: PrimitiveObjectViewProps) {
 					width={`100%`}
 					height={`100%`}
 					fill={getRgbaFromColor(primitive.color)}
+					stroke={
+						primitive.border !== undefined
+							? `${getRgbaFromColor(primitive.border.color)}`
+							: '#000000'
+					}
+					stroke-width={
+						primitive.border !== undefined
+							? `${(slideWidth * primitive.border.width) / maxElementX}px`
+							: '0'
+					}
 				/>
 			</svg>
 		)
@@ -57,6 +61,16 @@ function PrimitiveObjectView(props: PrimitiveObjectViewProps) {
 					rx={`50%`}
 					ry={`50%`}
 					fill={getRgbaFromColor(primitive.color)}
+					stroke={
+						primitive.border !== undefined
+							? `${getRgbaFromColor(primitive.border.color)}`
+							: '#000000'
+					}
+					stroke-width={
+						primitive.border !== undefined
+							? `${(slideWidth * primitive.border.width) / maxElementX}px`
+							: '0'
+					}
 				/>
 			</svg>
 		)
@@ -70,6 +84,16 @@ function PrimitiveObjectView(props: PrimitiveObjectViewProps) {
 							50 0
 						`}
 					fill={getRgbaFromColor(primitive.color)}
+					stroke={
+						primitive.border !== undefined
+							? `${getRgbaFromColor(primitive.border.color)}`
+							: '#000000'
+					}
+					stroke-width={
+						primitive.border !== undefined
+							? `${(slideWidth * primitive.border.width) / maxElementX}px`
+							: '0'
+					}
 				/>
 			</svg>
 		)
