@@ -16,7 +16,6 @@ import {
 	TextObject,
 } from '../model/types'
 import fon from '../content/fon.jpg'
-// import logo from '../content/logo.svg'
 
 const triangleBorderColor: Color = {
 	hex: '#fff000',

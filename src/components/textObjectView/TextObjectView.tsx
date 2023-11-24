@@ -45,7 +45,6 @@ function TextObjectView(props: TextObjectViewProps) {
 				height: `${textObject.height * yRelation}%`,
 				top: `${textObject.y * yRelation}%`,
 				left: `${textObject.x * xRelation}%`,
-				position: 'absolute',
 				border:
 					textObject.border !== undefined
 						? `${

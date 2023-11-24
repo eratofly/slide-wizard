@@ -20,7 +20,6 @@ const slide1: Slide = {
 }
 
 const presentation: Presentation = {
-	title: 'The best presentation',
 	slides: [slide1],
 }
 

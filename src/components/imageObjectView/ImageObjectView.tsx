@@ -23,60 +23,36 @@ function ImageObjectView(props: ImageObjectViewProps) {
 		return `rgba(${r}, ${g}, ${b}, ${color.opacity})`
 	}
 
-	if (!image.crop) {
-		return (
+	return (
+		<div
+			className={styles.wrapper}
+			style={{
+				width: `${(image.crop ? image.crop.width : image.width) * xRelation}%`,
+				height: `${(image.crop ? image.crop.height : image.height) * yRelation}%`,
+				top: `${((image.crop ? image.crop.y : 0) + image.y) * yRelation}%`,
+				left: `${((image.crop ? image.crop.x : 0) + image.x) * xRelation}%`,
+				rotate: `${image.rotateAngle}deg`,
+				border:
+					image.border !== undefined
+						? `${
+								(slideWidth * image.border.width) / maxElementX
+						  }px solid ${getRgbaFromColor(image.border.color)}`
+						: 'none',
+			}}
+		>
 			<img
+				className={styles.image}
 				src={image.path}
 				alt={''}
 				style={{
-					position: 'absolute',
-					width: `${image.width * xRelation}%`,
-					height: `${image.height * yRelation}%`,
-					top: `${image.y * yRelation}%`,
-					left: `${image.x * xRelation}%`,
-					rotate: `${image.rotateAngle}deg`,
-					border:
-						image.border !== undefined
-							? `${
-									(slideWidth * image.border.width) / maxElementX
-							  }px solid ${getRgbaFromColor(image.border.color)}`
-							: 'none',
+					width: `${(image.width * slideHeight) / maxElementY}px`,
+					height: `${(image.height * slideWidth) / maxElementX}px`,
+					top: `${((image.crop ? -image.crop.y : 0) * slideHeight) / maxElementY}px`,
+					left: `${((image.crop ? -image.crop.x : 0) * slideWidth) / maxElementX}px`,
 				}}
 			/>
-		)
-	} else {
-		return (
-			<div
-				className={styles.wrapper}
-				style={{
-					position: 'relative',
-					width: `${image.crop.width * xRelation}%`,
-					height: `${image.crop.height * yRelation}%`,
-					top: `${(image.crop.y + image.y) * yRelation}%`,
-					left: `${(image.crop.x + image.x) * xRelation}%`,
-					rotate: `${image.rotateAngle}deg`,
-					border:
-						image.border !== undefined
-							? `${
-									(slideWidth * image.border.width) / maxElementX
-							  }px solid ${getRgbaFromColor(image.border.color)}`
-							: 'none',
-				}}
-			>
-				<img
-					src={image.path}
-					alt={''}
-					style={{
-						position: 'absolute',
-						width: `${(image.width * slideHeight) / maxElementY}px`,
-						height: `${(image.height * slideWidth) / maxElementX}px`,
-						top: `${(-image.crop.y * slideHeight) / maxElementY}px`,
-						left: `${(-image.crop.x * slideWidth) / maxElementX}px`,
-					}}
-				/>
-			</div>
-		)
-	}
+		</div>
+	)
 }
 
 export { ImageObjectView }

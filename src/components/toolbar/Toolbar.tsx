@@ -2,6 +2,8 @@ import React from 'react'
 import styles from './Toolbar.module.css'
 import { Editor, ObjectType } from '../../model/types'
 import { BaseToolbar } from '../baseToolbar/BaseToolbar'
+import { PrimitiveToolbar } from '../primitiveToolbar/PrimitiveToolbar'
+import { ImageToolbar } from '../imageToolbar/ImageToolbar'
 // import { TextToolbar } from '../textToolbar/TextToolbar'
 
 type ToolbarProps = {
@@ -24,31 +26,35 @@ export function Toolbar(props: ToolbarProps) {
 	}
 
 	const selectedObject = getSelectedObjectType()
+	let toolbar
 	if (selectedObject?.objectType === ObjectType.TEXT) {
-		return (
+		toolbar = (
 			<div className={styles.toolbar}>
 				<BaseToolbar />
 				{/*<TextToolbar />*/}
 			</div>
 		)
-	}
-	if (selectedObject?.objectType === ObjectType.PRIMITIVE) {
-		return (
+	} else if (selectedObject?.objectType === ObjectType.PRIMITIVE) {
+		toolbar = (
+			<div className={styles.toolbar}>
+				<BaseToolbar />
+				<PrimitiveToolbar />
+			</div>
+		)
+	} else if (selectedObject?.objectType === ObjectType.IMAGE) {
+		toolbar = (
 			<div className={styles.toolbar}>
 				<BaseToolbar />
 			</div>
 		)
-	}
-	if (selectedObject?.objectType === ObjectType.IMAGE) {
-		return (
+	} else {
+		toolbar = (
 			<div className={styles.toolbar}>
 				<BaseToolbar />
+				<ImageToolbar />
 			</div>
 		)
 	}
-	return (
-		<div className={styles.toolbar}>
-			<BaseToolbar />
-		</div>
-	)
+
+	return toolbar
 }
