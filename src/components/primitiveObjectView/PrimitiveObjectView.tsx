@@ -1,5 +1,6 @@
 import { Color, Primitive, PrimitiveType } from '../../model/types'
 import React, { CSSProperties } from 'react'
+import styles from './PrimitiveObjectView.module.css'
 
 type PrimitiveObjectViewProps = {
 	primitive: Primitive
@@ -22,7 +23,6 @@ function PrimitiveObjectView(props: PrimitiveObjectViewProps) {
 	}
 
 	const svgStyle: CSSProperties = {
-		position: 'absolute',
 		width: `${primitive.width * xRelation}%`,
 		height: `${primitive.height * yRelation}%`,
 		top: `${primitive.y * yRelation}%`,
@@ -30,9 +30,10 @@ function PrimitiveObjectView(props: PrimitiveObjectViewProps) {
 		rotate: `${primitive.rotateAngle}deg`,
 	}
 
+	let object
 	if (primitive.primitiveType === PrimitiveType.RECTANGLE) {
-		return (
-			<svg style={svgStyle}>
+		object = (
+			<svg className={styles.primitive} style={svgStyle}>
 				<rect
 					x={0}
 					y={0}
@@ -44,7 +45,7 @@ function PrimitiveObjectView(props: PrimitiveObjectViewProps) {
 							? `${getRgbaFromColor(primitive.border.color)}`
 							: '#000000'
 					}
-					stroke-width={
+					strokeWidth={
 						primitive.border !== undefined
 							? `${(slideWidth * primitive.border.width) / maxElementX}px`
 							: '0'
@@ -53,8 +54,8 @@ function PrimitiveObjectView(props: PrimitiveObjectViewProps) {
 			</svg>
 		)
 	} else if (primitive.primitiveType === PrimitiveType.ELLIPSE) {
-		return (
-			<svg style={svgStyle}>
+		object = (
+			<svg className={styles.primitive} style={svgStyle}>
 				<ellipse
 					cx={`50%`}
 					cy={`50%`}
@@ -66,7 +67,7 @@ function PrimitiveObjectView(props: PrimitiveObjectViewProps) {
 							? `${getRgbaFromColor(primitive.border.color)}`
 							: '#000000'
 					}
-					stroke-width={
+					strokeWidth={
 						primitive.border !== undefined
 							? `${(slideWidth * primitive.border.width) / maxElementX}px`
 							: '0'
@@ -75,8 +76,13 @@ function PrimitiveObjectView(props: PrimitiveObjectViewProps) {
 			</svg>
 		)
 	} else if (primitive.primitiveType === PrimitiveType.TRIANGLE) {
-		return (
-			<svg preserveAspectRatio="none" viewBox="0 0 100 100" style={svgStyle}>
+		object = (
+			<svg
+				className={styles.primitive}
+				preserveAspectRatio="none"
+				viewBox="0 0 100 100"
+				style={svgStyle}
+			>
 				<polygon
 					points={`
 							0 100,
@@ -89,7 +95,7 @@ function PrimitiveObjectView(props: PrimitiveObjectViewProps) {
 							? `${getRgbaFromColor(primitive.border.color)}`
 							: '#000000'
 					}
-					stroke-width={
+					strokeWidth={
 						primitive.border !== undefined
 							? `${(slideWidth * primitive.border.width) / maxElementX}px`
 							: '0'
@@ -98,8 +104,10 @@ function PrimitiveObjectView(props: PrimitiveObjectViewProps) {
 			</svg>
 		)
 	} else {
-		return <div></div>
+		object = <div></div>
 	}
+
+	return object
 }
 
 export { PrimitiveObjectView }
