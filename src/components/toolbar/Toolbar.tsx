@@ -26,35 +26,13 @@ export function Toolbar(props: ToolbarProps) {
 	}
 
 	const selectedObject = getSelectedObjectType()
-	let toolbar
-	if (selectedObject?.objectType === ObjectType.TEXT) {
-		toolbar = (
-			<div className={styles.toolbar}>
-				<BaseToolbar />
-				{/*<TextToolbar />*/}
-			</div>
-		)
-	} else if (selectedObject?.objectType === ObjectType.PRIMITIVE) {
-		toolbar = (
-			<div className={styles.toolbar}>
-				<BaseToolbar />
-				<PrimitiveToolbar />
-			</div>
-		)
-	} else if (selectedObject?.objectType === ObjectType.IMAGE) {
-		toolbar = (
-			<div className={styles.toolbar}>
-				<BaseToolbar />
-			</div>
-		)
-	} else {
-		toolbar = (
-			<div className={styles.toolbar}>
-				<BaseToolbar />
-				<ImageToolbar />
-			</div>
-		)
-	}
 
-	return toolbar
+	return (
+		<div className={styles.toolbar}>
+			<BaseToolbar />
+			{selectedObject?.objectType === ObjectType.PRIMITIVE && <PrimitiveToolbar />}
+			{selectedObject?.objectType === ObjectType.IMAGE && <ImageToolbar />}
+			{/*{selectedObject?.objectType === ObjectType.TEXT && <TextToolbar />}*/}
+		</div>
+	)
 }

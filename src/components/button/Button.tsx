@@ -1,34 +1,33 @@
 import React from 'react'
 import styles from './Button.module.css'
 
-type ButtonProps = {
-	text?: string
-	iconPath?: string
-	typeButton: 'main' | 'default' | 'icon'
+type textButton = {
+	text: string
+	typeButton: 'main' | 'default'
 	onClick?: () => void
 }
 
-function Button(props: ButtonProps) {
-	let button
-	if (props.typeButton === 'main') {
-		button = (
-			<div className={`${styles.button} ${styles.button_main}`} onClick={props.onClick}>
-				{props.text}
-			</div>
-		)
-	} else if (props.typeButton === 'default') {
-		button = <div className={`${styles.button} ${styles.button_default}`}>{props.text}</div>
-	} else if (props.typeButton === 'icon') {
-		button = (
-			<div className={`${styles.button} ${styles.button_icon}`}>
-				<img src={props.iconPath} alt="" />
-			</div>
-		)
-	} else {
-		button = <div className="button button_toolbar">{props.text}</div>
-	}
+type imageButton = {
+	iconPath: string
+	typeButton: 'icon'
+	onClick?: () => void
+}
 
-	return button
+type ButtonProps = textButton | imageButton
+
+function Button(props: ButtonProps) {
+	const { typeButton } = props
+	return (
+		<div
+			className={`${styles.button} ${typeButton === 'main' && styles.button_main} ${
+				typeButton === 'default' && styles.button_default
+			} ${typeButton === 'icon' && styles.button_icon}`}
+			onClick={props.onClick}
+		>
+			{typeButton === 'icon' && <img src={props.iconPath} alt="" />}
+			{(typeButton === 'main' || typeButton === 'default') && props.text}
+		</div>
+	)
 }
 
 export { Button }

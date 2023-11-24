@@ -39,4 +39,4 @@ const editor: Editor = {
 	commandHistory,
 }
 
-export { editor }
+export { editor as startEditor }
