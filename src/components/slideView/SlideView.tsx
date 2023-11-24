@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { Color, ObjectType, Slide, Selection } from '../../model/types'
+import { Color, ObjectType, Slide } from '../../model/types'
 import styles from './SlideView.module.css'
 import { TextObjectView } from '../textObjectView/TextObjectView'
 import { PrimitiveObjectView } from '../primitiveObjectView/PrimitiveObjectView'
@@ -8,10 +8,11 @@ import { ImageObjectView } from '../imageObjectView/ImageObjectView'
 type SlideViewProps = {
 	slide: Slide
 	state: 'preview' | 'selected'
-	selection: Selection
+	selectedObjectId?: string
 }
 
 function SlideView(props: SlideViewProps) {
+	const { slide, state, selectedObjectId } = props
 	const maxElementX = 1600
 	const maxElementY = 900
 	const xRelation = 100 / maxElementX
@@ -33,7 +34,6 @@ function SlideView(props: SlideViewProps) {
 	}
 
 	function getSelectedObject() {
-		const selectedObjectId = props.selection.objectId
 		for (const object of slide.slideObjects) {
 			if (object.id === selectedObjectId) {
 				return object
@@ -43,25 +43,24 @@ function SlideView(props: SlideViewProps) {
 	}
 
 	let slideStateStyle
-	if (props.state === 'preview') {
+	if (state === 'preview') {
 		slideStateStyle = styles.slidePreview
-	} else if (props.state === 'selected') {
+	} else if (state === 'selected') {
 		slideStateStyle = styles.slideSelected
 	}
 
-	const { slide } = props
 	const listSlideObjects = slide.slideObjects.map((slideObject) => {
+		let object
 		if (slideObject.objectType === ObjectType.TEXT) {
-			return (
+			object = (
 				<TextObjectView
 					key={slideObject.id}
 					textObject={slideObject}
 					slideWidth={slideWidth}
 				/>
 			)
-		}
-		if (slideObject.objectType === ObjectType.IMAGE) {
-			return (
+		} else if (slideObject.objectType === ObjectType.IMAGE) {
+			object = (
 				<ImageObjectView
 					key={slideObject.id}
 					image={slideObject}
@@ -69,9 +68,8 @@ function SlideView(props: SlideViewProps) {
 					slideHeight={slideHeight}
 				/>
 			)
-		}
-		if (slideObject.objectType === ObjectType.PRIMITIVE) {
-			return (
+		} else if (slideObject.objectType === ObjectType.PRIMITIVE) {
+			object = (
 				<PrimitiveObjectView
 					key={slideObject.id}
 					primitive={slideObject}
@@ -79,6 +77,8 @@ function SlideView(props: SlideViewProps) {
 				/>
 			)
 		}
+
+		return object
 	})
 
 	const selectedObject = getSelectedObject()
@@ -94,11 +94,10 @@ function SlideView(props: SlideViewProps) {
 			ref={slideRef}
 		>
 			{listSlideObjects}
-			{selectedObject && props.state === 'selected' ? (
+			{selectedObject && state === 'selected' ? (
 				<div
 					className={styles.objectSelection}
 					style={{
-						position: 'absolute',
 						width: `${selectedObject.width * xRelation}%`,
 						height: `${selectedObject.height * yRelation}%`,
 						top: `${selectedObject.y * yRelation}%`,

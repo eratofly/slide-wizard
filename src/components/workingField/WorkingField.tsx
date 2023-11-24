@@ -9,26 +9,24 @@ type EditorViewProps = {
 }
 
 function WorkingField(props: EditorViewProps) {
+	const { editor } = props
 	function getSelectedSlide() {
-		for (const slide of props.editor.presentation.slides) {
-			if (slide.id === props.editor.selection.slideId) {
+		for (const slide of editor.presentation.slides) {
+			if (slide.id === editor.selection.slideId) {
 				return slide
 			}
 		}
-		return props.editor.presentation.slides[0]
+		return editor.presentation.slides[0]
 	}
 
 	return (
 		<div className={styles.workingField}>
-			<SlidesPreview
-				slides={props.editor.presentation.slides}
-				selection={props.editor.selection}
-			/>
+			<SlidesPreview slides={editor.presentation.slides} selection={editor.selection} />
 			<div className={styles.background}>
 				<SlideView
 					slide={getSelectedSlide()}
 					state={'selected'}
-					selection={props.editor.selection}
+					selectedObjectId={editor.selection.objectId}
 				/>
 			</div>
 		</div>
