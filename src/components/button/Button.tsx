@@ -1,9 +1,10 @@
 import React from 'react'
 import styles from './Button.module.css'
+import { ReactNode } from 'react'
 
 type ButtonProps = {
 	text?: string
-	iconPath?: string
+	icon?: ReactNode
 	typeButton: 'main' | 'default' | 'icon'
 }
 
@@ -14,11 +15,7 @@ function Button(props: ButtonProps) {
 	} else if (props.typeButton === 'default') {
 		button = <div className={`${styles.button} ${styles.button_default}`}>{props.text}</div>
 	} else if (props.typeButton === 'icon') {
-		button = (
-			<div className={`${styles.button} ${styles.button_icon}`}>
-				<img src={props.iconPath} alt="" />
-			</div>
-		)
+		button = <div className={`${styles.button} ${styles.button_icon}`}>{props.icon}</div>
 	} else {
 		button = <div className="button button_toolbar">{props.text}</div>
 	}
