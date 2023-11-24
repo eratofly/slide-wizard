@@ -71,7 +71,7 @@ type Slide = {
 }
 
 type Presentation = {
-	title: string
+	title?: string
 	slides: Array<Slide>
 }
 
