@@ -18,7 +18,7 @@ export function TextToolbar() {
 	return (
 		<div className={styles.baseToolbar}>
 			<div className={styles.addDeleteBtn}>
-				<Button typeButton="icon" iconPath={boldText} />
+				<Button typeButton="icon" icon={boldText} />
 				{/*<Button typeButton="icon" iconPath={deleteSlide} />*/}
 			</div>
 			<div className={styles.undoRedoBtn}>

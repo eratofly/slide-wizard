@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './Button.module.css'
+import { ReactNode } from 'react'
 
 type textButton = {
 	text: string
@@ -8,7 +9,7 @@ type textButton = {
 }
 
 type imageButton = {
-	iconPath: string
+	icon: ReactNode
 	typeButton: 'icon'
 	onClick?: () => void
 }
@@ -24,7 +25,7 @@ function Button(props: ButtonProps) {
 			} ${typeButton === 'icon' && styles.button_icon}`}
 			onClick={props.onClick}
 		>
-			{typeButton === 'icon' && <img src={props.iconPath} alt="" />}
+			{typeButton === 'icon' && props.icon}
 			{(typeButton === 'main' || typeButton === 'default') && props.text}
 		</div>
 	)

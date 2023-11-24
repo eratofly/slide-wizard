@@ -1,21 +1,18 @@
 import React from 'react'
 import { Button } from '../button/Button'
 import styles from './BaseToolbar.module.css'
-import newSlide from '../../content/buttonIcons/new-slide.svg'
-import deleteSlide from '../../content/buttonIcons/delete-slide.svg'
-import redo from '../../content/buttonIcons/redo.svg'
-import undo from '../../content/buttonIcons/undo.svg'
+import { newSlideBtn, deleteSlideBtn, undoBtn, redoBtn } from '../button/icons'
 
 export function BaseToolbar() {
 	return (
 		<div className={styles.baseToolbar}>
 			<div className={styles.addDeleteBtn}>
-				<Button typeButton="icon" iconPath={newSlide} />
-				<Button typeButton="icon" iconPath={deleteSlide} />
+				<Button typeButton="icon" icon={newSlideBtn} />
+				<Button typeButton="icon" icon={deleteSlideBtn} />
 			</div>
 			<div className={styles.undoRedoBtn}>
-				<Button typeButton="icon" iconPath={undo} />
-				<Button typeButton="icon" iconPath={redo} />
+				<Button typeButton="icon" icon={undoBtn} />
+				<Button typeButton="icon" icon={redoBtn} />
 			</div>
 			<div className={styles.redactorBtn}>
 				<Button text="Text" typeButton="default" />
