@@ -1,6 +1,6 @@
 .textObject {
 	display: flex;
-	flex-direction: row;
+	flex-flow: row wrap;
 	align-items: baseline;
 	flex-wrap: wrap;
 }
