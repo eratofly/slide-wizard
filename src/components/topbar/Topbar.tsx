@@ -42,7 +42,11 @@ function Topbar(props: TopbarProps) {
 					return
 				}
 				if (typeof event.target.result === 'string') {
-					onExport(JSON.parse(event.target.result))
+					try {
+						onExport(JSON.parse(event.target.result))
+					} catch {
+						alert('Presentation is not valid')
+					}
 				}
 			}
 		}

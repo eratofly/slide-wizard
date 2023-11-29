@@ -12,20 +12,14 @@ type PrimitiveObjectViewProps = {
 function PrimitiveObjectView(props: PrimitiveObjectViewProps) {
 	const { primitive, slideWidth } = props
 
-	let object
 	switch (primitive.primitiveType) {
 		case PrimitiveType.RECTANGLE:
-			object = <RectangleView rectangle={primitive} slideWidth={slideWidth} />
-			break
+			return <RectangleView rectangle={primitive} slideWidth={slideWidth} />
 		case PrimitiveType.ELLIPSE:
-			object = <EllipseView ellipse={primitive} slideWidth={slideWidth} />
-			break
+			return <EllipseView ellipse={primitive} slideWidth={slideWidth} />
 		case PrimitiveType.TRIANGLE:
-			object = <TriangleView triangle={primitive} slideWidth={slideWidth} />
-			break
+			return <TriangleView triangle={primitive} slideWidth={slideWidth} />
 	}
-
-	return object
 }
 
 export { PrimitiveObjectView }
