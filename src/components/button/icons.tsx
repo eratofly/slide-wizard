@@ -2,11 +2,11 @@ import React from 'react'
 
 export const deleteSlideBtn = (
 	<svg width="22" height="22" viewBox="0 0 22 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<g clip-path="url(#clip0_201_3)">
+		<g clipPath="url(#clip0_201_3)">
 			<path
 				d="M14.3201 1C15.4721 1 15.9201 3.02667 16.0001 4.04H5.6001C5.6001 1.608 6.66676 1 7.2001 1H14.3201Z"
 				stroke="#343434"
-				stroke-width="1.36"
+				strokeWidth="1.36"
 			/>
 			<rect y="3.23999" width="21.6" height="1.6" rx="0.8" fill="#343434" />
 			<rect
@@ -39,7 +39,7 @@ export const deleteSlideBtn = (
 			<path
 				d="M3.2002 17.4C3.22686 18.6 3.8882 21 6.3202 21H15.2002C16.2135 21 18.2402 20.04 18.2402 17.16"
 				stroke="#343434"
-				stroke-width="1.36"
+				strokeWidth="1.36"
 			/>
 			<rect
 				x="4"
@@ -61,7 +61,7 @@ export const deleteSlideBtn = (
 
 export const newSlideBtn = (
 	<svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<g clip-path="url(#clip0_201_2)">
+		<g clipPath="url(#clip0_201_2)">
 			<rect
 				x="11.1113"
 				width="20"
@@ -82,11 +82,11 @@ export const newSlideBtn = (
 
 export const redoBtn = (
 	<svg width="22" height="19" viewBox="0 0 22 19" fill="none" xmlns="http://www.w3.org/2000/svg">
-		<g clip-path="url(#clip0_202_5)">
+		<g clipPath="url(#clip0_202_5)">
 			<path
 				d="M13.0867 17H7.42001C5.61325 17 1.99972 15.7681 1.99972 10.8406C1.99972 9.03381 3.08378 5.42029 7.42001 5.42029H14.5649"
 				stroke="#343434"
-				stroke-width="2.46377"
+				strokeWidth="2.46377"
 			/>
 			<path
 				d="M21.71 5.42032L13.5795 0.726209L13.5795 10.1144L21.71 5.42032Z"
@@ -106,7 +106,7 @@ export const undoBtn = (
 		<path
 			d="M8.62328 17H14.2899C16.0967 17 19.7102 15.7681 19.7102 10.8406C19.7102 9.03381 18.6262 5.42029 14.2899 5.42029H7.14502"
 			stroke="#343434"
-			stroke-width="2.46377"
+			strokeWidth="2.46377"
 		/>
 		<path
 			d="M-2.36928e-07 5.42032L8.13043 0.726209L8.13043 10.1144L-2.36928e-07 5.42032Z"
@@ -209,13 +209,13 @@ export const changeSizeBtn = (
 			height="19.6346"
 			rx="4"
 			stroke="black"
-			stroke-width="2"
+			strokeWidth="2"
 		/>
 		<path
 			d="M4.35355 14.0309C4.15829 13.8356 3.84171 13.8356 3.64645 14.0309L0.464466 17.2129C0.269204 17.4081 0.269204 17.7247 0.464466 17.92C0.659728 18.1152 0.976311 18.1152 1.17157 17.92L4 15.0916L6.82843 17.92C7.02369 18.1152 7.34027 18.1152 7.53553 17.92C7.7308 17.7247 7.7308 17.4081 7.53553 17.2129L4.35355 14.0309ZM4.5 14.8171V14.3844H3.5V14.8171H4.5Z"
 			fill="black"
 		/>
-		<path d="M4 14.8171L4 27.7979" stroke="black" stroke-linecap="round" />
+		<path d="M4 14.8171L4 27.7979" stroke="black" strokeLinecap="round" />
 		<path
 			d="M3.64645 28.5841C3.84171 28.7794 4.15829 28.7794 4.35355 28.5841L7.53553 25.4021C7.7308 25.2069 7.7308 24.8903 7.53553 24.695C7.34027 24.4997 7.02369 24.4997 6.82843 24.695L4 27.5234L1.17157 24.695C0.976311 24.4997 0.659728 24.4997 0.464466 24.695C0.269204 24.8903 0.269204 25.2069 0.464466 25.4021L3.64645 28.5841ZM3.5 27.7979V28.2305H4.5V27.7979H3.5Z"
 			fill="black"
@@ -224,7 +224,7 @@ export const changeSizeBtn = (
 			d="M15.762 3.64645C15.5668 3.84171 15.5668 4.15829 15.762 4.35355L18.944 7.53553C19.1393 7.7308 19.4558 7.7308 19.6511 7.53553C19.8464 7.34027 19.8464 7.02369 19.6511 6.82843L16.8227 4L19.6511 1.17157C19.8464 0.976311 19.8464 0.659728 19.6511 0.464466C19.4558 0.269204 19.1393 0.269204 18.944 0.464466L15.762 3.64645ZM16.981 3.5H16.1156V4.5H16.981V3.5Z"
 			fill="black"
 		/>
-		<path d="M16.981 4L42.9425 4" stroke="black" stroke-linecap="round" />
+		<path d="M16.981 4L42.9425 4" stroke="black" strokeLinecap="round" />
 		<path
 			d="M44.1613 4.35355C44.3566 4.15829 44.3566 3.84171 44.1613 3.64645L40.9793 0.464466C40.7841 0.269204 40.4675 0.269204 40.2722 0.464466C40.077 0.659728 40.077 0.976311 40.2722 1.17157L43.1007 4L40.2722 6.82843C40.077 7.02369 40.077 7.34027 40.2722 7.53553C40.4675 7.7308 40.7841 7.7308 40.9793 7.53553L44.1613 4.35355ZM42.9424 4.5H43.8078V3.5H42.9424V4.5Z"
 			fill="black"
@@ -241,16 +241,16 @@ export const choosePrimitiveBtn = (
 			height="18.6667"
 			rx="4"
 			stroke="black"
-			stroke-width="2"
+			strokeWidth="2"
 		/>
 		<circle
 			cx="10.3333"
 			cy="10.3333"
 			r="9.33333"
 			fill="white"
-			fill-opacity="0.57"
+			fillOpacity="0.57"
 			stroke="black"
-			stroke-width="2"
+			strokeWidth="2"
 		/>
 	</svg>
 )
@@ -265,7 +265,7 @@ export const fillPrimitiveBtn = (
 			transform="matrix(0.720944 -0.692993 0.720944 0.692993 6.81882 19.451)"
 			fill="#F9F9F9"
 			stroke="black"
-			stroke-width="2"
+			strokeWidth="2"
 		/>
 		<rect
 			width="21.5945"
@@ -393,14 +393,14 @@ export const cropImageBtn = (
 //
 // const minusBtn = (
 // 	<svg width="8" height="1" viewBox="0 0 8 1" fill="none" xmlns="http://www.w3.org/2000/svg">
-// 		<line x1="0.5" y1="0.5" x2="7.5" y2="0.5" stroke="#000000" stroke-linecap="round" />
+// 		<line x1="0.5" y1="0.5" x2="7.5" y2="0.5" stroke="#000000" strokeLinecap="round" />
 // 	</svg>
 // )
 //
 // const plusBtn = (
 // 	<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-// 		<path d="M5.13623 1L5.13623 9" stroke="#000000" stroke-linecap="round" />
-// 		<path d="M1 4.86365L9 4.86365" stroke="#000000" stroke-linecap="round" />
+// 		<path d="M5.13623 1L5.13623 9" stroke="#000000" strokeLinecap="round" />
+// 		<path d="M1 4.86365L9 4.86365" stroke="#000000" strokeLinecap="round" />
 // 	</svg>
 // )
 //
