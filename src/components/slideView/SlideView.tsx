@@ -1,9 +1,11 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, {useContext, useEffect, useRef, useState} from 'react'
 import { Color, ObjectType, Slide } from '../../model/types'
 import styles from './SlideView.module.css'
 import { TextObjectView } from '../textObjectView/TextObjectView'
 import { PrimitiveObjectView } from '../primitiveObjectView/PrimitiveObjectView'
 import { ImageObjectView } from '../imageObjectView/ImageObjectView'
+import {useSlides} from "../../hooks/useSlides";
+import {EditorContext} from "../../model/EditorContext";
 
 type SlideViewProps = {
 	slide: Slide
@@ -13,6 +15,9 @@ type SlideViewProps = {
 
 function SlideView(props: SlideViewProps) {
 	const { slide, state, selectedObjectId } = props
+	const { editor, setEditor} = useContext(EditorContext)
+	const { selectSlide, selection } = useSlides(editor.presentation.slides, editor.selection)
+
 	const maxElementX = 1600
 	const maxElementY = 900
 	const xRelation = 100 / maxElementX
@@ -91,6 +96,7 @@ function SlideView(props: SlideViewProps) {
 					slide.backgroundColor,
 				)} url(${slide.backgroundImage})`,
 			}}
+			onClick={() => selectSlide(slide.id)}
 			ref={slideRef}
 		>
 			{listSlideObjects}
