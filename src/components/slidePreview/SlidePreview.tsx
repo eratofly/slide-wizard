@@ -2,7 +2,6 @@ import React from 'react'
 import { Selection, Slide } from '../../model/types'
 import { SlideView } from '../slideView/SlideView'
 import styles from './SlidePreview.module.css'
-import {useSlides} from "../../hooks/useSlides";
 
 type SlidesPreviewProps = {
 	slides: Array<Slide>

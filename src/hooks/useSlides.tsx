@@ -1,29 +1,28 @@
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { Selection, Slide } from '../model/types'
-import { randomUUID } from 'crypto'
+import { v4 as uuidv4 } from 'uuid'
+import { EditorContext } from '../model/EditorContext'
 
-function useSlides(
-	initSlides: Slide[],
-	initSelection: Selection,
-): {
-	slides: Slide[]
-	selection: Selection
+function useSlides(): {
 	addSlide: () => void
 	removeSlide: (slideId: string) => void
 	selectSlide: (slideId: string) => void
 } {
-	const [slides, setSlides] = useState<Slide[]>(initSlides)
-	const [selection, setSelection] = useState<Selection>(initSelection)
+	const { editor, setEditor } = useContext(EditorContext)
+	const [slides, setSlides] = useState<Slide[]>(editor.presentation.slides)
 
 	const addSlide = () => {
 		const newSlides = slides
 		const slide: Slide = {
-			id: randomUUID(),
+			id: uuidv4(),
 			backgroundColor: { hex: '#FFFFFF', opacity: 0 },
 			slideObjects: [],
 		}
 		newSlides.push(slide)
 		setSlides(newSlides)
+		editor.presentation.slides = slides
+		setEditor(editor)
+		console.log(editor)
 	}
 
 	const removeSlide = (slideId: string) => {
@@ -35,17 +34,21 @@ function useSlides(
 			}
 		}
 		setSlides(newSlides)
+		const newEditor = editor
+		newEditor.presentation.slides = slides
+		setEditor(newEditor)
+		console.log(editor.presentation.slides.length)
 	}
 
 	const selectSlide = (slideId: string) => {
-		const newSelection = selection
-		selection.slideId = slideId
-		setSelection(newSelection)
+		const newEditor = editor
+		editor.selection.slideId = slideId
+		setEditor(newEditor)
+		console.log(slideId)
+		console.log(editor.selection.slideId)
 	}
 
 	return {
-		slides,
-		selection,
 		addSlide,
 		removeSlide,
 		selectSlide,

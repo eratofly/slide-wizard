@@ -1,11 +1,10 @@
-import React, {useContext, useEffect, useRef, useState} from 'react'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Color, ObjectType, Slide } from '../../model/types'
 import styles from './SlideView.module.css'
 import { TextObjectView } from '../textObjectView/TextObjectView'
 import { PrimitiveObjectView } from '../primitiveObjectView/PrimitiveObjectView'
 import { ImageObjectView } from '../imageObjectView/ImageObjectView'
-import {useSlides} from "../../hooks/useSlides";
-import {EditorContext} from "../../model/EditorContext";
+import { EditorContext } from '../../model/EditorContext'
 
 type SlideViewProps = {
 	slide: Slide
@@ -15,8 +14,6 @@ type SlideViewProps = {
 
 function SlideView(props: SlideViewProps) {
 	const { slide, state, selectedObjectId } = props
-	const { editor, setEditor} = useContext(EditorContext)
-	const { selectSlide, selection } = useSlides(editor.presentation.slides, editor.selection)
 
 	const maxElementX = 1600
 	const maxElementY = 900
@@ -87,6 +84,15 @@ function SlideView(props: SlideViewProps) {
 	})
 
 	const selectedObject = getSelectedObject()
+
+	const { editor, setEditor } = useContext(EditorContext)
+	const selectSlide = (slideId: string) => {
+		const newEditor = editor
+		newEditor.selection.slideId = slideId
+		setEditor(newEditor)
+		console.log(slideId)
+		console.log(editor.selection.slideId)
+	}
 
 	return (
 		<div

@@ -1,4 +1,4 @@
-.slides-preview {
+.slidesPreview {
 	min-width: 230px;
 	max-height: 480px;
 	height: 100%;
@@ -9,11 +9,11 @@
 	gap: 15px;
 }
 
-.slides-preview::-webkit-scrollbar {
+.slidesPreview::-webkit-scrollbar {
 	width: 12px; /* ширина scrollbar */
 }
 
-.slides-preview::-webkit-scrollbar-thumb {
+.slidesPreview::-webkit-scrollbar-thumb {
 	background-color: #dec5ec; /* цвет плашки */
 	border-radius: 20px;
 }

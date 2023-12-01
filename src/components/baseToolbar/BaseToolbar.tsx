@@ -1,14 +1,22 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Button } from '../button/Button'
 import styles from './BaseToolbar.module.css'
 import { newSlideBtn, deleteSlideBtn, undoBtn, redoBtn } from '../button/icons'
+import { useSlides } from '../../hooks/useSlides'
+import { EditorContext } from '../../model/EditorContext'
 
 export function BaseToolbar() {
+	const { addSlide, removeSlide } = useSlides()
+	const { editor } = useContext(EditorContext)
 	return (
 		<div className={styles.baseToolbar}>
 			<div className={styles.addDeleteBtn}>
-				<Button typeButton="icon" icon={newSlideBtn} />
-				<Button typeButton="icon" icon={deleteSlideBtn} />
+				<Button typeButton="icon" icon={newSlideBtn} onClick={addSlide} />
+				<Button
+					typeButton="icon"
+					icon={deleteSlideBtn}
+					onClick={() => removeSlide(editor.selection.slideId)}
+				/>
 			</div>
 			<div className={styles.undoRedoBtn}>
 				<Button typeButton="icon" icon={undoBtn} />
