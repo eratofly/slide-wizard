@@ -5,10 +5,11 @@ import { Color, Primitive } from '../../model/types'
 type EllipseViewProps = {
 	ellipse: Primitive
 	slideWidth: number
+	onClick: () => void
 }
 
 function EllipseView(props: EllipseViewProps) {
-	const { ellipse, slideWidth } = props
+	const { ellipse, slideWidth, onClick } = props
 	const maxElementX = 1600
 	const maxElementY = 900
 	const xRelation = 100 / maxElementX
@@ -30,7 +31,7 @@ function EllipseView(props: EllipseViewProps) {
 	}
 
 	return (
-		<svg className={styles.ellipse} style={svgStyle}>
+		<svg className={styles.ellipse} onClick={onClick} style={svgStyle}>
 			<ellipse
 				cx={`50%`}
 				cy={`50%`}

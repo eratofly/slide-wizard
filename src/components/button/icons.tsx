@@ -285,17 +285,17 @@ export const fillPrimitiveBtn = (
 export const cropImageBtn = (
 	<svg width="35" height="35" viewBox="0 0 35 35" fill="none" xmlns="http://www.w3.org/2000/svg">
 		<path
-			fill-rule="evenodd"
-			clip-rule="evenodd"
+			fillRule="evenodd"
+			clipRule="evenodd"
 			d="M28.5 6.5H6.5V28.5H28.5V6.5ZM5 5V30H30V5H5Z"
 			fill="black"
 		/>
-		<path fill-rule="evenodd" clip-rule="evenodd" d="M10 6.5H0L0 5H10V6.5Z" fill="black" />
-		<path fill-rule="evenodd" clip-rule="evenodd" d="M35 30H25V28.5H35V30Z" fill="black" />
-		<path fill-rule="evenodd" clip-rule="evenodd" d="M6.5 0V10H5L5 0H6.5Z" fill="black" />
-		<path fill-rule="evenodd" clip-rule="evenodd" d="M30 25V35H28.5V25H30Z" fill="black" />
-		<path fill-rule="evenodd" clip-rule="evenodd" d="M30 27V28.5H28.5V27H30Z" fill="#F8EBFF" />
-		<path fill-rule="evenodd" clip-rule="evenodd" d="M8 5V6.5H6.5V5H8Z" fill="#F8EBFF" />
+		<path fillRule="evenodd" clipRule="evenodd" d="M10 6.5H0L0 5H10V6.5Z" fill="black" />
+		<path fillRule="evenodd" clipRule="evenodd" d="M35 30H25V28.5H35V30Z" fill="black" />
+		<path fillRule="evenodd" clipRule="evenodd" d="M6.5 0V10H5L5 0H6.5Z" fill="black" />
+		<path fillRule="evenodd" clipRule="evenodd" d="M30 25V35H28.5V25H30Z" fill="black" />
+		<path fillRule="evenodd" clipRule="evenodd" d="M30 27V28.5H28.5V27H30Z" fill="#F8EBFF" />
+		<path fillRule="evenodd" clipRule="evenodd" d="M8 5V6.5H6.5V5H8Z" fill="#F8EBFF" />
 	</svg>
 )
 

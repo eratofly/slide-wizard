@@ -5,10 +5,11 @@ import { Color, Primitive } from '../../model/types'
 type RectangleViewProps = {
 	rectangle: Primitive
 	slideWidth: number
+	onClick: () => void
 }
 
 function RectangleView(props: RectangleViewProps) {
-	const { rectangle, slideWidth } = props
+	const { rectangle, slideWidth, onClick } = props
 	const maxElementX = 1600
 	const maxElementY = 900
 	const xRelation = 100 / maxElementX
@@ -30,7 +31,7 @@ function RectangleView(props: RectangleViewProps) {
 	}
 
 	return (
-		<svg className={styles.rectangle} style={svgStyle}>
+		<svg className={styles.rectangle} onClick={onClick} style={svgStyle}>
 			<rect
 				x={0}
 				y={0}

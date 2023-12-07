@@ -5,10 +5,11 @@ import { Color, Primitive } from '../../model/types'
 type TriangleViewProps = {
 	triangle: Primitive
 	slideWidth: number
+	onClick: () => void
 }
 
 function TriangleView(props: TriangleViewProps) {
-	const { triangle, slideWidth } = props
+	const { triangle, slideWidth, onClick } = props
 	const maxElementX = 1600
 	const maxElementY = 900
 	const xRelation = 100 / maxElementX
@@ -32,6 +33,7 @@ function TriangleView(props: TriangleViewProps) {
 	return (
 		<svg
 			className={styles.triangle}
+			onClick={onClick}
 			preserveAspectRatio="none"
 			viewBox="0 0 100 100"
 			style={svgStyle}

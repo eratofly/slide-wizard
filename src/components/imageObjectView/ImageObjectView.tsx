@@ -6,10 +6,11 @@ type ImageObjectViewProps = {
 	image: Image
 	slideWidth: number
 	slideHeight: number
+	onClick: () => void
 }
 
 function ImageObjectView(props: ImageObjectViewProps) {
-	const { image, slideWidth, slideHeight } = props
+	const { image, slideWidth, slideHeight, onClick } = props
 	const maxElementX = 1600
 	const maxElementY = 900
 	const xRelation = 100 / maxElementX
@@ -42,6 +43,7 @@ function ImageObjectView(props: ImageObjectViewProps) {
 		>
 			<img
 				className={styles.image}
+				onClick={onClick}
 				src={image.path}
 				alt={''}
 				style={{

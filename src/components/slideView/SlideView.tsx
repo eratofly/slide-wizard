@@ -6,6 +6,7 @@ import { PrimitiveObjectView } from '../primitiveObjectView/PrimitiveObjectView'
 import { ImageObjectView } from '../imageObjectView/ImageObjectView'
 import { useSlides } from '../../hooks/useSlides'
 import { RegisterDndItemFn } from '../../hooks/useDnd'
+import { useSlideObjects } from '../../hooks/useSlideObjects'
 
 type SlideViewProps = {
 	index: number
@@ -17,6 +18,7 @@ type SlideViewProps = {
 
 function SlideView(props: SlideViewProps) {
 	const { index, slide, state, selectedObjectId, registerDndItem } = props
+	const { selectObject } = useSlideObjects()
 
 	const maxElementX = 1600
 	const maxElementY = 900
@@ -62,6 +64,7 @@ function SlideView(props: SlideViewProps) {
 					key={slideObject.id}
 					textObject={slideObject}
 					slideWidth={slideWidth}
+					onClick={state === 'selected' ? () => selectObject(slideObject.id) : () => {}}
 				/>
 			)
 		} else if (slideObject.objectType === ObjectType.IMAGE) {
@@ -71,6 +74,7 @@ function SlideView(props: SlideViewProps) {
 					image={slideObject}
 					slideWidth={slideWidth}
 					slideHeight={slideHeight}
+					onClick={state === 'selected' ? () => selectObject(slideObject.id) : () => {}}
 				/>
 			)
 		} else if (slideObject.objectType === ObjectType.PRIMITIVE) {
@@ -79,6 +83,7 @@ function SlideView(props: SlideViewProps) {
 					key={slideObject.id}
 					primitive={slideObject}
 					slideWidth={slideWidth}
+					onClick={state === 'selected' ? () => selectObject(slideObject.id) : () => {}}
 				/>
 			)
 		}
@@ -129,12 +134,12 @@ function SlideView(props: SlideViewProps) {
 					slide.backgroundColor,
 				)} url(${slide.backgroundImage})`,
 			}}
-			onClick={() => selectSlide(slide.id)}
+			onClick={state === 'preview' ? () => selectSlide(slide.id) : () => {}}
 			ref={slideRef}
 		>
 			{listSlideObjects}
 			{selectedObject && state === 'selected' ? (
-				<div
+				<svg
 					className={styles.objectSelection}
 					style={{
 						width: `${selectedObject.width * xRelation}%`,
@@ -143,7 +148,7 @@ function SlideView(props: SlideViewProps) {
 						left: `${selectedObject.x * xRelation}%`,
 						rotate: `${selectedObject.rotateAngle}deg`,
 					}}
-				></div>
+				></svg>
 			) : null}
 		</div>
 	)

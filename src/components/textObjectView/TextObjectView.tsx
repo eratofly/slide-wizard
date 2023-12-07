@@ -5,10 +5,11 @@ import React from 'react'
 type TextObjectViewProps = {
 	textObject: TextObject
 	slideWidth: number
+	onClick: () => void
 }
 
 function TextObjectView(props: TextObjectViewProps) {
-	const { textObject, slideWidth } = props
+	const { textObject, slideWidth, onClick } = props
 	const maxElementX = 1600
 	const maxElementY = 900
 	const xRelation = 100 / maxElementX
@@ -37,9 +38,11 @@ function TextObjectView(props: TextObjectViewProps) {
 			{char.value}
 		</span>
 	))
+
 	return (
 		<div
 			className={styles.textObject}
+			onClick={onClick}
 			style={{
 				width: `${textObject.width * xRelation}%`,
 				height: `${textObject.height * yRelation}%`,

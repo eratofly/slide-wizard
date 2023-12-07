@@ -36,7 +36,6 @@ function SlidesPreview(props: SlidesPreviewProps) {
 					slides: newSlides,
 				},
 			}
-			console.log(newEditor)
 			setEditor(newEditor)
 		},
 	})
@@ -54,7 +53,7 @@ function SlidesPreview(props: SlidesPreviewProps) {
 						index={getSlideIndex(slide.id)}
 						slide={slide}
 						state={'preview'}
-						selectedObjectId={selection.objectId}
+						selectedObjectId={editor.selection.objectId}
 						registerDndItem={registerDndItem}
 					/>
 				</div>

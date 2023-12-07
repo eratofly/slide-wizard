@@ -5,8 +5,8 @@ import { EditorContext } from '../model/EditorContext'
 
 function useSlideObjects(): {
 	addObject: () => void
-	removeObject: (slideId: string) => void
-	selectObject: (slideId: string) => void
+	removeObject: (objectId: string) => void
+	selectObject: (objectId: string) => void
 } {
 	const { editor, setEditor } = useContext(EditorContext)
 	const [slides, setSlides] = useState<Slide[]>(editor.presentation.slides)

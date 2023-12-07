@@ -24,20 +24,23 @@ function useSlides(): {
 				...editor.presentation,
 				slides: newSlides,
 			},
+			selection: {
+				slideId: editor.selection.slideId,
+			},
 		}
 		setEditor(newEditor)
 	}
 
 	const removeSlide = (slideId: string) => {
-		const newSlides = [...editor.presentation.slides]
+		let newSlides = [...editor.presentation.slides]
 		let removedIndex = 0
-		for (const key in newSlides) {
-			if (newSlides[key].id === slideId) {
-				newSlides.splice(Number(key), 1)
-				removedIndex = Number(key)
-				break
+		newSlides = newSlides.filter((slide, index) => {
+			if (slide.id !== slideId) {
+				return true
 			}
-		}
+			removedIndex = index
+			return false
+		})
 		try {
 			const newEditor: Editor = {
 				...editor,
@@ -46,8 +49,7 @@ function useSlides(): {
 					slides: newSlides,
 				},
 				selection: {
-					slideId:
-						editor.presentation.slides[removedIndex === 0 ? 0 : removedIndex - 1].id,
+					slideId: newSlides[removedIndex === 0 ? 0 : removedIndex - 1].id,
 				},
 			}
 			setEditor(newEditor)
