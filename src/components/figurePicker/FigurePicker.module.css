@@ -1,0 +1,20 @@
+.container {
+    width: 124px;
+    height: 36px;
+    background-color: #F8EBFF;
+    border-radius: 5px;
+    box-shadow: 5px 5px 10px 0 rgb(0 0 0 / 35%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    position: absolute;
+    top: 115px;
+    left: 445px;
+    z-index: 1;
+}
+
+.item {
+    border: none;
+    background-color: #F8EBFF;
+}
