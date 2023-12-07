@@ -1,35 +1,37 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { Editor, Slide } from '../model/types'
 import { v4 as uuidv4 } from 'uuid'
 import { EditorContext } from '../model/EditorContext'
 
-function useSlides(): {
-	addSlide: () => void
-	removeSlide: (slideId: string) => void
-	selectSlide: (slideId: string) => void
+function useSlideObjects(): {
+	addObject: () => void
+	removeObject: (slideId: string) => void
+	selectObject: (slideId: string) => void
 } {
 	const { editor, setEditor } = useContext(EditorContext)
+	const [slides, setSlides] = useState<Slide[]>(editor.presentation.slides)
 
-	const addSlide = () => {
-		const newSlides = [...editor.presentation.slides]
+	const addObject = () => {
+		const newSlides = slides
 		const slide: Slide = {
 			id: uuidv4(),
 			backgroundColor: { hex: '#FFFFFF', opacity: 0 },
 			slideObjects: [],
 		}
 		newSlides.push(slide)
-		const newEditor: Editor = {
+		setSlides(newSlides)
+		const newEditor = {
 			...editor,
 			presentation: {
 				...editor.presentation,
-				slides: newSlides,
+				slides,
 			},
 		}
 		setEditor(newEditor)
 	}
 
-	const removeSlide = (slideId: string) => {
-		const newSlides = [...editor.presentation.slides]
+	const removeObject = (slideId: string) => {
+		const newSlides = slides
 		let removedIndex = 0
 		for (const key in newSlides) {
 			if (newSlides[key].id === slideId) {
@@ -38,16 +40,16 @@ function useSlides(): {
 				break
 			}
 		}
+		setSlides(newSlides)
 		try {
-			const newEditor: Editor = {
+			const newEditor = {
 				...editor,
 				presentation: {
 					...editor.presentation,
-					slides: newSlides,
+					slides,
 				},
 				selection: {
-					slideId:
-						editor.presentation.slides[removedIndex === 0 ? 0 : removedIndex - 1].id,
+					slideId: slides[removedIndex === 0 ? 0 : removedIndex - 1].id,
 				},
 			}
 			setEditor(newEditor)
@@ -56,21 +58,22 @@ function useSlides(): {
 		}
 	}
 
-	const selectSlide = (slideId: string) => {
+	const selectObject = (objectId: string) => {
 		const newEditor: Editor = {
 			...editor,
 			selection: {
-				slideId,
+				...editor.selection,
+				objectId,
 			},
 		}
 		setEditor(newEditor)
 	}
 
 	return {
-		addSlide,
-		removeSlide,
-		selectSlide,
+		addObject,
+		removeObject,
+		selectObject,
 	}
 }
 
-export { useSlides }
+export { useSlideObjects }

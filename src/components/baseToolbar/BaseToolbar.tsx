@@ -15,7 +15,11 @@ export function BaseToolbar() {
 				<Button
 					typeButton="icon"
 					icon={deleteSlideBtn}
-					onClick={() => removeSlide(editor.selection.slideId)}
+					onClick={() => {
+						console.log(editor.selection.slideId)
+						removeSlide(editor.selection.slideId)
+						console.log(editor.presentation.slides)
+					}}
 				/>
 			</div>
 			<div className={styles.undoRedoBtn}>

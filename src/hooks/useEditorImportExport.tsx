@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useCallback } from 'react'
 import { EditorContext } from '../model/EditorContext'
 
 function useEditorImportExport(): {
@@ -6,7 +6,7 @@ function useEditorImportExport(): {
 	importFromJson: () => void
 } {
 	const { editor, setEditor } = useContext(EditorContext)
-	const importFromJson = () => {
+	const importFromJson = useCallback(() => {
 		const input = document.createElement('input')
 		input.type = 'file'
 		input.accept = '.sw'
@@ -32,9 +32,9 @@ function useEditorImportExport(): {
 		document.body.appendChild(input)
 		input.click()
 		input.remove()
-	}
+	}, [setEditor])
 
-	const exportToJson = () => {
+	const exportToJson = useCallback(() => {
 		const text = JSON.stringify(editor, null, 2)
 		const name = `${editor.presentation.title}.sw`
 		const type = 'text/json'
@@ -46,7 +46,7 @@ function useEditorImportExport(): {
 		document.body.appendChild(a)
 		a.click()
 		a.remove()
-	}
+	}, [editor])
 
 	return {
 		exportToJson,

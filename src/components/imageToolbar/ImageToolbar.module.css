@@ -1,27 +1,27 @@
 .toolbar {
-    display: flex;
-    align-items: center;
-    /*margin: 30px 0 30px 20px;*/
-    margin-left: 25px;
-    gap: 20px;
+	display: flex;
+	align-items: center;
+	/*margin: 30px 0 30px 20px;*/
+	margin-left: 25px;
+	gap: 20px;
 }
 
 .cropBtn {
-    display: flex;
-    margin-right: 5px;
+	display: flex;
+	margin-right: 5px;
 }
 
 .colorThicknessBtn {
-    display: flex;
-    gap: 25px;
+	display: flex;
+	gap: 25px;
 }
 
 .changingSizeBtn {
-    display: flex;
-    margin: 0 10px 0 15px;
+	display: flex;
+	margin: 0 10px 0 15px;
 }
 
 .alignmentBtn {
-    display: flex;
-    gap: 5px;
+	display: flex;
+	gap: 5px;
 }

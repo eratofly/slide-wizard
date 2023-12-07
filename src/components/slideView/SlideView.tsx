@@ -1,19 +1,22 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Color, ObjectType, Slide } from '../../model/types'
 import styles from './SlideView.module.css'
 import { TextObjectView } from '../textObjectView/TextObjectView'
 import { PrimitiveObjectView } from '../primitiveObjectView/PrimitiveObjectView'
 import { ImageObjectView } from '../imageObjectView/ImageObjectView'
-import { EditorContext } from '../../model/EditorContext'
+import { useSlides } from '../../hooks/useSlides'
+import { RegisterDndItemFn } from '../../hooks/useDnd'
 
 type SlideViewProps = {
+	index: number
 	slide: Slide
 	state: 'preview' | 'selected'
+	registerDndItem?: RegisterDndItemFn
 	selectedObjectId?: string
 }
 
 function SlideView(props: SlideViewProps) {
-	const { slide, state, selectedObjectId } = props
+	const { index, slide, state, selectedObjectId, registerDndItem } = props
 
 	const maxElementX = 1600
 	const maxElementY = 900
@@ -85,13 +88,37 @@ function SlideView(props: SlideViewProps) {
 
 	const selectedObject = getSelectedObject()
 
-	const { editor, setEditor } = useContext(EditorContext)
-	const selectSlide = (slideId: string) => {
-		const newEditor = editor
-		newEditor.selection.slideId = slideId
-		setEditor(newEditor)
-		console.log(slideId)
-		console.log(editor.selection.slideId)
+	const { selectSlide } = useSlides()
+
+	if (registerDndItem) {
+		useEffect(() => {
+			const { onDragStart } = registerDndItem(index, {
+				elementRef: slideRef,
+			})
+
+			const onMouseDown = (mouseDownEvent: MouseEvent) => {
+				onDragStart({
+					onDrag: (dragEvent) => {
+						slideRef.current!.style.position = 'relative'
+						slideRef.current!.style.zIndex = '1'
+						slideRef.current!.style.boxShadow = 'black 2px 2px 4px'
+						slideRef.current!.style.top = `${
+							dragEvent.clientY - mouseDownEvent.clientY
+						}px`
+					},
+					onDrop: () => {
+						slideRef.current!.style.position = ''
+						slideRef.current!.style.zIndex = ''
+						slideRef.current!.style.boxShadow = ''
+						slideRef.current!.style.top = ''
+					},
+				})
+			}
+
+			const control = slideRef.current!
+			control.addEventListener('mousedown', onMouseDown)
+			return () => control.removeEventListener('mousedown', onMouseDown)
+		}, [index, registerDndItem])
 	}
 
 	return (
