@@ -1,4 +1,5 @@
 .textObject {
+	user-select: text;
 	position: absolute;
 	display: flex;
 	flex-flow: row wrap;

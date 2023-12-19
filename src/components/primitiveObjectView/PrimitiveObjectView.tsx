@@ -5,6 +5,7 @@ import { EllipseView } from '../ellipseView/EllipseView'
 import { TriangleView } from '../triangleView/TriangleView'
 
 type PrimitiveObjectViewProps = {
+	ref: React.RefObject<HTMLDivElement>
 	primitive: Primitive
 	slideWidth: number
 	onClick: () => void

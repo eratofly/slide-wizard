@@ -5,7 +5,7 @@ import { TextObjectView } from '../textObjectView/TextObjectView'
 import { PrimitiveObjectView } from '../primitiveObjectView/PrimitiveObjectView'
 import { ImageObjectView } from '../imageObjectView/ImageObjectView'
 import { useSlides } from '../../hooks/useSlides'
-import { RegisterDndItemFn } from '../../hooks/useDnd'
+import { RegisterDndItemFn } from '../../hooks/useDndSlides'
 import { useSlideObjects } from '../../hooks/useSlideObjects'
 
 type SlideViewProps = {
@@ -56,11 +56,13 @@ function SlideView(props: SlideViewProps) {
 		slideStateStyle = styles.slideSelected
 	}
 
+	const ref = useRef<HTMLDivElement>(null)
 	const listSlideObjects = slide.slideObjects.map((slideObject) => {
 		let object
 		if (slideObject.objectType === ObjectType.TEXT) {
 			object = (
 				<TextObjectView
+					ref={ref}
 					key={slideObject.id}
 					textObject={slideObject}
 					slideWidth={slideWidth}
@@ -70,6 +72,7 @@ function SlideView(props: SlideViewProps) {
 		} else if (slideObject.objectType === ObjectType.IMAGE) {
 			object = (
 				<ImageObjectView
+					ref={ref}
 					key={slideObject.id}
 					image={slideObject}
 					slideWidth={slideWidth}
@@ -80,6 +83,7 @@ function SlideView(props: SlideViewProps) {
 		} else if (slideObject.objectType === ObjectType.PRIMITIVE) {
 			object = (
 				<PrimitiveObjectView
+					ref={ref}
 					key={slideObject.id}
 					primitive={slideObject}
 					slideWidth={slideWidth}

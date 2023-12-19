@@ -1,6 +1,6 @@
 import * as React from 'react'
 import styles from './FigurePicker.module.css'
-import { ReactElement, RefObject } from 'react'
+import { ReactElement } from 'react'
 
 type FigurePickerItem = {
 	id: string

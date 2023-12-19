@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { Editor, Slide } from '../model/types'
+import { Editor, Image, Primitive, Slide, TextObject } from '../model/types'
 import { v4 as uuidv4 } from 'uuid'
 import { EditorContext } from '../model/EditorContext'
 
@@ -10,6 +10,18 @@ function useSlideObjects(): {
 } {
 	const { editor, setEditor } = useContext(EditorContext)
 	const [slides, setSlides] = useState<Slide[]>(editor.presentation.slides)
+	function getSelectedSlideIndex() {
+		for (const index in slides) {
+			if (slides[index].id === editor.selection.slideId) {
+				return Number(index)
+			}
+		}
+		return 0
+	}
+
+	const [objects, setObjects] = useState<(TextObject | Primitive | Image)[]>(
+		editor.presentation.slides[getSelectedSlideIndex()].slideObjects,
+	)
 
 	const addObject = () => {
 		const newSlides = slides
@@ -30,16 +42,17 @@ function useSlideObjects(): {
 		setEditor(newEditor)
 	}
 
-	const removeObject = (slideId: string) => {
-		const newSlides = slides
-		let removedIndex = 0
-		for (const key in newSlides) {
-			if (newSlides[key].id === slideId) {
-				newSlides.splice(Number(key), 1)
-				removedIndex = Number(key)
+	const removeObject = (objectId: string) => {
+		const newObjects = [...objects]
+		for (const key in newObjects) {
+			if (newObjects[key].id === objectId) {
+				newObjects.splice(Number(key), 1)
 				break
 			}
 		}
+		setObjects(newObjects)
+		const newSlides = [...slides]
+		newSlides[getSelectedSlideIndex()].slideObjects = [...objects]
 		setSlides(newSlides)
 		try {
 			const newEditor = {
@@ -49,12 +62,13 @@ function useSlideObjects(): {
 					slides,
 				},
 				selection: {
-					slideId: slides[removedIndex === 0 ? 0 : removedIndex - 1].id,
+					...editor.selection,
+					objectId: undefined,
 				},
 			}
 			setEditor(newEditor)
 		} catch (e) {
-			alert('Can`t delete slide')
+			alert('Can`t delete object')
 		}
 	}
 

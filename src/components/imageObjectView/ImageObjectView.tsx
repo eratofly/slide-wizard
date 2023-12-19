@@ -3,6 +3,7 @@ import React from 'react'
 import styles from './ImageObjectView.module.css'
 
 type ImageObjectViewProps = {
+	ref: React.RefObject<HTMLDivElement>
 	image: Image
 	slideWidth: number
 	slideHeight: number
