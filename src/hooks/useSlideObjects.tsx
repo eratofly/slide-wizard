@@ -1,5 +1,5 @@
-import { useContext, useState } from 'react'
-import { Editor, Image, Primitive, Slide, TextObject } from '../model/types'
+import { useContext } from 'react'
+import { Editor, Slide } from '../model/types'
 import { v4 as uuidv4 } from 'uuid'
 import { EditorContext } from '../model/EditorContext'
 
@@ -9,57 +9,49 @@ function useSlideObjects(): {
 	selectObject: (objectId: string) => void
 } {
 	const { editor, setEditor } = useContext(EditorContext)
-	const [slides, setSlides] = useState<Slide[]>(editor.presentation.slides)
 	function getSelectedSlideIndex() {
-		for (const index in slides) {
-			if (slides[index].id === editor.selection.slideId) {
+		for (const index in editor.presentation.slides) {
+			if (editor.presentation.slides[index].id === editor.selection.slideId) {
 				return Number(index)
 			}
 		}
 		return 0
 	}
 
-	const [objects, setObjects] = useState<(TextObject | Primitive | Image)[]>(
-		editor.presentation.slides[getSelectedSlideIndex()].slideObjects,
-	)
-
 	const addObject = () => {
-		const newSlides = slides
+		const newSlides = [...editor.presentation.slides]
 		const slide: Slide = {
 			id: uuidv4(),
 			backgroundColor: { hex: '#FFFFFF', opacity: 0 },
 			slideObjects: [],
 		}
 		newSlides.push(slide)
-		setSlides(newSlides)
 		const newEditor = {
 			...editor,
 			presentation: {
 				...editor.presentation,
-				slides,
+				slides: editor.presentation.slides,
 			},
 		}
 		setEditor(newEditor)
 	}
 
 	const removeObject = (objectId: string) => {
-		const newObjects = [...objects]
+		const newObjects = [...editor.presentation.slides[getSelectedSlideIndex()].slideObjects]
 		for (const key in newObjects) {
 			if (newObjects[key].id === objectId) {
 				newObjects.splice(Number(key), 1)
 				break
 			}
 		}
-		setObjects(newObjects)
-		const newSlides = [...slides]
-		newSlides[getSelectedSlideIndex()].slideObjects = [...objects]
-		setSlides(newSlides)
+		const newSlides = [...editor.presentation.slides]
+		newSlides[getSelectedSlideIndex()].slideObjects = [...newObjects]
 		try {
 			const newEditor = {
 				...editor,
 				presentation: {
 					...editor.presentation,
-					slides,
+					slides: newSlides,
 				},
 				selection: {
 					...editor.selection,

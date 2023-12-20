@@ -6,10 +6,11 @@ type EllipseViewProps = {
 	ellipse: Primitive
 	slideWidth: number
 	onClick: () => void
+	onKeyPress: () => void
 }
 
 function EllipseView(props: EllipseViewProps) {
-	const { ellipse, slideWidth, onClick } = props
+	const { ellipse, slideWidth, onClick, onKeyPress } = props
 	const maxElementX = 1600
 	const maxElementY = 900
 	const xRelation = 100 / maxElementX
@@ -31,7 +32,7 @@ function EllipseView(props: EllipseViewProps) {
 	}
 
 	return (
-		<svg className={styles.ellipse} onClick={onClick} style={svgStyle}>
+		<svg className={styles.ellipse} onClick={onClick} onKeyPress={onKeyPress} style={svgStyle}>
 			<ellipse
 				cx={`50%`}
 				cy={`50%`}

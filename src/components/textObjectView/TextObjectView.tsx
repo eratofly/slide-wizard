@@ -3,7 +3,6 @@ import styles from './TextObjectView.module.css'
 import React from 'react'
 
 type TextObjectViewProps = {
-	ref: React.RefObject<HTMLDivElement>
 	textObject: TextObject
 	slideWidth: number
 	onClick: () => void
