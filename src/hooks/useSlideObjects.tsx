@@ -73,6 +73,7 @@ function useSlideObjects(): {
 			},
 		}
 		setEditor(newEditor)
+		console.log(newEditor)
 	}
 
 	return {

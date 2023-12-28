@@ -62,11 +62,11 @@ function SlideView(props: SlideViewProps) {
 		const handleKeyPress = (e: KeyboardEvent) => {
 			if (editor.selection.objectId && e.key === 'Enter') {
 				removeObject(editor.selection.objectId)
-				document.removeEventListener('keypress', handleKeyPress)
 			}
 		}
 
 		document.addEventListener('keypress', handleKeyPress)
+		return () => document.removeEventListener('keypress', handleKeyPress)
 	}, [editor.selection])
 
 	const listSlideObjects = slide.slideObjects.map((slideObject) => {
