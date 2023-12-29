@@ -5,6 +5,7 @@ import { newSlideBtn, deleteSlideBtn, undoBtn, redoBtn } from '../button/icons'
 import { useSlides } from '../../hooks/useSlides'
 import { EditorContext } from '../../model/EditorContext'
 import { FigurePicker, FigurePickerItem } from '../figurePicker/FigurePicker'
+import { BackgroundPicker, BackgroundPickerItem } from '../backgroundPicker/BackgroundPicker'
 import { RectIcon } from './res/RectIcon'
 import { EllipseIcon } from './res/EllipseIcon'
 import { TriangleIcon } from './res/TriangleIcon'
@@ -35,9 +36,30 @@ export function BaseToolbar() {
 		},
 	]
 
+	const backgroundPickerItems: BackgroundPickerItem[] = [
+		{
+			id: 'color',
+			text: 'Color',
+			onClick: () => {
+				console.log('add color')
+			},
+		},
+		{
+			id: 'file',
+			text: 'Picture',
+			onClick: () => {
+				console.log('add file')
+			},
+		},
+	]
+
 	const [figurePickerOpened, setFigurePickerOpened] = useState(false)
 	const figurePickerRef = useRef(null)
 	useClickOutside(figurePickerRef, () => setFigurePickerOpened(false))
+
+	const [backgroundPickerOpened, setBackgroundPickerOpened] = useState(false)
+	const backgroundPickerRef = useRef(null)
+	useClickOutside(backgroundPickerRef, () => setBackgroundPickerOpened(false))
 
 	const { addSlide, removeSlide } = useSlides()
 	const { editor } = useContext(EditorContext)
@@ -71,10 +93,21 @@ export function BaseToolbar() {
 						}
 					}}
 				/>
-				<Button text="Background" typeButton="default" />
+				<Button
+					text="Background"
+					typeButton="default"
+					onClick={() => {
+						if (!backgroundPickerOpened) {
+							setBackgroundPickerOpened(true)
+						}
+					}}
+				/>
 			</div>
 			<div ref={figurePickerRef}>
 				{figurePickerOpened && <FigurePicker items={figurePickerItems} />}
+			</div>
+			<div ref={figurePickerRef}>
+				{backgroundPickerOpened && <BackgroundPicker items={backgroundPickerItems} />}
 			</div>
 		</div>
 	)

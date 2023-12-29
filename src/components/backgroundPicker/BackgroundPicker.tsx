@@ -1,28 +1,28 @@
 import * as React from 'react'
-import styles from './FigurePicker.module.css'
+import styles from './BackgroundPicker.module.css'
 import { ReactElement } from 'react'
 // import { RefObject } from 'react'
 
-type FigurePickerItem = {
+type BackgroundPickerItem = {
 	id: string
-	icon: ReactElement
+	text: string
 	onClick: () => void
 }
 
-type FigurePickerProps = {
-	items: FigurePickerItem[]
+type BackgroundPickerProps = {
+	items: BackgroundPickerItem[]
 }
 
-function FigurePicker(props: FigurePickerProps) {
+function BackgroundPicker(props: BackgroundPickerProps) {
 	return (
 		<div className={styles.container}>
 			{props.items.map((item) => (
 				<div key={item.id} className={styles.item} onClick={item.onClick}>
-					{item.icon}
+					{item.text}
 				</div>
 			))}
 		</div>
 	)
 }
 
-export { FigurePicker, type FigurePickerItem }
+export { BackgroundPicker, type BackgroundPickerItem }

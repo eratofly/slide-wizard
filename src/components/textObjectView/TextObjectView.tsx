@@ -41,6 +41,7 @@ function TextObjectView(props: TextObjectViewProps) {
 
 	return (
 		<div
+			contentEditable={true}
 			className={styles.textObject}
 			onClick={onClick}
 			style={{
@@ -56,7 +57,7 @@ function TextObjectView(props: TextObjectViewProps) {
 						: 'none',
 			}}
 		>
-			{listChars}
+			{/*{listChars}*/}
 		</div>
 	)
 }
