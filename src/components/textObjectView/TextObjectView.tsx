@@ -34,7 +34,6 @@ function TextObjectView(props: TextObjectViewProps) {
 
 	return (
 		<textarea
-			contentEditable={true}
 			ref={dndRef}
 			className={styles.textObject}
 			onClick={onClick}

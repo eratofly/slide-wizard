@@ -36,19 +36,20 @@ export function BaseToolbar() {
 		},
 	]
 
+	const { setBackgroundColor, setBackgroundImage } = useSlides()
 	const backgroundPickerItems: BackgroundPickerItem[] = [
 		{
 			id: 'color',
 			text: 'Color',
 			onClick: () => {
-				console.log('add color')
+				setBackgroundColor()
 			},
 		},
 		{
 			id: 'file',
 			text: 'Picture',
 			onClick: () => {
-				console.log('add file')
+				setBackgroundImage()
 			},
 		},
 	]
@@ -71,9 +72,7 @@ export function BaseToolbar() {
 					typeButton="icon"
 					icon={deleteSlideBtn}
 					onClick={() => {
-						console.log(editor.selection.slideId)
 						removeSlide(editor.selection.slideId)
-						console.log(editor.presentation.slides)
 					}}
 				/>
 			</div>
@@ -106,7 +105,7 @@ export function BaseToolbar() {
 			<div ref={figurePickerRef}>
 				{figurePickerOpened && <FigurePicker items={figurePickerItems} />}
 			</div>
-			<div ref={figurePickerRef}>
+			<div ref={backgroundPickerRef}>
 				{backgroundPickerOpened && <BackgroundPicker items={backgroundPickerItems} />}
 			</div>
 		</div>
