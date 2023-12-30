@@ -20,7 +20,7 @@ type SlideViewProps = {
 
 function SlideView(props: SlideViewProps) {
 	const { index, slide, state, selectedObjectId, registerDndItem } = props
-	const { selectObject, unselectObject } = useSlideObjects()
+	const { selectObject, unselectObject, removeObject } = useSlideObjects()
 	const { editor } = useContext(EditorContext)
 	const slideRef = useRef<HTMLDivElement>(null)
 	const [slideWidth, setSlideWidth] = useState(0)
@@ -94,7 +94,6 @@ function SlideView(props: SlideViewProps) {
 					primitive={slideObject}
 					slideWidth={slideWidth}
 					onClick={state === 'selected' ? () => selectObject(slideObject.id) : () => {}}
-					onKeyPress={state === 'selected' ? () => {} : () => {}}
 				/>
 			)
 		}
