@@ -1,6 +1,9 @@
 import { Action, SlidesActions } from './actions'
 import { Presentation, Slide } from '../model/types'
 import { v4 as uuidv4 } from 'uuid'
+import { startEditor } from '../data/testDataMax'
+
+const initState = startEditor
 
 function deleteSlide(state: Presentation, slideId: string): Presentation {
 	let newSlides = [...state.slides]
@@ -37,7 +40,7 @@ function addSlide(state: Presentation): Presentation {
 	return newPresentation
 }
 
-const presentationReducer = (state: Presentation, action: Action) => {
+const presentationReducer = (state: Presentation = initState.presentation, action: Action) => {
 	switch (action.type) {
 		// case SlidesActions.CHANGE_ORDER:
 		// 	const newNotes = [...state]

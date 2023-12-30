@@ -1,5 +1,4 @@
 import { SlidesActions } from './actions'
-import { Slide } from '../model/types'
 
 function createChangeOrderAction(from: number, to: number) {
 	return {
@@ -11,10 +10,9 @@ function createChangeOrderAction(from: number, to: number) {
 	}
 }
 
-function createAddSlideAction(slide: Slide) {
+function createAddSlideAction() {
 	return {
 		type: SlidesActions.ADD_SLIDE,
-		payload: slide,
 	}
 }
 

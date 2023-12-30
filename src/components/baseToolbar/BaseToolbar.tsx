@@ -2,13 +2,13 @@ import React, { useRef, useState, useContext } from 'react'
 import { Button } from '../button/Button'
 import styles from './BaseToolbar.module.css'
 import { newSlideBtn, deleteSlideBtn, undoBtn, redoBtn } from '../button/icons'
-import { useSlides } from '../../hooks/useSlides'
 import { EditorContext } from '../../model/EditorContext'
 import { FigurePicker, FigurePickerItem } from '../figurePicker/FigurePicker'
 import { RectIcon } from './res/RectIcon'
 import { EllipseIcon } from './res/EllipseIcon'
 import { TriangleIcon } from './res/TriangleIcon'
 import { useClickOutside } from '../../hooks/useOutsideClick'
+import { useAppActions } from '../../redux/hooks'
 
 export function BaseToolbar() {
 	const figurePickerItems: FigurePickerItem[] = [
@@ -39,19 +39,18 @@ export function BaseToolbar() {
 	const figurePickerRef = useRef(null)
 	useClickOutside(figurePickerRef, () => setFigurePickerOpened(false))
 
-	const { addSlide, removeSlide } = useSlides()
+	const { createDeleteSlideAction, createAddSlideAction } = useAppActions()
+
 	const { editor } = useContext(EditorContext)
 	return (
 		<div className={styles.baseToolbar}>
 			<div className={styles.addDeleteBtn}>
-				<Button typeButton="icon" icon={newSlideBtn} onClick={addSlide} />
+				<Button typeButton="icon" icon={newSlideBtn} onClick={createAddSlideAction} />
 				<Button
 					typeButton="icon"
 					icon={deleteSlideBtn}
 					onClick={() => {
-						console.log(editor.selection.slideId)
-						removeSlide(editor.selection.slideId)
-						console.log(editor.presentation.slides)
+						createDeleteSlideAction(editor.selection.slideId)
 					}}
 				/>
 			</div>
