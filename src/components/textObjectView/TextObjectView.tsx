@@ -51,8 +51,8 @@ function TextObjectView(props: TextObjectViewProps) {
 						: 'none',
 				fontFamily: textObject.fontFamily,
 				fontSize: `${(slideWidth * textObject.size * fontSizeRelation) / maxElementY}px`,
-				fontWeight: `${textObject.bold ? 'bold' : 'none'}`,
-				fontStyle: `${textObject.italic ? 'italic' : 'none'}`,
+				fontWeight: `${textObject.bold ? 'bold' : 'normal'}`,
+				fontStyle: `${textObject.italic ? 'italic' : 'normal'}`,
 				color: `${getRgbaFromColor(textObject.color)}`,
 			}}
 		>
