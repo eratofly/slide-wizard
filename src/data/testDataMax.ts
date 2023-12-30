@@ -304,4 +304,4 @@ const editor: Editor = {
 	commandHistory,
 }
 
-export { editor as startEditor }
+export { editor as startEditor, rect, triangle, circle }

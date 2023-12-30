@@ -9,28 +9,36 @@ import { EllipseIcon } from './res/EllipseIcon'
 import { TriangleIcon } from './res/TriangleIcon'
 import { useClickOutside } from '../../hooks/useOutsideClick'
 import { useAppActions } from '../../redux/hooks'
+import {Color, ObjectType, Primitive, PrimitiveType} from '../../model/types'
+import { circle, rect, triangle } from '../../data/testDataMax'
 
-export function BaseToolbar() {
+type EditorViewProps = {
+	slideId: string
+}
+
+export function BaseToolbar(props: EditorViewProps) {
+	const { slideId } = props
+	const { createAddObjectAction } = useAppActions()
 	const figurePickerItems: FigurePickerItem[] = [
 		{
 			id: 'rect',
 			icon: <RectIcon />,
 			onClick: () => {
-				console.log('add rectangle')
+				createAddObjectAction(slideId, rect)
 			},
 		},
 		{
 			id: 'ellipse',
 			icon: <EllipseIcon />,
 			onClick: () => {
-				console.log('add ellipse')
+				createAddObjectAction(slideId, circle)
 			},
 		},
 		{
 			id: 'triangle',
 			icon: <TriangleIcon />,
 			onClick: () => {
-				console.log('add triangle')
+				createAddObjectAction(slideId, triangle)
 			},
 		},
 	]
