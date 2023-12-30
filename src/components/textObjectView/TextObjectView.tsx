@@ -25,7 +25,7 @@ function TextObjectView(props: TextObjectViewProps) {
 		return `rgba(${r}, ${g}, ${b}, ${color.opacity})`
 	}
 
-	const dndRef = useRef<HTMLDivElement>(null)
+	const dndRef = useRef<HTMLTextAreaElement>(null)
 	const { dragAndDrop } = useDragAndDropObjects(dndRef, [
 		EditableProperties.X,
 		EditableProperties.Y,
@@ -33,9 +33,9 @@ function TextObjectView(props: TextObjectViewProps) {
 	dragAndDrop()
 
 	return (
-		<div
+		<textarea
 			contentEditable={true}
-            ref={dndRef}
+			ref={dndRef}
 			className={styles.textObject}
 			onClick={onClick}
 			content={'editable'}
@@ -58,7 +58,7 @@ function TextObjectView(props: TextObjectViewProps) {
 			}}
 		>
 			{textObject.value}
-		</div>
+		</textarea>
 	)
 }
 

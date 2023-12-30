@@ -11,7 +11,7 @@ enum EditableProperties {
 }
 
 function useDragAndDropObjects(
-	draggedItem: RefObject<HTMLDivElement | HTMLImageElement | SVGSVGElement>,
+	draggedItem: RefObject<HTMLDivElement | HTMLTextAreaElement | HTMLImageElement | SVGSVGElement>,
 	editableProperties: EditableProperties[],
 ) {
 	const { editor, setEditor } = useContext(EditorContext)

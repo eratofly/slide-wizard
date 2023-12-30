@@ -1,5 +1,4 @@
 import {
-	Char,
 	Color,
 	Command,
 	CommandHistory,
@@ -71,16 +70,6 @@ const image: Image = {
 	crop: imageCrop,
 }
 
-const letterA: Char = {
-	id: 'abcdef',
-	value: 'A',
-	fontFamily: 'Arial',
-	color: textColor,
-	size: 14,
-	bold: true,
-	italic: false,
-}
-
 const textObject: TextObject = {
 	id: 'kgvc7g',
 	objectType: ObjectType.TEXT,
@@ -89,7 +78,12 @@ const textObject: TextObject = {
 	width: 50,
 	height: 14,
 	rotateAngle: 0,
-	chars: [letterA],
+	value: 'b',
+	fontFamily: 'Times New Roman',
+	color: textColor,
+	size: 25,
+	bold: false,
+	italic: true,
 }
 
 const circle: Primitive = {

@@ -48,19 +48,14 @@ type Image = SlideObject & {
 	crop?: Crop
 }
 
-type Char = {
-	id: string
+type TextObject = SlideObject & {
+	objectType: ObjectType.TEXT
 	value: string
 	fontFamily: string
 	color: Color
 	size: number
 	bold: boolean
 	italic: boolean
-}
-
-type TextObject = SlideObject & {
-	objectType: ObjectType.TEXT
-	chars: Array<Char>
 }
 
 type Slide = {
@@ -101,7 +96,6 @@ export type {
 	Presentation,
 	Slide,
 	TextObject,
-	Char,
 	Image,
 	Crop,
 	Primitive,

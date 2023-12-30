@@ -1,6 +1,5 @@
 import * as React from 'react'
 import styles from './BackgroundPicker.module.css'
-import { ReactElement } from 'react'
 // import { RefObject } from 'react'
 
 type BackgroundPickerItem = {
