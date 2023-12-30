@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Editor, Slide } from '../model/types'
 import { v4 as uuidv4 } from 'uuid'
 import { EditorContext } from '../model/EditorContext'
@@ -7,6 +7,7 @@ function useSlideObjects(): {
 	addObject: () => void
 	removeObject: (objectId: string) => void
 	selectObject: (objectId: string) => void
+	unselectObject: (event: React.MouseEvent) => void
 } {
 	const { editor, setEditor } = useContext(EditorContext)
 	const [slides, setSlides] = useState<Slide[]>(editor.presentation.slides)
@@ -69,10 +70,22 @@ function useSlideObjects(): {
 		setEditor(newEditor)
 	}
 
+	const unselectObject = (event: React.MouseEvent) => {
+		if (event.currentTarget != event.target) return
+		const newEditor: Editor = {
+			...editor,
+			selection: {
+				slideId: editor.selection.slideId,
+			},
+		}
+		setEditor(newEditor)
+	}
+
 	return {
 		addObject,
 		removeObject,
 		selectObject,
+		unselectObject,
 	}
 }
 

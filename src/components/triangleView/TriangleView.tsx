@@ -1,6 +1,7 @@
 import styles from './TriangleView.module.css'
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, useRef } from 'react'
 import { Color, Primitive } from '../../model/types'
+import { EditableProperties, useDragAndDropObjects } from '../../hooks/useDragAndDropObjects'
 
 type TriangleViewProps = {
 	triangle: Primitive
@@ -30,8 +31,16 @@ function TriangleView(props: TriangleViewProps) {
 		rotate: `${triangle.rotateAngle}deg`,
 	}
 
+	const dndRef = useRef<SVGSVGElement>(null)
+	const { dragAndDrop } = useDragAndDropObjects(dndRef, [
+		EditableProperties.X,
+		EditableProperties.Y,
+	])
+	dragAndDrop()
+
 	return (
 		<svg
+			ref={dndRef}
 			className={styles.triangle}
 			onClick={onClick}
 			preserveAspectRatio="none"
