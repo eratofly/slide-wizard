@@ -7,6 +7,7 @@ function useSlideObjects(): {
 	addObject: () => void
 	removeObject: (objectId: string) => void
 	selectObject: (objectId: string) => void
+	unselectObject: (event: React.MouseEvent) => void
 } {
 	const { editor, setEditor } = useContext(EditorContext)
 	function getSelectedSlideIndex() {
@@ -76,10 +77,22 @@ function useSlideObjects(): {
 		console.log(newEditor)
 	}
 
+	const unselectObject = (event: React.MouseEvent) => {
+		if (event.currentTarget != event.target) return
+		const newEditor: Editor = {
+			...editor,
+			selection: {
+				slideId: editor.selection.slideId,
+			},
+		}
+		setEditor(newEditor)
+	}
+
 	return {
 		addObject,
 		removeObject,
 		selectObject,
+		unselectObject,
 	}
 }
 

@@ -7,6 +7,7 @@ import { ImageObjectView } from '../imageObjectView/ImageObjectView'
 import { useSlides } from '../../hooks/useSlides'
 import { RegisterDndItemFn } from '../../hooks/useDndSlides'
 import { useSlideObjects } from '../../hooks/useSlideObjects'
+import { SelectionFrame } from '../selectionFrame/SelectionFrame'
 import { EditorContext } from '../../model/EditorContext'
 
 type SlideViewProps = {
@@ -19,13 +20,8 @@ type SlideViewProps = {
 
 function SlideView(props: SlideViewProps) {
 	const { index, slide, state, selectedObjectId, registerDndItem } = props
-	const { selectObject, removeObject } = useSlideObjects()
+	const { selectObject, unselectObject, removeObject } = useSlideObjects()
 	const { editor } = useContext(EditorContext)
-
-	const maxElementX = 1600
-	const maxElementY = 900
-	const xRelation = 100 / maxElementX
-	const yRelation = 100 / maxElementY
 	const slideRef = useRef<HTMLDivElement>(null)
 	const [slideWidth, setSlideWidth] = useState(0)
 	const [slideHeight, setSlideHeight] = useState(0)
@@ -71,6 +67,7 @@ function SlideView(props: SlideViewProps) {
 
 	const listSlideObjects = slide.slideObjects.map((slideObject) => {
 		let object
+
 		if (slideObject.objectType === ObjectType.TEXT) {
 			object = (
 				<TextObjectView
@@ -97,7 +94,6 @@ function SlideView(props: SlideViewProps) {
 					primitive={slideObject}
 					slideWidth={slideWidth}
 					onClick={state === 'selected' ? () => selectObject(slideObject.id) : () => {}}
-					onKeyPress={state === 'selected' ? () => {} : () => {}}
 				/>
 			)
 		}
@@ -148,21 +144,20 @@ function SlideView(props: SlideViewProps) {
 					slide.backgroundColor,
 				)} url(${slide.backgroundImage})`,
 			}}
-			onClick={state === 'preview' ? () => selectSlide(slide.id) : () => {}}
+			onClick={
+				state === 'preview'
+					? () => selectSlide(slide.id)
+					: (event: React.MouseEvent) => unselectObject(event)
+			}
 			ref={slideRef}
 		>
 			{listSlideObjects}
 			{selectedObject && state === 'selected' ? (
-				<svg
-					className={styles.objectSelection}
-					style={{
-						width: `${selectedObject.width * xRelation}%`,
-						height: `${selectedObject.height * yRelation}%`,
-						top: `${selectedObject.y * yRelation}%`,
-						left: `${selectedObject.x * xRelation}%`,
-						rotate: `${selectedObject.rotateAngle}deg`,
-					}}
-				></svg>
+				<SelectionFrame
+					object={selectedObject}
+					slideWidth={slideWidth}
+					slideHeight={slideHeight}
+				/>
 			) : null}
 		</div>
 	)

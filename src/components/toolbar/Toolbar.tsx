@@ -6,6 +6,7 @@ import { PrimitiveToolbar } from '../primitiveToolbar/PrimitiveToolbar'
 import { ImageToolbar } from '../imageToolbar/ImageToolbar'
 import {editor} from "../../data/testDataMiddle";
 // import { TextToolbar } from '../textToolbar/TextToolbar'
+import { TextToolbar } from '../textToolbar/TextToolbar'
 
 type ToolbarProps = {
 	editor: Editor
@@ -33,7 +34,7 @@ export function Toolbar(props: ToolbarProps) {
 			<BaseToolbar slideId={editor.selection.slideId} />
 			{selectedObject?.objectType === ObjectType.PRIMITIVE && <PrimitiveToolbar />}
 			{selectedObject?.objectType === ObjectType.IMAGE && <ImageToolbar />}
-			{/*{selectedObject?.objectType === ObjectType.TEXT && <TextToolbar />}*/}
+			{selectedObject?.objectType === ObjectType.TEXT && <TextToolbar />}
 		</div>
 	)
 }

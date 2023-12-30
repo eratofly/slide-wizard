@@ -22,3 +22,10 @@
 	pointer-events: none;
 	border: 2px solid #ad1ffc;
 }
+
+.resizePoint {
+	width: 10px;
+	height: 10px;
+	position: absolute;
+	background: #ad1ffc;
+}

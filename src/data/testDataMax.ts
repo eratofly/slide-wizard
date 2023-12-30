@@ -1,5 +1,4 @@
 import {
-	Char,
 	Color,
 	Command,
 	CommandHistory,
@@ -161,26 +160,6 @@ const image: Image = {
 	border: imgBorder,
 }
 
-const letterB: Char = {
-	id: 'ghijkl',
-	value: 'b',
-	fontFamily: 'Times New Roman',
-	color: textColor2,
-	size: 25,
-	bold: false,
-	italic: true,
-}
-
-const letterA: Char = {
-	id: 'abcdef',
-	value: 'A',
-	fontFamily: 'Arial',
-	color: textColor,
-	size: 14,
-	bold: true,
-	italic: false,
-}
-
 const textObject: TextObject = {
 	id: 'kgvc8g',
 	objectType: ObjectType.TEXT,
@@ -189,8 +168,13 @@ const textObject: TextObject = {
 	width: 100,
 	height: 50,
 	rotateAngle: 0,
-	chars: [letterA, letterB],
 	border: textBorder,
+	value: 'Abcdef',
+	fontFamily: 'Arial',
+	color: textColor,
+	size: 14,
+	bold: true,
+	italic: false,
 }
 
 const image2: Image = {
@@ -248,7 +232,12 @@ const textObject2: TextObject = {
 	width: 50,
 	height: 14,
 	rotateAngle: 0,
-	chars: [letterA],
+	value: 'bccccccc',
+	fontFamily: 'Times New Roman',
+	color: textColor2,
+	size: 25,
+	bold: false,
+	italic: true,
 }
 
 const slide1: Slide = {
@@ -289,7 +278,7 @@ const presentation: Presentation = {
 
 const selection: Selection = {
 	slideId: 'a1b2c3',
-	objectId: 'd4e5f6',
+	objectId: 'kgvc8g',
 }
 
 const commands: Array<Command> = [{}]

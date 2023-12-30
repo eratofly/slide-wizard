@@ -1,16 +1,16 @@
 import styles from './RectangleView.module.css'
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, useRef } from 'react'
 import { Color, Primitive } from '../../model/types'
+import { EditableProperties, useDragAndDropObjects } from '../../hooks/useDragAndDropObjects'
 
 type RectangleViewProps = {
 	rectangle: Primitive
 	slideWidth: number
 	onClick: () => void
-	onKeyPress: () => void
 }
 
 function RectangleView(props: RectangleViewProps) {
-	const { rectangle, slideWidth, onClick, onKeyPress } = props
+	const { rectangle, slideWidth, onClick } = props
 	const maxElementX = 1600
 	const maxElementY = 900
 	const xRelation = 100 / maxElementX
@@ -31,13 +31,15 @@ function RectangleView(props: RectangleViewProps) {
 		rotate: `${rectangle.rotateAngle}deg`,
 	}
 
+	const dndRef = useRef<SVGSVGElement>(null)
+	const { dragAndDrop } = useDragAndDropObjects(dndRef, [
+		EditableProperties.X,
+		EditableProperties.Y,
+	])
+	dragAndDrop()
+
 	return (
-		<svg
-			className={styles.rectangle}
-			onClick={onClick}
-			onKeyPress={onKeyPress}
-			style={svgStyle}
-		>
+		<svg ref={dndRef} className={styles.rectangle} onClick={onClick} style={svgStyle}>
 			<rect
 				x={0}
 				y={0}

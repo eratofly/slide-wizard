@@ -1,6 +1,7 @@
 import { Color, TextObject } from '../../model/types'
 import styles from './TextObjectView.module.css'
-import React from 'react'
+import React, { useRef } from 'react'
+import { EditableProperties, useDragAndDropObjects } from '../../hooks/useDragAndDropObjects'
 
 type TextObjectViewProps = {
 	textObject: TextObject
@@ -24,25 +25,19 @@ function TextObjectView(props: TextObjectViewProps) {
 		return `rgba(${r}, ${g}, ${b}, ${color.opacity})`
 	}
 
-	const listChars = textObject.chars.map((char) => (
-		<span
-			key={char.id}
-			style={{
-				fontFamily: char.fontFamily,
-				fontSize: `${(slideWidth * char.size * fontSizeRelation) / maxElementY}px`,
-				fontWeight: `${char.bold ? 'bold' : 'none'}`,
-				fontStyle: `${char.italic ? 'italic' : 'none'}`,
-				color: `${getRgbaFromColor(char.color)}`,
-			}}
-		>
-			{char.value}
-		</span>
-	))
+	const dndRef = useRef<HTMLTextAreaElement>(null)
+	const { dragAndDrop } = useDragAndDropObjects(dndRef, [
+		EditableProperties.X,
+		EditableProperties.Y,
+	])
+	dragAndDrop()
 
 	return (
-		<div
+		<textarea
+			ref={dndRef}
 			className={styles.textObject}
 			onClick={onClick}
+			content={'editable'}
 			style={{
 				width: `${textObject.width * xRelation}%`,
 				height: `${textObject.height * yRelation}%`,
@@ -54,10 +49,15 @@ function TextObjectView(props: TextObjectViewProps) {
 								(slideWidth * textObject.border.width) / maxElementX
 						  }px solid ${getRgbaFromColor(textObject.border.color)}`
 						: 'none',
+				fontFamily: textObject.fontFamily,
+				fontSize: `${(slideWidth * textObject.size * fontSizeRelation) / maxElementY}px`,
+				fontWeight: `${textObject.bold ? 'bold' : 'none'}`,
+				fontStyle: `${textObject.italic ? 'italic' : 'none'}`,
+				color: `${getRgbaFromColor(textObject.color)}`,
 			}}
 		>
-			{listChars}
-		</div>
+			{textObject.value}
+		</textarea>
 	)
 }
 
