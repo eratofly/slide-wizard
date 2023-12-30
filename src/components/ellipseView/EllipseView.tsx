@@ -1,6 +1,7 @@
 import styles from './EllipseView.module.css'
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, useRef } from 'react'
 import { Color, Primitive } from '../../model/types'
+import { EditableProperties, useDragAndDropObjects } from '../../hooks/useDragAndDropObjects'
 
 type EllipseViewProps = {
 	ellipse: Primitive
@@ -30,8 +31,15 @@ function EllipseView(props: EllipseViewProps) {
 		rotate: `${ellipse.rotateAngle}deg`,
 	}
 
+	const dndRef = useRef<SVGSVGElement>(null)
+	const { dragAndDrop } = useDragAndDropObjects(dndRef, [
+		EditableProperties.X,
+		EditableProperties.Y,
+	])
+	dragAndDrop()
+
 	return (
-		<svg className={styles.ellipse} onClick={onClick} style={svgStyle}>
+		<svg ref={dndRef} className={styles.ellipse} onClick={onClick} style={svgStyle}>
 			<ellipse
 				cx={`50%`}
 				cy={`50%`}

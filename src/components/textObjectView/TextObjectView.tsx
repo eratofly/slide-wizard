@@ -1,6 +1,7 @@
 import { Color, TextObject } from '../../model/types'
 import styles from './TextObjectView.module.css'
-import React from 'react'
+import React, { useRef } from 'react'
+import { EditableProperties, useDragAndDropObjects } from '../../hooks/useDragAndDropObjects'
 
 type TextObjectViewProps = {
 	textObject: TextObject
@@ -39,10 +40,19 @@ function TextObjectView(props: TextObjectViewProps) {
 		</span>
 	))
 
+	const dndRef = useRef<HTMLDivElement>(null)
+	const { dragAndDrop } = useDragAndDropObjects(dndRef, [
+		EditableProperties.X,
+		EditableProperties.Y,
+	])
+	dragAndDrop()
+
 	return (
 		<div
+			ref={dndRef}
 			className={styles.textObject}
 			onClick={onClick}
+			content={'editable'}
 			style={{
 				width: `${textObject.width * xRelation}%`,
 				height: `${textObject.height * yRelation}%`,

@@ -1,6 +1,7 @@
 import styles from './RectangleView.module.css'
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, useRef } from 'react'
 import { Color, Primitive } from '../../model/types'
+import { EditableProperties, useDragAndDropObjects } from '../../hooks/useDragAndDropObjects'
 
 type RectangleViewProps = {
 	rectangle: Primitive
@@ -30,8 +31,15 @@ function RectangleView(props: RectangleViewProps) {
 		rotate: `${rectangle.rotateAngle}deg`,
 	}
 
+	const dndRef = useRef<SVGSVGElement>(null)
+	const { dragAndDrop } = useDragAndDropObjects(dndRef, [
+		EditableProperties.X,
+		EditableProperties.Y,
+	])
+	dragAndDrop()
+
 	return (
-		<svg className={styles.rectangle} onClick={onClick} style={svgStyle}>
+		<svg ref={dndRef} className={styles.rectangle} onClick={onClick} style={svgStyle}>
 			<rect
 				x={0}
 				y={0}

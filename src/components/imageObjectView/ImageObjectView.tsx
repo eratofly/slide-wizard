@@ -1,6 +1,7 @@
 import { Color, Image } from '../../model/types'
-import React from 'react'
+import React, { useRef } from 'react'
 import styles from './ImageObjectView.module.css'
+import { EditableProperties, useDragAndDropObjects } from '../../hooks/useDragAndDropObjects'
 
 type ImageObjectViewProps = {
 	image: Image
@@ -24,6 +25,13 @@ function ImageObjectView(props: ImageObjectViewProps) {
 		return `rgba(${r}, ${g}, ${b}, ${color.opacity})`
 	}
 
+	const dndRef = useRef<HTMLImageElement>(null)
+	const { dragAndDrop } = useDragAndDropObjects(dndRef, [
+		EditableProperties.X,
+		EditableProperties.Y,
+	])
+	dragAndDrop()
+
 	return (
 		<div
 			className={styles.wrapper}
@@ -43,6 +51,7 @@ function ImageObjectView(props: ImageObjectViewProps) {
 		>
 			<img
 				className={styles.image}
+				ref={dndRef}
 				onClick={onClick}
 				src={image.path}
 				alt={''}
