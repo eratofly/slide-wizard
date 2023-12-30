@@ -8,18 +8,40 @@ type PrimitiveObjectViewProps = {
 	primitive: Primitive
 	slideWidth: number
 	onClick: () => void
+	onKeyPress: () => void
 }
 
 function PrimitiveObjectView(props: PrimitiveObjectViewProps) {
-	const { primitive, slideWidth, onClick } = props
+	const { primitive, slideWidth, onClick, onKeyPress } = props
 
 	switch (primitive.primitiveType) {
 		case PrimitiveType.RECTANGLE:
-			return <RectangleView rectangle={primitive} slideWidth={slideWidth} onClick={onClick} />
+			return (
+				<RectangleView
+					rectangle={primitive}
+					slideWidth={slideWidth}
+					onClick={onClick}
+					onKeyPress={onKeyPress}
+				/>
+			)
 		case PrimitiveType.ELLIPSE:
-			return <EllipseView ellipse={primitive} slideWidth={slideWidth} onClick={onClick} />
+			return (
+				<EllipseView
+					ellipse={primitive}
+					slideWidth={slideWidth}
+					onClick={onClick}
+					onKeyPress={onKeyPress}
+				/>
+			)
 		case PrimitiveType.TRIANGLE:
-			return <TriangleView triangle={primitive} slideWidth={slideWidth} onClick={onClick} />
+			return (
+				<TriangleView
+					triangle={primitive}
+					slideWidth={slideWidth}
+					onClick={onClick}
+					onKeyPress={onKeyPress}
+				/>
+			)
 	}
 }
 

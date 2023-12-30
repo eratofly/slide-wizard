@@ -9,8 +9,8 @@ import {
 } from '../model/types'
 
 const bgcSlide1: Color = {
-	hex: '#0000ff',
-	opacity: 0.5,
+	hex: '#000000',
+	opacity: 0,
 }
 
 const slide1: Slide = {

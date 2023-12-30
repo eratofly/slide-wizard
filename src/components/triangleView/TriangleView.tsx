@@ -7,10 +7,11 @@ type TriangleViewProps = {
 	triangle: Primitive
 	slideWidth: number
 	onClick: () => void
+	onKeyPress: () => void
 }
 
 function TriangleView(props: TriangleViewProps) {
-	const { triangle, slideWidth, onClick } = props
+	const { triangle, slideWidth, onClick, onKeyPress } = props
 	const maxElementX = 1600
 	const maxElementY = 900
 	const xRelation = 100 / maxElementX
@@ -43,6 +44,7 @@ function TriangleView(props: TriangleViewProps) {
 			ref={dndRef}
 			className={styles.triangle}
 			onClick={onClick}
+			onKeyPress={onKeyPress}
 			preserveAspectRatio="none"
 			viewBox="0 0 100 100"
 			style={svgStyle}
