@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 import { Editor, Slide } from '../model/types'
 import { v4 as uuidv4 } from 'uuid'
 import { EditorContext } from '../model/EditorContext'
@@ -7,54 +7,61 @@ function useSlideObjects(): {
 	addObject: () => void
 	removeObject: (objectId: string) => void
 	selectObject: (objectId: string) => void
+	unselectObject: (event: React.MouseEvent) => void
 } {
 	const { editor, setEditor } = useContext(EditorContext)
-	const [slides, setSlides] = useState<Slide[]>(editor.presentation.slides)
+	function getSelectedSlideIndex() {
+		for (const index in editor.presentation.slides) {
+			if (editor.presentation.slides[index].id === editor.selection.slideId) {
+				return Number(index)
+			}
+		}
+		return 0
+	}
 
 	const addObject = () => {
-		const newSlides = slides
+		const newSlides = [...editor.presentation.slides]
 		const slide: Slide = {
 			id: uuidv4(),
 			backgroundColor: { hex: '#FFFFFF', opacity: 0 },
 			slideObjects: [],
 		}
 		newSlides.push(slide)
-		setSlides(newSlides)
 		const newEditor = {
 			...editor,
 			presentation: {
 				...editor.presentation,
-				slides,
+				slides: editor.presentation.slides,
 			},
 		}
 		setEditor(newEditor)
 	}
 
-	const removeObject = (slideId: string) => {
-		const newSlides = slides
-		let removedIndex = 0
-		for (const key in newSlides) {
-			if (newSlides[key].id === slideId) {
-				newSlides.splice(Number(key), 1)
-				removedIndex = Number(key)
+	const removeObject = (objectId: string) => {
+		const newObjects = [...editor.presentation.slides[getSelectedSlideIndex()].slideObjects]
+		for (const key in newObjects) {
+			if (newObjects[key].id === objectId) {
+				newObjects.splice(Number(key), 1)
 				break
 			}
 		}
-		setSlides(newSlides)
+		const newSlides = [...editor.presentation.slides]
+		newSlides[getSelectedSlideIndex()].slideObjects = [...newObjects]
 		try {
 			const newEditor = {
 				...editor,
 				presentation: {
 					...editor.presentation,
-					slides,
+					slides: newSlides,
 				},
 				selection: {
-					slideId: slides[removedIndex === 0 ? 0 : removedIndex - 1].id,
+					...editor.selection,
+					objectId: undefined,
 				},
 			}
 			setEditor(newEditor)
 		} catch (e) {
-			alert('Can`t delete slide')
+			alert('Can`t delete object')
 		}
 	}
 
@@ -67,12 +74,25 @@ function useSlideObjects(): {
 			},
 		}
 		setEditor(newEditor)
+		console.log(newEditor)
+	}
+
+	const unselectObject = (event: React.MouseEvent) => {
+		if (event.currentTarget != event.target) return
+		const newEditor: Editor = {
+			...editor,
+			selection: {
+				slideId: editor.selection.slideId,
+			},
+		}
+		setEditor(newEditor)
 	}
 
 	return {
 		addObject,
 		removeObject,
 		selectObject,
+		unselectObject,
 	}
 }
 

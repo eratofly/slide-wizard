@@ -24,7 +24,7 @@ type UseDraggableListParams = {
 	onOrderChange: (fromIndex: number, toIndex: number) => void
 }
 
-function useDnd({ onOrderChange }: UseDraggableListParams) {
+function useDndSlides({ onOrderChange }: UseDraggableListParams) {
 	const itemsRef = useRef<Array<InternalDndItemInfo>>([])
 
 	const registerDndItem = useCallback(
@@ -77,6 +77,6 @@ function useDnd({ onOrderChange }: UseDraggableListParams) {
 	}
 }
 
-export { useDnd }
+export { useDndSlides }
 
 export type { DndItemInfo, RegisterDndItemFn }

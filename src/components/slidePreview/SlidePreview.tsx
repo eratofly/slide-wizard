@@ -2,7 +2,7 @@ import React, { useContext, useRef } from 'react'
 import { Selection, Slide } from '../../model/types'
 import { SlideView } from '../slideView/SlideView'
 import styles from './SlidePreview.module.css'
-import { useDnd } from '../../hooks/useDnd'
+import { useDndSlides } from '../../hooks/useDndSlides'
 import { EditorContext } from '../../model/EditorContext'
 
 type SlidesPreviewProps = {
@@ -24,7 +24,7 @@ function SlidesPreview(props: SlidesPreviewProps) {
 		return 0
 	}
 
-	const { registerDndItem } = useDnd({
+	const { registerDndItem } = useDndSlides({
 		onOrderChange: (from, to) => {
 			const newSlides = [...slides]
 			const removed = newSlides.splice(from, 1)
