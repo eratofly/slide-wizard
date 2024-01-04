@@ -3,7 +3,7 @@ import { Editor } from '../../model/types'
 import { SlidesPreview } from '../slidePreview/SlidePreview'
 import { SlideView } from '../slideView/SlideView'
 import styles from './WorkingField.module.css'
-import {useAppSelector} from "../../redux/hooks";
+import { useAppSelector } from '../../redux/hooks'
 
 type EditorViewProps = {
 	editor: Editor
@@ -11,7 +11,7 @@ type EditorViewProps = {
 
 function WorkingField(props: EditorViewProps) {
 	const { editor } = props
-	const { slides} = useAppSelector(state => state.presentation)
+	const { slides } = useAppSelector((state) => state.presentation)
 
 	function getSelectedSlide() {
 		for (const slide of slides) {

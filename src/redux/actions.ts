@@ -1,4 +1,4 @@
-import {Image, Primitive, Slide, TextObject} from '../model/types'
+import { Image, Primitive, Slide, TextObject } from '../model/types'
 
 enum SlidesActions {
 	CHANGE_ORDER = 'CHANGE_ORDER',

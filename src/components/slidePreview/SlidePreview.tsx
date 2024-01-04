@@ -4,7 +4,7 @@ import { SlideView } from '../slideView/SlideView'
 import styles from './SlidePreview.module.css'
 import { useDndSlides } from '../../hooks/useDndSlides'
 import { EditorContext } from '../../model/EditorContext'
-import { useAppSelector } from "../../redux/hooks";
+import { useAppSelector } from '../../redux/hooks'
 
 type SlidesPreviewProps = {
 	slides: Array<Slide>

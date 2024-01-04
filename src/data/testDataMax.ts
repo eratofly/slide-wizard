@@ -101,6 +101,17 @@ const textBorder: Border = {
 	width: 5,
 }
 
+const defaultImage: Image = {
+	id: '',
+	objectType: ObjectType.IMAGE,
+	x: 0,
+	y: 0,
+	width: 500,
+	height: 500,
+	rotateAngle: 0,
+	path: '',
+}
+
 const rect: Primitive = {
 	id: 'fjnfi3',
 	objectType: ObjectType.PRIMITIVE,
@@ -158,6 +169,25 @@ const image: Image = {
 	path: fon,
 	crop: imageCrop,
 	border: imgBorder,
+}
+
+const defaultText: TextObject = {
+	id: '',
+	objectType: ObjectType.TEXT,
+	x: 0,
+	y: 0,
+	width: 300,
+	height: 200,
+	rotateAngle: 0,
+	value: 'Enter your text',
+	fontFamily: 'Arial',
+	color: {
+		hex: '#000000',
+		opacity: 1,
+	},
+	size: 14,
+	bold: false,
+	italic: false,
 }
 
 const textObject: TextObject = {
@@ -293,4 +323,4 @@ const editor: Editor = {
 	commandHistory,
 }
 
-export { editor as startEditor, rect, triangle, circle }
+export { editor as startEditor, rect, triangle, circle, defaultImage, defaultText }

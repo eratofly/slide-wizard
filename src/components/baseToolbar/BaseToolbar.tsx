@@ -10,8 +10,9 @@ import { EllipseIcon } from './res/EllipseIcon'
 import { TriangleIcon } from './res/TriangleIcon'
 import { useClickOutside } from '../../hooks/useOutsideClick'
 import { useAppActions } from '../../redux/hooks'
-import {Color, ObjectType, Primitive, PrimitiveType} from '../../model/types'
-import { circle, rect, triangle } from '../../data/testDataMax'
+import { circle, rect, triangle, defaultImage, defaultText } from '../../data/testDataMax'
+import { useSlides } from '../../hooks/useSlides'
+import { v4 as uuidv4 } from 'uuid'
 
 type EditorViewProps = {
 	slideId: string
@@ -25,21 +26,21 @@ export function BaseToolbar(props: EditorViewProps) {
 			id: 'rect',
 			icon: <RectIcon />,
 			onClick: () => {
-				createAddObjectAction(slideId, rect)
+				createAddObjectAction(slideId, { ...rect, id: uuidv4() })
 			},
 		},
 		{
 			id: 'ellipse',
 			icon: <EllipseIcon />,
 			onClick: () => {
-				createAddObjectAction(slideId, circle)
+				createAddObjectAction(slideId, { ...circle, id: uuidv4() })
 			},
 		},
 		{
 			id: 'triangle',
 			icon: <TriangleIcon />,
 			onClick: () => {
-				createAddObjectAction(slideId, triangle)
+				createAddObjectAction(slideId, { ...triangle, id: uuidv4() })
 			},
 		},
 	]
@@ -90,8 +91,42 @@ export function BaseToolbar(props: EditorViewProps) {
 				<Button typeButton="icon" icon={redoBtn} />
 			</div>
 			<div className={styles.redactorBtn}>
-				<Button text="Text" typeButton="default" />
-				<Button text="Image" typeButton="default" />
+				<Button
+					text="Text"
+					typeButton="default"
+					onClick={() => {
+						createAddObjectAction(slideId, { ...defaultText, id: uuidv4() })
+					}}
+				/>
+				<Button
+					text="Image"
+					typeButton="default"
+					onClick={() => {
+						const input = document.createElement('input')
+						input.type = 'file'
+						input.hidden = true
+						input.accept = 'image/*'
+						input.onchange = () => {
+							const fileReader = new FileReader()
+							if (!input.files) {
+								return
+							}
+							fileReader.readAsDataURL(input.files[0])
+							fileReader.onloadend = (event) => {
+								if (event.target && typeof event.target.result === 'string') {
+									createAddObjectAction(slideId, {
+										...defaultImage,
+										id: uuidv4(),
+										path: event.target.result,
+									})
+								}
+							}
+						}
+						document.body.appendChild(input)
+						input.click()
+						input.remove()
+					}}
+				/>
 				<Button
 					text="Primitive"
 					typeButton="default"

@@ -4,7 +4,6 @@ import { Editor, ObjectType } from '../../model/types'
 import { BaseToolbar } from '../baseToolbar/BaseToolbar'
 import { PrimitiveToolbar } from '../primitiveToolbar/PrimitiveToolbar'
 import { ImageToolbar } from '../imageToolbar/ImageToolbar'
-import {editor} from "../../data/testDataMiddle";
 // import { TextToolbar } from '../textToolbar/TextToolbar'
 import { TextToolbar } from '../textToolbar/TextToolbar'
 
@@ -31,7 +30,7 @@ export function Toolbar(props: ToolbarProps) {
 
 	return (
 		<div className={styles.toolbar}>
-			<BaseToolbar slideId={editor.selection.slideId} />
+			<BaseToolbar slideId={props.editor.selection.slideId} />
 			{selectedObject?.objectType === ObjectType.PRIMITIVE && <PrimitiveToolbar />}
 			{selectedObject?.objectType === ObjectType.IMAGE && <ImageToolbar />}
 			{selectedObject?.objectType === ObjectType.TEXT && <TextToolbar />}
