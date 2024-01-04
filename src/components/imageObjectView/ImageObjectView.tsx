@@ -11,7 +11,7 @@ type ImageObjectViewProps = {
 }
 
 function ImageObjectView(props: ImageObjectViewProps) {
-	const { image, slideWidth, slideHeight, onClick } = props
+	const { image, slideWidth, onClick } = props
 	const maxElementX = 1600
 	const maxElementY = 900
 	const xRelation = 100 / maxElementX
@@ -33,36 +33,26 @@ function ImageObjectView(props: ImageObjectViewProps) {
 	dragAndDrop()
 
 	return (
-		<div
-			className={styles.wrapper}
+		<img
+			className={styles.image}
+			ref={dndRef}
+			onClick={onClick}
+			src={image.path}
+			alt={''}
 			style={{
-				width: `${(image.crop ? image.crop.width : image.width) * xRelation}%`,
-				height: `${(image.crop ? image.crop.height : image.height) * yRelation}%`,
-				top: `${((image.crop ? image.crop.y : 0) + image.y) * yRelation}%`,
-				left: `${((image.crop ? image.crop.x : 0) + image.x) * xRelation}%`,
-				rotate: `${image.rotateAngle}deg`,
+				width: `${image.width * xRelation}%`,
+				height: `${image.height * yRelation}%`,
+				top: `${image.y * yRelation}%`,
+				left: `${image.x * xRelation}%`,
 				border:
 					image.border !== undefined
 						? `${
 								(slideWidth * image.border.width) / maxElementX
 						  }px solid ${getRgbaFromColor(image.border.color)}`
 						: 'none',
+				rotate: `${image.rotateAngle}deg`,
 			}}
-		>
-			<img
-				className={styles.image}
-				ref={dndRef}
-				onClick={onClick}
-				src={image.path}
-				alt={''}
-				style={{
-					width: `${(image.width * slideHeight) / maxElementY}px`,
-					height: `${(image.height * slideWidth) / maxElementX}px`,
-					top: `${((image.crop ? -image.crop.y : 0) * slideHeight) / maxElementY}px`,
-					left: `${((image.crop ? -image.crop.x : 0) * slideWidth) / maxElementX}px`,
-				}}
-			/>
-		</div>
+		/>
 	)
 }
 
