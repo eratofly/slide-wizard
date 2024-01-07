@@ -4,6 +4,7 @@ import { SlideView } from '../slideView/SlideView'
 import styles from './SlidePreview.module.css'
 import { useDndSlides } from '../../hooks/useDndSlides'
 import { EditorContext } from '../../model/EditorContext'
+import { useAppSelector } from '../../redux/hooks'
 
 type SlidesPreviewProps = {
 	slides: Array<Slide>
@@ -11,7 +12,9 @@ type SlidesPreviewProps = {
 }
 
 function SlidesPreview(props: SlidesPreviewProps) {
-	const { slides, selection } = props
+	const presentation = useAppSelector((state) => state.presentation)
+	const slides = presentation.slides
+	const { selection } = props
 	const { editor, setEditor } = useContext(EditorContext)
 	const ref = useRef<HTMLDivElement>(null)
 

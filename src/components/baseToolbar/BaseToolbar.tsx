@@ -2,7 +2,6 @@ import React, { useRef, useState, useContext } from 'react'
 import { Button } from '../button/Button'
 import styles from './BaseToolbar.module.css'
 import { newSlideBtn, deleteSlideBtn, undoBtn, redoBtn } from '../button/icons'
-import { useSlides } from '../../hooks/useSlides'
 import { EditorContext } from '../../model/EditorContext'
 import { FigurePicker, FigurePickerItem } from '../figurePicker/FigurePicker'
 import { BackgroundPicker, BackgroundPickerItem } from '../backgroundPicker/BackgroundPicker'
@@ -10,28 +9,38 @@ import { RectIcon } from './res/RectIcon'
 import { EllipseIcon } from './res/EllipseIcon'
 import { TriangleIcon } from './res/TriangleIcon'
 import { useClickOutside } from '../../hooks/useOutsideClick'
+import { useAppActions } from '../../redux/hooks'
+import { circle, rect, triangle, defaultImage, defaultText } from '../../data/testDataMax'
+import { useSlides } from '../../hooks/useSlides'
+import { v4 as uuidv4 } from 'uuid'
 
-export function BaseToolbar() {
+type EditorViewProps = {
+	slideId: string
+}
+
+export function BaseToolbar(props: EditorViewProps) {
+	const { slideId } = props
+	const { createAddObjectAction } = useAppActions()
 	const figurePickerItems: FigurePickerItem[] = [
 		{
 			id: 'rect',
 			icon: <RectIcon />,
 			onClick: () => {
-				console.log('add rectangle')
+				createAddObjectAction(slideId, { ...rect, id: uuidv4() })
 			},
 		},
 		{
 			id: 'ellipse',
 			icon: <EllipseIcon />,
 			onClick: () => {
-				console.log('add ellipse')
+				createAddObjectAction(slideId, { ...circle, id: uuidv4() })
 			},
 		},
 		{
 			id: 'triangle',
 			icon: <TriangleIcon />,
 			onClick: () => {
-				console.log('add triangle')
+				createAddObjectAction(slideId, { ...triangle, id: uuidv4() })
 			},
 		},
 	]
@@ -62,17 +71,18 @@ export function BaseToolbar() {
 	const backgroundPickerRef = useRef(null)
 	useClickOutside(backgroundPickerRef, () => setBackgroundPickerOpened(false))
 
-	const { addSlide, removeSlide } = useSlides()
+	const { createDeleteSlideAction, createAddSlideAction } = useAppActions()
+
 	const { editor } = useContext(EditorContext)
 	return (
 		<div className={styles.baseToolbar}>
 			<div className={styles.addDeleteBtn}>
-				<Button typeButton="icon" icon={newSlideBtn} onClick={addSlide} />
+				<Button typeButton="icon" icon={newSlideBtn} onClick={createAddSlideAction} />
 				<Button
 					typeButton="icon"
 					icon={deleteSlideBtn}
 					onClick={() => {
-						removeSlide(editor.selection.slideId)
+						createDeleteSlideAction(editor.selection.slideId)
 					}}
 				/>
 			</div>
@@ -81,8 +91,42 @@ export function BaseToolbar() {
 				<Button typeButton="icon" icon={redoBtn} />
 			</div>
 			<div className={styles.redactorBtn}>
-				<Button text="Text" typeButton="default" />
-				<Button text="Image" typeButton="default" />
+				<Button
+					text="Text"
+					typeButton="default"
+					onClick={() => {
+						createAddObjectAction(slideId, { ...defaultText, id: uuidv4() })
+					}}
+				/>
+				<Button
+					text="Image"
+					typeButton="default"
+					onClick={() => {
+						const input = document.createElement('input')
+						input.type = 'file'
+						input.hidden = true
+						input.accept = 'image/*'
+						input.onchange = () => {
+							const fileReader = new FileReader()
+							if (!input.files) {
+								return
+							}
+							fileReader.readAsDataURL(input.files[0])
+							fileReader.onloadend = (event) => {
+								if (event.target && typeof event.target.result === 'string') {
+									createAddObjectAction(slideId, {
+										...defaultImage,
+										id: uuidv4(),
+										path: event.target.result,
+									})
+								}
+							}
+						}
+						document.body.appendChild(input)
+						input.click()
+						input.remove()
+					}}
+				/>
 				<Button
 					text="Primitive"
 					typeButton="default"
