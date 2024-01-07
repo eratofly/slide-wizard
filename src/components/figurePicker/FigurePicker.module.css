@@ -17,4 +17,5 @@
 .item {
 	border: none;
 	background-color: #f8ebff;
+	cursor: pointer;
 }

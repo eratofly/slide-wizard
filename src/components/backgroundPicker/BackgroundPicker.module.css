@@ -19,4 +19,5 @@
 .item {
     border: none;
     background-color: #F8EBFF;
+    cursor: pointer;
 }

@@ -80,10 +80,10 @@ export function TextToolbar() {
 					})
 				}}
 			>
-				<option>Open sans</option>
-				<option>Arial</option>
-				<option>Times New Roman</option>
-				<option>Roboto</option>
+				<option className={styles.font}>Open sans</option>
+				<option className={styles.font}>Arial</option>
+				<option className={styles.font}>Times New Roman</option>
+				<option className={styles.font}>Roboto</option>
 			</select>
 			<div className={styles.minusPlusBtn}>
 				<Button
