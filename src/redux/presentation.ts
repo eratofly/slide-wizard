@@ -2,16 +2,15 @@ import { Action, SlidesActions } from './actions'
 import { Image, Presentation, Primitive, Slide, TextObject } from '../model/types'
 import { v4 as uuidv4 } from 'uuid'
 import { startEditor } from '../data/testDataMax'
+import { jsPDF } from 'jspdf'
+import { addSlides } from '../model/export'
 
 const initState = startEditor
 
 function deleteSlide(state: Presentation, slideId: string): Presentation {
 	let newSlides = [...state.slides]
 	newSlides = newSlides.filter((slide) => {
-		if (slide.id !== slideId) {
-			return true
-		}
-		return false
+		return slide.id !== slideId
 	})
 	try {
 		const newPresentation: Presentation = {
@@ -33,11 +32,10 @@ function addSlide(state: Presentation): Presentation {
 		slideObjects: [],
 	}
 	newSlides.push(slide)
-	const newPresentation: Presentation = {
+	return {
 		...state,
 		slides: newSlides,
 	}
-	return newPresentation
 }
 
 function addObject(
@@ -55,11 +53,24 @@ function addObject(
 		}
 		return slide
 	})
-	const newPresentation: Presentation = {
+	return {
 		...state,
 		slides: newSlides,
 	}
-	return newPresentation
+}
+
+async function exportSlides(state: Presentation) {
+	const slides = state.slides
+	const title = state.title ?? 'untitled'
+	const slideSize = [818, 582]
+	const doc = new jsPDF({
+		unit: 'px',
+		orientation: 'l',
+		format: slideSize,
+	})
+	await addSlides(doc, slides)
+	doc.deletePage(doc.getNumberOfPages())
+	doc.save(title)
 }
 
 const presentationReducer = (state: Presentation = initState.presentation, action: Action) => {
@@ -75,6 +86,9 @@ const presentationReducer = (state: Presentation = initState.presentation, actio
 			return deleteSlide(state, action.payload.slideId)
 		case SlidesActions.ADD_OBJECT:
 			return addObject(state, action.payload.slideId, action.payload.object)
+		case SlidesActions.EXPORT:
+			exportSlides(state)
+			return state
 		default:
 			return state
 	}

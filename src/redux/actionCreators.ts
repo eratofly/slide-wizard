@@ -35,9 +35,16 @@ function createDeleteSlideAction(slideId: string) {
 		},
 	}
 }
+
+function createExportToPdfAction() {
+	return {
+		type: SlidesActions.EXPORT,
+	}
+}
 export {
 	createChangeOrderAction,
 	createAddSlideAction,
 	createDeleteSlideAction,
 	createAddObjectAction,
+	createExportToPdfAction,
 }

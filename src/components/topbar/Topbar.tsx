@@ -6,6 +6,7 @@ import { Toolbar } from '../toolbar/Toolbar'
 import logo from '../../content/logo.svg'
 import { Editor } from '../../model/types'
 import { useEditorImportExport } from '../../hooks/useEditorImportExport'
+import { useAppActions } from '../../redux/hooks'
 
 type TopbarProps = {
 	editor: Editor
@@ -13,13 +14,18 @@ type TopbarProps = {
 
 function Topbar(props: TopbarProps) {
 	const { editor } = props
-	const { exportToJson, importFromJson } = useEditorImportExport()
+	const { /*exportToJson,*/ importFromJson } = useEditorImportExport()
+	const { createExportToPdfAction } = useAppActions()
 
 	return (
 		<div className={styles.topbar}>
 			<div className={styles.titlebar}>
 				<div style={{ display: 'flex', gap: 20 }}>
-					<Button text="File Export" typeButton="main" onClick={exportToJson} />
+					<Button
+						text="File Export"
+						typeButton="main"
+						onClick={createExportToPdfAction}
+					/>
 					<Button text="File Import" typeButton="main" onClick={importFromJson} />
 				</div>
 				<PresentationTitle presentationName={editor.presentation.title} />
