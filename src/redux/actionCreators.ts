@@ -1,4 +1,6 @@
 import { SlidesActions } from './actions'
+import { PreviewActions } from './actions'
+
 import { Image, Primitive, TextObject } from '../model/types'
 
 function createAddObjectAction(slideId: string, object: TextObject | Image | Primitive) {
@@ -36,15 +38,44 @@ function createDeleteSlideAction(slideId: string) {
 	}
 }
 
+function createStartPreviewAction() {
+	return {
+		type: PreviewActions.START_PREVIEW,
+	}
+}
+
+function createEndPreviewAction() {
+	return {
+		type: PreviewActions.END_PREVIEW,
+	}
+}
+
 function createExportToPdfAction() {
 	return {
 		type: SlidesActions.EXPORT,
 	}
 }
+
+function createUndoAction() {
+	return {
+		type: SlidesActions.UNDO,
+	}
+}
+
+function createRedoAction() {
+	return {
+		type: SlidesActions.REDO,
+	}
+}
+
 export {
 	createChangeOrderAction,
 	createAddSlideAction,
 	createDeleteSlideAction,
 	createAddObjectAction,
+	createStartPreviewAction,
+	createEndPreviewAction,
 	createExportToPdfAction,
+	createUndoAction,
+	createRedoAction,
 }

@@ -6,6 +6,13 @@ enum SlidesActions {
 	DELETE_SLIDE = 'DELETE_SLIDE',
 	ADD_OBJECT = 'ADD_OBJECT',
 	EXPORT = 'EXPORT',
+	UNDO = 'UNDO',
+	REDO = 'REDO',
+}
+
+enum PreviewActions {
+	START_PREVIEW = 'START_PREVIEW',
+	END_PREVIEW = 'END_PREVIEW',
 }
 
 type AddObjectAction = {
@@ -43,11 +50,31 @@ type ExportAction = {
 	}
 }
 
+type StartPreviewAction = {
+	type: PreviewActions.START_PREVIEW
+}
+
+type EndPreviewAction = {
+	type: PreviewActions.END_PREVIEW
+}
+
+type UndoAction = {
+	type: SlidesActions.UNDO
+}
+
+type RedoAction = {
+	type: SlidesActions.REDO
+}
+
 type Action =
 	| ChangeOrderAction
 	| AddSlideAction
 	| DeleteSlideAction
 	| AddObjectAction
 	| ExportAction
+	| StartPreviewAction
+	| EndPreviewAction
+	| UndoAction
+	| RedoAction
 
-export { SlidesActions, type Action }
+export { SlidesActions, PreviewActions, type Action }

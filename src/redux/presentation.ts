@@ -4,8 +4,10 @@ import { v4 as uuidv4 } from 'uuid'
 import { startEditor } from '../data/testDataMax'
 import { jsPDF } from 'jspdf'
 import { addSlides } from '../model/export'
+import { createHistory } from '../model/History'
 
 const initState = startEditor
+const history = createHistory<Presentation>(initState.presentation)
 
 function deleteSlide(state: Presentation, slideId: string): Presentation {
 	let newSlides = [...state.slides]
@@ -17,10 +19,12 @@ function deleteSlide(state: Presentation, slideId: string): Presentation {
 			...state,
 		}
 		newPresentation.slides = newSlides
+		history.addHistoryItem(newPresentation)
 		return newPresentation
 	} catch (e) {
 		alert('Can`t delete slide')
 	}
+
 	return { ...state }
 }
 
@@ -32,10 +36,12 @@ function addSlide(state: Presentation): Presentation {
 		slideObjects: [],
 	}
 	newSlides.push(slide)
-	return {
+	const newPresentation = {
 		...state,
 		slides: newSlides,
 	}
+	history.addHistoryItem(newPresentation)
+	return newPresentation
 }
 
 function addObject(
@@ -53,10 +59,12 @@ function addObject(
 		}
 		return slide
 	})
-	return {
+	const newPresentation = {
 		...state,
 		slides: newSlides,
 	}
+	history.addHistoryItem(newPresentation)
+	return newPresentation
 }
 
 async function exportSlides(state: Presentation) {
@@ -71,6 +79,23 @@ async function exportSlides(state: Presentation) {
 	await addSlides(doc, slides)
 	doc.deletePage(doc.getNumberOfPages())
 	doc.save(title)
+}
+
+function undo(state: Presentation): Presentation {
+	const prevState = history.undo()
+	console.log(prevState)
+	if (prevState) {
+		return prevState
+	}
+	return state
+}
+
+function redo(state: Presentation): Presentation {
+	const nextState = history.redo()
+	if (nextState) {
+		return nextState
+	}
+	return state
 }
 
 const presentationReducer = (state: Presentation = initState.presentation, action: Action) => {
@@ -89,6 +114,10 @@ const presentationReducer = (state: Presentation = initState.presentation, actio
 		case SlidesActions.EXPORT:
 			exportSlides(state)
 			return state
+		case SlidesActions.UNDO:
+			return undo(state)
+		case SlidesActions.REDO:
+			return redo(state)
 		default:
 			return state
 	}
