@@ -482,3 +482,18 @@ export const bottomAlignTextBtn = (
 		/>
 	</svg>
 )
+export const playerBtn = (
+	<svg
+		width="176"
+		height="198"
+		viewBox="0 0 176 198"
+		fill="none"
+		xmlns="http://www.w3.org/2000/svg"
+	>
+		<path
+			d="M1 180.536V16.8319C1 9.24439 9.11873 4.42096 15.7823 8.04953L160.47 86.8377C167.301 90.5571 167.457 100.308 160.75 104.244L16.0616 189.161C9.39517 193.073 1 188.266 1 180.536Z"
+			fill="#DEC5EC"
+			stroke="#DEC5EC"
+		/>
+	</svg>
+)

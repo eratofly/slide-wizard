@@ -4,6 +4,9 @@ import { jsPDF } from 'jspdf'
 import CanvasTextWrapper from 'canvas-text-wrapper'
 import { v4 as uuid } from 'uuid'
 
+const slideWidth = 800
+const slideHeight = 450
+
 type SlideElement = TextObject | Image | Primitive
 
 function getBase64FromPicture(src: string, crop?: Crop): Promise<string> {
@@ -136,13 +139,13 @@ async function addObjectsOnPage(doc: jsPDF, elements: Array<SlideElement>) {
 async function setBackgroundImage(doc: jsPDF, image: Image) {
 	if (image.path) {
 		const base64 = await getBase64FromPicture(image.path, image.crop)
-		doc.addImage(base64, 'jpg', 0, 0, 818, 582)
+		doc.addImage(base64, 'jpg', 0, 0, slideWidth, slideHeight)
 	}
 }
 
 function setBackgroundColor(doc: jsPDF, color: string) {
 	doc.setFillColor(color)
-	doc.rect(0, 0, 818, 582, 'F')
+	doc.rect(0, 0, slideWidth, slideHeight, 'F')
 }
 
 async function addSlides(doc: jsPDF, slides: Array<Slide>) {
@@ -157,8 +160,8 @@ async function addSlides(doc: jsPDF, slides: Array<Slide>) {
 				y: 0,
 				rotateAngle: 0,
 				objectType: ObjectType.IMAGE,
-				width: 818,
-				height: 582,
+				width: slideWidth,
+				height: slideHeight,
 				path: slide.backgroundImage,
 			}
 			await setBackgroundImage(doc, bgImage)
