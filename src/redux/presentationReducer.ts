@@ -191,7 +191,7 @@ function changeObject(
 async function exportSlides(state: Presentation) {
 	const slides = state.slides
 	const title = state.title ?? 'untitled'
-	const slideSize = [818, 582]
+	const slideSize = [1600, 900]
 	const doc = new jsPDF({
 		unit: 'px',
 		orientation: 'l',
