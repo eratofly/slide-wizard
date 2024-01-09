@@ -7,6 +7,7 @@
 
 .background {
 	position: relative;
+	overflow: hidden;
 	min-width: 830px;
 	height: 480px;
 	background-color: #cccccc;
