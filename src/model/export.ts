@@ -4,8 +4,8 @@ import { jsPDF } from 'jspdf'
 import CanvasTextWrapper from 'canvas-text-wrapper'
 import { v4 as uuid } from 'uuid'
 
-const slideWidth = 800
-const slideHeight = 450
+const slideWidth = 1600
+const slideHeight = 900
 
 type SlideElement = TextObject | Image | Primitive
 
