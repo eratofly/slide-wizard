@@ -2,14 +2,22 @@ import React from 'react'
 import Topbar from './components/topbar/Topbar'
 import { WorkingField } from './components/workingField/WorkingField'
 import styles from './App.module.css'
+import { useAppSelector } from './redux/hooks'
+import { Player } from './components/player/Player'
+import { useUndoRedoListeners } from './hooks/useUndoRedoListeners'
 
 function App() {
-	return (
+	const isPreview = useAppSelector((state) => state.preview)
+	useUndoRedoListeners()
+	const content = isPreview ? (
+		<Player />
+	) : (
 		<div className={styles.page}>
-			<Topbar />
-			<WorkingField />
+			<Topbar editor={editor} />
+			<WorkingField editor={editor} />
 		</div>
 	)
+	return ({content})
 }
 
 export default App

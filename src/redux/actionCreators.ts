@@ -1,5 +1,5 @@
-import { PresentationActions, SelectionActions } from './actions'
-import { Image, Presentation, Primitive, TextObject } from '../model/types'
+import { SlidesActions, SelectionActions, PreviewActions } from './actions'
+import { Image, Primitive, TextObject } from '../model/types'
 import React from 'react'
 
 function createImportFromJsonAction(presentation: Presentation) {
@@ -96,6 +96,18 @@ function createChangeSlideBackgroundImageAction(slideId: string, path: string) {
 	}
 }
 
+function createStartPreviewAction() {
+	return {
+		type: PreviewActions.START_PREVIEW,
+	}
+}
+
+function createEndPreviewAction() {
+	return {
+		type: PreviewActions.END_PREVIEW,
+	}
+}
+
 function createExportToPdfAction() {
 	return {
 		type: PresentationActions.EXPORT,
@@ -129,6 +141,18 @@ function createUnselectObjectAction(event?: React.MouseEvent) {
 	}
 }
 
+function createUndoAction() {
+	return {
+		type: SlidesActions.UNDO,
+	}
+}
+
+function createRedoAction() {
+	return {
+		type: SlidesActions.REDO,
+	}
+}
+
 export {
 	createImportFromJsonAction,
 	createChangeTitleAction,
@@ -140,8 +164,12 @@ export {
 	createAddObjectAction,
 	createRemoveObjectAction,
 	createChangeObjectAction,
+	createStartPreviewAction,
+	createEndPreviewAction,
 	createExportToPdfAction,
 	createSelectSlideAction,
 	createSelectObjectAction,
 	createUnselectObjectAction,
+	createUndoAction,
+	createRedoAction,
 }

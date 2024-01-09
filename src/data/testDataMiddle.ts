@@ -128,6 +128,7 @@ const commandHistory: CommandHistory = {
 }
 
 const editor: Editor = {
+	isPreview: false,
 	presentation,
 	selection,
 	commandHistory,

@@ -13,6 +13,13 @@ enum PresentationActions {
 	REMOVE_OBJECT = 'REMOVE_OBJECT',
 	CHANGE_OBJECT = 'CHANGE_OBJECT',
 	EXPORT = 'EXPORT',
+	UNDO = 'UNDO',
+	REDO = 'REDO',
+}
+
+enum PreviewActions {
+	START_PREVIEW = 'START_PREVIEW',
+	END_PREVIEW = 'END_PREVIEW',
 }
 
 enum SelectionActions {
@@ -123,6 +130,22 @@ type UnselectObjectAction = {
 	}
 }
 
+type StartPreviewAction = {
+	type: PreviewActions.START_PREVIEW
+}
+
+type EndPreviewAction = {
+	type: PreviewActions.END_PREVIEW
+}
+
+type UndoAction = {
+	type: SlidesActions.UNDO
+}
+
+type RedoAction = {
+	type: SlidesActions.REDO
+}
+
 type Action =
 	| ImportFromJsonAction
 	| ChangeTitleAction
@@ -138,5 +161,9 @@ type Action =
 	| SelectSlideAction
 	| SelectObjectAction
 	| UnselectObjectAction
+	| StartPreviewAction
+	| EndPreviewAction
+	| UndoAction
+	| RedoAction
 
-export { PresentationActions, SelectionActions, type Action }
+export { PresentationActions, SelectionActions, PreviewActions, type Action }

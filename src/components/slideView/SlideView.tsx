@@ -11,7 +11,7 @@ import { useAppActions, useAppSelector } from '../../redux/hooks'
 type SlideViewProps = {
 	index: number
 	slide: Slide
-	state: 'preview' | 'selected'
+	state: 'preview' | 'selected' | 'player'
 	registerDndItem?: RegisterDndItemFn
 }
 

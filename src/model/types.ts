@@ -82,6 +82,7 @@ type CommandHistory = {
 }
 
 type Editor = {
+	isPreview: boolean
 	presentation: Presentation
 	selection: Selection
 	commandHistory: CommandHistory
