@@ -1,6 +1,6 @@
 import { presentationReducer } from './presentationReducer'
 import { combineReducers } from 'redux'
-import { previewReducer } from './preview'
+import { previewReducer } from './previewReducer'
 import { selectionReducer } from './selectionReducer'
 
 const rootReducer = combineReducers({

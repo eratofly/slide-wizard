@@ -139,11 +139,11 @@ type EndPreviewAction = {
 }
 
 type UndoAction = {
-	type: SlidesActions.UNDO
+	type: PresentationActions.UNDO
 }
 
 type RedoAction = {
-	type: SlidesActions.REDO
+	type: PresentationActions.REDO
 }
 
 type Action =

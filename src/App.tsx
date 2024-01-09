@@ -9,15 +9,14 @@ import { useUndoRedoListeners } from './hooks/useUndoRedoListeners'
 function App() {
 	const isPreview = useAppSelector((state) => state.preview)
 	useUndoRedoListeners()
-	const content = isPreview ? (
+	return isPreview ? (
 		<Player />
 	) : (
 		<div className={styles.page}>
-			<Topbar editor={editor} />
-			<WorkingField editor={editor} />
+			<Topbar />
+			<WorkingField />
 		</div>
 	)
-	return ({content})
 }
 
 export default App

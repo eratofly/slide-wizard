@@ -4,19 +4,24 @@ import { startEditor } from '../data/testDataMax'
 import { jsPDF } from 'jspdf'
 import { addSlides } from '../model/export'
 import { getDefaultSlide } from '../model/utils'
+import { createHistory } from '../model/History'
 
 const initState = startEditor
+const history = createHistory<Presentation>(initState.presentation)
 
 function importFromJson(presentation: Presentation): Presentation {
+	history.addHistoryItem(presentation)
 	return presentation
 }
 
 function changeTitle(state: Presentation, title: string): Presentation {
 	title = title !== '' ? title : 'New Presentation'
-	return {
+	const newPresentation = {
 		...state,
 		title,
 	}
+	history.addHistoryItem(newPresentation)
+	return newPresentation
 }
 
 function deleteSlide(state: Presentation, slideId: string): Presentation {
@@ -32,6 +37,7 @@ function deleteSlide(state: Presentation, slideId: string): Presentation {
 		...state,
 	}
 	newPresentation.slides = newSlides
+	history.addHistoryItem(newPresentation)
 	return newPresentation
 }
 
@@ -52,10 +58,12 @@ function changeSlideBackgroundColor(
 		}
 		return slide
 	})
-	return {
+	const newPresentation = {
 		...state,
 		slides: newSlides,
 	}
+	history.addHistoryItem(newPresentation)
+	return newPresentation
 }
 
 function changeSlideBackgroundImage(
@@ -72,30 +80,36 @@ function changeSlideBackgroundImage(
 		}
 		return slide
 	})
-	return {
+	const newPresentation = {
 		...state,
 		slides: newSlides,
 	}
+	history.addHistoryItem(newPresentation)
+	return newPresentation
 }
 
 function addSlide(state: Presentation): Presentation {
 	const newSlides = [...state.slides]
 	const slide: Slide = getDefaultSlide()
 	newSlides.push(slide)
-	return {
+	const newPresentation = {
 		...state,
 		slides: newSlides,
 	}
+	history.addHistoryItem(newPresentation)
+	return newPresentation
 }
 
 function changeSlideOrder(state: Presentation, from: number, to: number): Presentation {
 	const newSlides = [...state.slides]
 	const removed = newSlides.splice(from, 1)
 	newSlides.splice(to, 0, removed[0])
-	return {
+	const newPresentation = {
 		...state,
 		slides: newSlides,
 	}
+	history.addHistoryItem(newPresentation)
+	return newPresentation
 }
 
 function addObject(
@@ -113,20 +127,20 @@ function addObject(
 		}
 		return slide
 	})
-	return {
+	const newPresentation = {
 		...state,
 		slides: newSlides,
 	}
+	history.addHistoryItem(newPresentation)
+	return newPresentation
 }
 
 function removeObject(state: Presentation, slideId: string, objectId: string): Presentation {
-	console.log(1)
 	const newSlides = state.slides.map((slide) => {
 		if (slide.id === slideId) {
 			const newObjects = slide.slideObjects.filter((object) => {
 				return object.id !== objectId
 			})
-			console.log(newObjects)
 			return {
 				...slide,
 				slideObjects: newObjects,
@@ -134,11 +148,12 @@ function removeObject(state: Presentation, slideId: string, objectId: string): P
 		}
 		return slide
 	})
-	console.log(newSlides)
-	return {
+	const newPresentation = {
 		...state,
 		slides: newSlides,
 	}
+	history.addHistoryItem(newPresentation)
+	return newPresentation
 }
 
 function changeObject(
@@ -165,10 +180,12 @@ function changeObject(
 		}
 		return slide
 	})
-	return {
+	const newPresentation = {
 		...state,
 		slides: newSlides,
 	}
+	history.addHistoryItem(newPresentation)
+	return newPresentation
 }
 
 async function exportSlides(state: Presentation) {
@@ -183,6 +200,22 @@ async function exportSlides(state: Presentation) {
 	await addSlides(doc, slides)
 	doc.deletePage(doc.getNumberOfPages())
 	doc.save(title)
+}
+
+function undo(state: Presentation): Presentation {
+	const prevState = history.undo()
+	if (prevState) {
+		return prevState
+	}
+	return state
+}
+
+function redo(state: Presentation): Presentation {
+	const nextState = history.redo()
+	if (nextState) {
+		return nextState
+	}
+	return state
 }
 
 const presentationReducer = (state: Presentation = initState.presentation, action: Action) => {
@@ -215,6 +248,10 @@ const presentationReducer = (state: Presentation = initState.presentation, actio
 		case PresentationActions.EXPORT:
 			exportSlides(state).then()
 			return state
+		case PresentationActions.UNDO:
+			return undo(state)
+		case PresentationActions.REDO:
+			return redo(state)
 		default:
 			return state
 	}

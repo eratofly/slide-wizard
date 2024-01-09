@@ -1,5 +1,5 @@
-import { SlidesActions, SelectionActions, PreviewActions } from './actions'
-import { Image, Primitive, TextObject } from '../model/types'
+import { PresentationActions, SelectionActions, PreviewActions } from './actions'
+import { Image, Presentation, Primitive, TextObject } from '../model/types'
 import React from 'react'
 
 function createImportFromJsonAction(presentation: Presentation) {
@@ -143,13 +143,13 @@ function createUnselectObjectAction(event?: React.MouseEvent) {
 
 function createUndoAction() {
 	return {
-		type: SlidesActions.UNDO,
+		type: PresentationActions.UNDO,
 	}
 }
 
 function createRedoAction() {
 	return {
-		type: SlidesActions.REDO,
+		type: PresentationActions.REDO,
 	}
 }
 
