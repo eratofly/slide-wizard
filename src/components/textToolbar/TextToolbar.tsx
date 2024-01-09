@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Button } from '../button/Button'
 import styles from './TextToolbar.module.css'
 import {
@@ -16,28 +16,28 @@ import {
 	middleAlignTextBtn,
 	bottomAlignTextBtn,
 } from '../button/icons'
-import { useTextObject } from '../../hooks/useTextObject'
-import { EditorContext } from '../../model/EditorContext'
 import { Image, ObjectType, Primitive, TextObject } from '../../model/types'
-// import { FigurePicker, FigurePickerItem } from '../figurePicker/FigurePicker'
-// import { useClickOutside } from '../../hooks/useOutsideClick'
+import { useAppActions, useAppSelector } from '../../redux/hooks'
+import { useTextObject } from '../../hooks/useTextObject'
 
 export function TextToolbar() {
-	const { setEditor, editor } = useContext(EditorContext)
+	const presentation = useAppSelector((state) => state.presentation)
+	const selection = useAppSelector((state) => state.selection)
+	const { createChangeObjectAction } = useAppActions()
 
 	const getSelectedSlideIndex = () => {
-		for (const key in editor.presentation.slides) {
-			if (editor.presentation.slides[key].id === editor.selection.slideId) {
+		for (const key in presentation.slides) {
+			if (presentation.slides[key].id === selection.slideId) {
 				return Number(key)
 			}
 		}
 	}
 
 	const getSelectedObjectIndex = () => {
-		for (const key in editor.presentation.slides[getSelectedSlideIndex()!].slideObjects) {
+		for (const key in presentation.slides[getSelectedSlideIndex()!].slideObjects) {
 			if (
-				editor.presentation.slides[getSelectedSlideIndex()!].slideObjects[key].id ===
-				editor.selection.objectId
+				presentation.slides[getSelectedSlideIndex()!].slideObjects[key].id ===
+				selection.objectId
 			) {
 				return Number(key)
 			}
@@ -47,13 +47,11 @@ export function TextToolbar() {
 
 	let selectedObject: TextObject | Image | Primitive
 	if (
-		editor.presentation.slides[getSelectedSlideIndex()!].slideObjects[getSelectedObjectIndex()!]
+		presentation.slides[getSelectedSlideIndex()!].slideObjects[getSelectedObjectIndex()!]
 			.objectType === ObjectType.TEXT
 	) {
 		selectedObject =
-			editor.presentation.slides[getSelectedSlideIndex()!].slideObjects[
-				getSelectedObjectIndex()!
-			]
+			presentation.slides[getSelectedSlideIndex()!].slideObjects[getSelectedObjectIndex()!]
 	}
 	const fontSize = (selectedObject! as TextObject).size
 	const fontFamily = (selectedObject! as TextObject).fontFamily
@@ -66,17 +64,8 @@ export function TextToolbar() {
 				className={styles.fonts}
 				value={fontFamily}
 				onChange={(e) => {
-					const newSlides = [...editor.presentation.slides]
-					const newObjects = [...newSlides[getSelectedSlideIndex()!].slideObjects]
-					;(newObjects[getSelectedObjectIndex()!] as TextObject).fontFamily =
-						e.target.value
-					newSlides[getSelectedSlideIndex()!].slideObjects = newObjects
-					setEditor({
-						...editor,
-						presentation: {
-							...editor.presentation,
-							slides: newSlides,
-						},
+					createChangeObjectAction(selection.slideId, selection.objectId!, {
+						fontFamily: e.target.value,
 					})
 				}}
 			>
@@ -90,16 +79,8 @@ export function TextToolbar() {
 					typeButton="icon"
 					icon={minusBtn}
 					onClick={() => {
-						const newSlides = [...editor.presentation.slides]
-						const newObjects = [...newSlides[getSelectedSlideIndex()!].slideObjects]
-						;(newObjects[getSelectedObjectIndex()!] as TextObject).size = fontSize - 1
-						newSlides[getSelectedSlideIndex()!].slideObjects = newObjects
-						setEditor({
-							...editor,
-							presentation: {
-								...editor.presentation,
-								slides: newSlides,
-							},
+						createChangeObjectAction(selection.slideId, selection.objectId!, {
+							size: fontSize - 1,
 						})
 					}}
 				/>
@@ -108,18 +89,8 @@ export function TextToolbar() {
 					type={'number'}
 					value={fontSize}
 					onChange={(e) => {
-						const newSlides = [...editor.presentation.slides]
-						const newObjects = [...newSlides[getSelectedSlideIndex()!].slideObjects]
-						;(newObjects[getSelectedObjectIndex()!] as TextObject).size = Number(
-							e.target.value,
-						)
-						newSlides[getSelectedSlideIndex()!].slideObjects = newObjects
-						setEditor({
-							...editor,
-							presentation: {
-								...editor.presentation,
-								slides: newSlides,
-							},
+						createChangeObjectAction(selection.slideId, selection.objectId!, {
+							size: e.target.value,
 						})
 					}}
 					onFocus={(e) => e.target.select()}
@@ -128,16 +99,8 @@ export function TextToolbar() {
 					typeButton="icon"
 					icon={plusBtn}
 					onClick={() => {
-						const newSlides = [...editor.presentation.slides]
-						const newObjects = [...newSlides[getSelectedSlideIndex()!].slideObjects]
-						;(newObjects[getSelectedObjectIndex()!] as TextObject).size = fontSize + 1
-						newSlides[getSelectedSlideIndex()!].slideObjects = newObjects
-						setEditor({
-							...editor,
-							presentation: {
-								...editor.presentation,
-								slides: newSlides,
-							},
+						createChangeObjectAction(selection.slideId, selection.objectId!, {
+							size: fontSize + 1,
 						})
 					}}
 				/>
@@ -147,18 +110,12 @@ export function TextToolbar() {
 					typeButton="icon"
 					icon={boldTextBtn}
 					onClick={() => {
-						const newSlides = [...editor.presentation.slides]
-						const newObjects = [...newSlides[getSelectedSlideIndex()!].slideObjects]
-						;(newObjects[getSelectedObjectIndex()!] as TextObject).bold = !(
-							newObjects[getSelectedObjectIndex()!] as TextObject
-						).bold
-						newSlides[getSelectedSlideIndex()!].slideObjects = newObjects
-						setEditor({
-							...editor,
-							presentation: {
-								...editor.presentation,
-								slides: newSlides,
-							},
+						createChangeObjectAction(selection.slideId, selection.objectId!, {
+							bold: !(
+								presentation.slides[getSelectedSlideIndex()!].slideObjects[
+									getSelectedObjectIndex()!
+								] as TextObject
+							).bold,
 						})
 					}}
 				/>
@@ -166,19 +123,12 @@ export function TextToolbar() {
 					typeButton="icon"
 					icon={italicTextBtn}
 					onClick={() => {
-						const newSlides = [...editor.presentation.slides]
-						const newObjects = [...newSlides[getSelectedSlideIndex()!].slideObjects]
-						;(newObjects[getSelectedObjectIndex()!] as TextObject).italic = !(
-							newObjects[getSelectedObjectIndex()!] as TextObject
-						).italic
-						console.log((newObjects[getSelectedObjectIndex()!] as TextObject).italic)
-						newSlides[getSelectedSlideIndex()!].slideObjects = newObjects
-						setEditor({
-							...editor,
-							presentation: {
-								...editor.presentation,
-								slides: newSlides,
-							},
+						createChangeObjectAction(selection.slideId, selection.objectId!, {
+							italic: !(
+								presentation.slides[getSelectedSlideIndex()!].slideObjects[
+									getSelectedObjectIndex()!
+								] as TextObject
+							).italic,
 						})
 					}}
 				/>
@@ -186,7 +136,6 @@ export function TextToolbar() {
 			<div className={styles.textColorBtn}>
 				<Button typeButton="icon" icon={textColorBtn} onClick={setColor} />
 				<Button typeButton="icon" icon={backgroundTextBtn} />
-				{/*<div>A</div>*/}
 			</div>
 			<div className={styles.alignmentBtn}>
 				<Button typeButton="icon" icon={leftAlignTextBtn} />

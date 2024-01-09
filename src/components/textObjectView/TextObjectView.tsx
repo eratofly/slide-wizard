@@ -1,6 +1,7 @@
 import { Color, TextObject } from '../../model/types'
 import styles from './TextObjectView.module.css'
 import React, { useRef } from 'react'
+import { useAppActions, useAppSelector } from '../../redux/hooks'
 import { EditableProperties, useDragAndDropObjects } from '../../hooks/useDragAndDropObjects'
 
 type TextObjectViewProps = {
@@ -10,6 +11,16 @@ type TextObjectViewProps = {
 }
 
 function TextObjectView(props: TextObjectViewProps) {
+	const selection = useAppSelector((state) => state.selection)
+	const { createChangeObjectAction } = useAppActions()
+
+	const dragAndDropRef = useRef<HTMLDivElement>(null)
+	const { dragAndDrop } = useDragAndDropObjects(dragAndDropRef, [
+		EditableProperties.X,
+		EditableProperties.Y,
+	])
+	dragAndDrop()
+
 	const { textObject, slideWidth, onClick } = props
 	const maxElementX = 1600
 	const maxElementY = 900
@@ -25,19 +36,11 @@ function TextObjectView(props: TextObjectViewProps) {
 		return `rgba(${r}, ${g}, ${b}, ${color.opacity})`
 	}
 
-	const dndRef = useRef<HTMLTextAreaElement>(null)
-	const { dragAndDrop } = useDragAndDropObjects(dndRef, [
-		EditableProperties.X,
-		EditableProperties.Y,
-	])
-	dragAndDrop()
-
 	return (
-		<textarea
-			ref={dndRef}
-			className={styles.textObject}
+		<div
+			ref={dragAndDropRef}
+			className={styles.wrapper}
 			onClick={onClick}
-			content={'editable'}
 			style={{
 				width: `${textObject.width * xRelation}%`,
 				height: `${textObject.height * yRelation}%`,
@@ -49,15 +52,28 @@ function TextObjectView(props: TextObjectViewProps) {
 								(slideWidth * textObject.border.width) / maxElementX
 						  }px solid ${getRgbaFromColor(textObject.border.color)}`
 						: 'none',
-				fontFamily: textObject.fontFamily,
-				fontSize: `${(slideWidth * textObject.size * fontSizeRelation) / maxElementY}px`,
-				fontWeight: `${textObject.bold ? 'bold' : 'normal'}`,
-				fontStyle: `${textObject.italic ? 'italic' : 'normal'}`,
-				color: `${getRgbaFromColor(textObject.color)}`,
 			}}
 		>
-			{textObject.value}
-		</textarea>
+			<textarea
+				style={{
+					fontFamily: textObject.fontFamily,
+					fontSize: `${
+						(slideWidth * textObject.size * fontSizeRelation) / maxElementY
+					}px`,
+					fontWeight: `${textObject.bold ? 'bold' : 'normal'}`,
+					fontStyle: `${textObject.italic ? 'italic' : 'normal'}`,
+					color: `${getRgbaFromColor(textObject.color)}`,
+				}}
+				className={styles.textObject}
+				onChange={(e) =>
+					createChangeObjectAction(selection.slideId, selection.objectId!, {
+						value: e.target.value,
+					})
+				}
+			>
+				{textObject.value}
+			</textarea>
+		</div>
 	)
 }
 

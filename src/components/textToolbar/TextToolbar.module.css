@@ -1,55 +1,54 @@
 .toolbar {
-    display: flex;
-    align-items: center;
-    /*margin: 30px 0 30px 20px;*/
-    margin-left: 25px;
-    gap: 10px;
+	display: flex;
+	align-items: center;
+	/*margin: 30px 0 30px 20px;*/
+	margin-left: 25px;
+	gap: 10px;
 }
 
 .fonts {
-    background-color: #f8ebff;
-    border-radius: 5px;
-    height: 30px;
-    border-width: 2px;
-    border-color: black;
-    margin-left: 10px;
-    cursor: pointer;
+	background-color: #f8ebff;
+	border-radius: 5px;
+	height: 30px;
+	border-width: 2px;
+	border-color: black;
+	margin-left: 10px;
+	cursor: pointer;
 }
 
 .font {
-    cursor: pointer;
-
+	cursor: pointer;
 }
 
 .minusPlusBtn {
-    display: flex;
-    margin-right: 10px;
+	display: flex;
+	margin-right: 10px;
 }
 
 .textSize {
-    width: 30px;
-    background-color: #f8ebff;
-    border-radius: 5px;
-    border-color: black;
+	width: 30px;
+	background-color: #f8ebff;
+	border-radius: 5px;
+	border-color: black;
 }
 
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+	-webkit-appearance: none;
+	margin: 0;
 }
 
 .boldItalicBtn {
-    display: flex;
-    gap: 5px;
+	display: flex;
+	gap: 5px;
 }
 
 .textColorBtn {
-    display: flex;
-    gap: 5px;
+	display: flex;
+	gap: 5px;
 }
 
 .alignmentBtn {
-    display: flex;
-    gap: 5px;
+	display: flex;
+	gap: 5px;
 }

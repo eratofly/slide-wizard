@@ -1,5 +1,5 @@
-import { RefObject, useCallback, useContext, useEffect } from 'react'
-import { EditorContext } from '../model/EditorContext'
+import { RefObject, useCallback, useEffect } from 'react'
+import { useAppActions, useAppSelector } from '../redux/hooks'
 
 enum EditableProperties {
 	X,
@@ -14,23 +14,22 @@ function useDragAndDropObjects(
 	draggedItem: RefObject<HTMLDivElement | HTMLTextAreaElement | HTMLImageElement | SVGSVGElement>,
 	editableProperties: EditableProperties[],
 ) {
-	const { editor, setEditor } = useContext(EditorContext)
+	const slides = useAppSelector((state) => state.presentation.slides)
+	const selection = useAppSelector((state) => state.selection)
+	const { createChangeObjectAction } = useAppActions()
 
 	const dragAndDrop = useCallback(() => {
 		const getSelectedSlideIndex = () => {
-			for (const key in editor.presentation.slides) {
-				if (editor.presentation.slides[key].id === editor.selection.slideId) {
+			for (const key in slides) {
+				if (slides[key].id === selection.slideId) {
 					return Number(key)
 				}
 			}
 		}
 
 		const getSelectedObjectIndex = () => {
-			for (const key in editor.presentation.slides[getSelectedSlideIndex()!].slideObjects) {
-				if (
-					editor.presentation.slides[getSelectedSlideIndex()!].slideObjects[key].id ===
-					editor.selection.objectId
-				) {
+			for (const key in slides[getSelectedSlideIndex()!].slideObjects) {
+				if (slides[getSelectedSlideIndex()!].slideObjects[key].id === selection.objectId) {
 					return Number(key)
 				}
 			}
@@ -42,10 +41,7 @@ function useDragAndDropObjects(
 			y: 0,
 		}
 
-		const newItem =
-			editor.presentation.slides[getSelectedSlideIndex()!].slideObjects[
-				getSelectedObjectIndex()!
-			]
+		const newItem = slides[getSelectedSlideIndex()!].slideObjects[getSelectedObjectIndex()!]
 
 		const startResize = (event: MouseEvent) => {
 			event.preventDefault()
@@ -80,19 +76,11 @@ function useDragAndDropObjects(
 			mouseState.y = event.pageY
 			mouseState.x = event.pageX
 
-			const newObjects = [
-				...editor.presentation.slides[getSelectedSlideIndex()!].slideObjects,
-			]
-			const newSlides = [...editor.presentation.slides]
-			newObjects[getSelectedObjectIndex()!] = newItem
-			newSlides[getSelectedSlideIndex()!].slideObjects = newObjects
-
-			setEditor({
-				...editor,
-				presentation: {
-					...editor.presentation,
-					slides: newSlides,
-				},
+			createChangeObjectAction(selection.slideId, selection.objectId!, {
+				x: newItem!.x,
+				y: newItem!.y,
+				width: newItem!.width,
+				height: newItem!.height,
 			})
 		}
 
@@ -114,7 +102,7 @@ function useDragAndDropObjects(
 				}
 			}
 		})
-	}, [editor.selection])
+	}, [selection])
 
 	return {
 		dragAndDrop,

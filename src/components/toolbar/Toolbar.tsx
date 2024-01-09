@@ -1,21 +1,20 @@
 import React from 'react'
 import styles from './Toolbar.module.css'
-import { Editor, ObjectType } from '../../model/types'
+import { ObjectType } from '../../model/types'
 import { BaseToolbar } from '../baseToolbar/BaseToolbar'
 import { PrimitiveToolbar } from '../primitiveToolbar/PrimitiveToolbar'
 import { ImageToolbar } from '../imageToolbar/ImageToolbar'
-// import { TextToolbar } from '../textToolbar/TextToolbar'
 import { TextToolbar } from '../textToolbar/TextToolbar'
+import { useAppSelector } from '../../redux/hooks'
 
-type ToolbarProps = {
-	editor: Editor
-}
+export function Toolbar() {
+	const presentation = useAppSelector((state) => state.presentation)
+	const selection = useAppSelector((state) => state.selection)
 
-export function Toolbar(props: ToolbarProps) {
 	function getSelectedObjectType() {
-		const selectedObjectId = props.editor.selection.objectId
-		for (const slide of props.editor.presentation.slides) {
-			if (slide.id === props.editor.selection.slideId) {
+		const selectedObjectId = selection.objectId
+		for (const slide of presentation.slides) {
+			if (slide.id === selection.slideId) {
 				for (const object of slide.slideObjects) {
 					if (object.id === selectedObjectId) {
 						return object
@@ -30,7 +29,7 @@ export function Toolbar(props: ToolbarProps) {
 
 	return (
 		<div className={styles.toolbar}>
-			<BaseToolbar slideId={props.editor.selection.slideId} />
+			<BaseToolbar />
 			{selectedObject?.objectType === ObjectType.PRIMITIVE && <PrimitiveToolbar />}
 			{selectedObject?.objectType === ObjectType.IMAGE && <ImageToolbar />}
 			{selectedObject?.objectType === ObjectType.TEXT && <TextToolbar />}

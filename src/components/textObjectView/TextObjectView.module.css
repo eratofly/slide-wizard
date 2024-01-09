@@ -1,6 +1,13 @@
-.textObject {
-	user-select: text;
+.wrapper {
+	box-sizing: border-box;
 	position: absolute;
+	padding: 4px;
+}
+
+.textObject {
+	width: 100%;
+	height: 100%;
+	user-select: text;
 	display: flex;
 	flex-flow: row wrap;
 	align-items: baseline;
@@ -13,5 +20,3 @@
 	margin: 0;
 	padding: 0;
 }
-
-

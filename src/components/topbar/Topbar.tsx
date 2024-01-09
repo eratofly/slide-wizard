@@ -4,18 +4,13 @@ import { Button } from '../button/Button'
 import { PresentationTitle } from '../presentationTitle/PresentationTitle'
 import { Toolbar } from '../toolbar/Toolbar'
 import logo from '../../content/logo.svg'
-import { Editor } from '../../model/types'
 import { useEditorImportExport } from '../../hooks/useEditorImportExport'
-import { useAppActions } from '../../redux/hooks'
+import { useAppActions, useAppSelector } from '../../redux/hooks'
 
-type TopbarProps = {
-	editor: Editor
-}
-
-function Topbar(props: TopbarProps) {
-	const { editor } = props
+function Topbar() {
 	const { /*exportToJson,*/ importFromJson } = useEditorImportExport()
 	const { createExportToPdfAction } = useAppActions()
+	const title = useAppSelector((state) => state.presentation.title)
 
 	return (
 		<div className={styles.topbar}>
@@ -28,10 +23,10 @@ function Topbar(props: TopbarProps) {
 					/>
 					<Button text="File Import" typeButton="main" onClick={importFromJson} />
 				</div>
-				<PresentationTitle presentationName={editor.presentation.title} />
+				<PresentationTitle presentationName={title} />
 				<img className={styles.logo} src={logo} alt="Logo" />
 			</div>
-			<Toolbar editor={props.editor} />
+			<Toolbar />
 		</div>
 	)
 }

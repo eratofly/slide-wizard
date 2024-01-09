@@ -1,46 +1,57 @@
-import React, { useRef, useState, useContext } from 'react'
+import React, { useRef, useState } from 'react'
 import { Button } from '../button/Button'
 import styles from './BaseToolbar.module.css'
 import { newSlideBtn, deleteSlideBtn, undoBtn, redoBtn } from '../button/icons'
-import { EditorContext } from '../../model/EditorContext'
 import { FigurePicker, FigurePickerItem } from '../figurePicker/FigurePicker'
 import { BackgroundPicker, BackgroundPickerItem } from '../backgroundPicker/BackgroundPicker'
 import { RectIcon } from './res/RectIcon'
 import { EllipseIcon } from './res/EllipseIcon'
 import { TriangleIcon } from './res/TriangleIcon'
 import { useClickOutside } from '../../hooks/useOutsideClick'
-import { useAppActions } from '../../redux/hooks'
-import { circle, rect, triangle, defaultImage, defaultText } from '../../data/testDataMax'
+import { useAppActions, useAppSelector } from '../../redux/hooks'
 import { useSlides } from '../../hooks/useSlides'
-import { v4 as uuidv4 } from 'uuid'
+import {
+	getDefaultEllipse,
+	getDefaultImage,
+	getDefaultRectangle,
+	getDefaultText,
+	getDefaultTriangle,
+} from '../../model/utils'
 
-type EditorViewProps = {
-	slideId: string
-}
+export function BaseToolbar() {
+	const { createAddObjectAction, createSelectSlideAction } = useAppActions()
+	const selection = useAppSelector((state) => state.selection)
+	const slides = useAppSelector((state) => state.presentation.slides)
 
-export function BaseToolbar(props: EditorViewProps) {
-	const { slideId } = props
-	const { createAddObjectAction } = useAppActions()
+	function getSelectedSlideIndex() {
+		for (const index in slides) {
+			if (slides[index].id === selection.slideId) {
+				return Number(index)
+			}
+		}
+		return 0
+	}
+
 	const figurePickerItems: FigurePickerItem[] = [
 		{
 			id: 'rect',
 			icon: <RectIcon />,
 			onClick: () => {
-				createAddObjectAction(slideId, { ...rect, id: uuidv4() })
+				createAddObjectAction(selection.slideId, getDefaultRectangle())
 			},
 		},
 		{
 			id: 'ellipse',
 			icon: <EllipseIcon />,
 			onClick: () => {
-				createAddObjectAction(slideId, { ...circle, id: uuidv4() })
+				createAddObjectAction(selection.slideId, getDefaultEllipse())
 			},
 		},
 		{
 			id: 'triangle',
 			icon: <TriangleIcon />,
 			onClick: () => {
-				createAddObjectAction(slideId, { ...triangle, id: uuidv4() })
+				createAddObjectAction(selection.slideId, getDefaultTriangle())
 			},
 		},
 	]
@@ -73,7 +84,6 @@ export function BaseToolbar(props: EditorViewProps) {
 
 	const { createDeleteSlideAction, createAddSlideAction } = useAppActions()
 
-	const { editor } = useContext(EditorContext)
 	return (
 		<div className={styles.baseToolbar}>
 			<div className={styles.addDeleteBtn}>
@@ -82,7 +92,15 @@ export function BaseToolbar(props: EditorViewProps) {
 					typeButton="icon"
 					icon={deleteSlideBtn}
 					onClick={() => {
-						createDeleteSlideAction(editor.selection.slideId)
+						createDeleteSlideAction(selection.slideId)
+						if (slides.length > 1) {
+							const slideIndex = getSelectedSlideIndex()
+							createSelectSlideAction(
+								slideIndex === 0
+									? slides[slideIndex + 1].id
+									: slides[slideIndex - 1].id,
+							)
+						}
 					}}
 				/>
 			</div>
@@ -95,7 +113,7 @@ export function BaseToolbar(props: EditorViewProps) {
 					text="Text"
 					typeButton="default"
 					onClick={() => {
-						createAddObjectAction(slideId, { ...defaultText, id: uuidv4() })
+						createAddObjectAction(selection.slideId, getDefaultText())
 					}}
 				/>
 				<Button
@@ -114,11 +132,10 @@ export function BaseToolbar(props: EditorViewProps) {
 							fileReader.readAsDataURL(input.files[0])
 							fileReader.onloadend = (event) => {
 								if (event.target && typeof event.target.result === 'string') {
-									createAddObjectAction(slideId, {
-										...defaultImage,
-										id: uuidv4(),
-										path: event.target.result,
-									})
+									createAddObjectAction(
+										selection.slideId,
+										getDefaultImage(event.target.result),
+									)
 								}
 							}
 						}

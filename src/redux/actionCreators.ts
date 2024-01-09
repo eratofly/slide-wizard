@@ -1,9 +1,19 @@
-import { SlidesActions } from './actions'
+import { PresentationActions, SelectionActions } from './actions'
 import { Image, Primitive, TextObject } from '../model/types'
+import React from 'react'
+
+function createChangeTitleAction(title: string) {
+	return {
+		type: PresentationActions.CHANGE_TITLE,
+		payload: {
+			title,
+		},
+	}
+}
 
 function createAddObjectAction(slideId: string, object: TextObject | Image | Primitive) {
 	return {
-		type: SlidesActions.ADD_OBJECT,
+		type: PresentationActions.ADD_OBJECT,
 		payload: {
 			slideId,
 			object,
@@ -11,9 +21,30 @@ function createAddObjectAction(slideId: string, object: TextObject | Image | Pri
 	}
 }
 
+function createRemoveObjectAction(slideId: string, objectId: string) {
+	return {
+		type: PresentationActions.REMOVE_OBJECT,
+		payload: {
+			slideId,
+			objectId,
+		},
+	}
+}
+
+function createChangeObjectAction(slideId: string, objectId: string, changeProps: object) {
+	return {
+		type: PresentationActions.CHANGE_OBJECT,
+		payload: {
+			slideId,
+			objectId,
+			changeProps,
+		},
+	}
+}
+
 function createChangeOrderAction(from: number, to: number) {
 	return {
-		type: SlidesActions.CHANGE_ORDER,
+		type: PresentationActions.CHANGE_ORDER,
 		payload: {
 			from,
 			to,
@@ -23,28 +54,84 @@ function createChangeOrderAction(from: number, to: number) {
 
 function createAddSlideAction() {
 	return {
-		type: SlidesActions.ADD_SLIDE,
+		type: PresentationActions.ADD_SLIDE,
 	}
 }
 
 function createDeleteSlideAction(slideId: string) {
 	return {
-		type: SlidesActions.DELETE_SLIDE,
+		type: PresentationActions.DELETE_SLIDE,
 		payload: {
 			slideId,
 		},
 	}
 }
 
-function createExportToPdfAction() {
+function createChangeSlideBackgroundColorAction(slideId: string, color: string) {
 	return {
-		type: SlidesActions.EXPORT,
+		type: PresentationActions.CHANGE_SLIDE_BACKGROUND_COLOR,
+		payload: {
+			slideId,
+			color,
+		},
 	}
 }
+
+function createChangeSlideBackgroundImageAction(slideId: string, path: string) {
+	return {
+		type: PresentationActions.CHANGE_SLIDE_BACKGROUND_IMAGE,
+		payload: {
+			slideId,
+			path,
+		},
+	}
+}
+
+function createExportToPdfAction() {
+	return {
+		type: PresentationActions.EXPORT,
+	}
+}
+
+function createSelectSlideAction(slideId: string) {
+	return {
+		type: SelectionActions.SELECT_SLIDE,
+		payload: {
+			slideId,
+		},
+	}
+}
+
+function createSelectObjectAction(objectId: string) {
+	return {
+		type: SelectionActions.SELECT_OBJECT,
+		payload: {
+			objectId,
+		},
+	}
+}
+
+function createUnselectObjectAction(event?: React.MouseEvent) {
+	return {
+		type: SelectionActions.UNSELECT_OBJECT,
+		payload: {
+			event,
+		},
+	}
+}
+
 export {
+	createChangeTitleAction,
 	createChangeOrderAction,
 	createAddSlideAction,
 	createDeleteSlideAction,
+	createChangeSlideBackgroundColorAction,
+	createChangeSlideBackgroundImageAction,
 	createAddObjectAction,
+	createRemoveObjectAction,
+	createChangeObjectAction,
 	createExportToPdfAction,
+	createSelectSlideAction,
+	createSelectObjectAction,
+	createUnselectObjectAction,
 }

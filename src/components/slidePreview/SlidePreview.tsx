@@ -1,21 +1,14 @@
-import React, { useContext, useRef } from 'react'
-import { Selection, Slide } from '../../model/types'
+import React, { useRef } from 'react'
 import { SlideView } from '../slideView/SlideView'
 import styles from './SlidePreview.module.css'
 import { useDndSlides } from '../../hooks/useDndSlides'
-import { EditorContext } from '../../model/EditorContext'
-import { useAppSelector } from '../../redux/hooks'
+import { useAppActions, useAppSelector } from '../../redux/hooks'
 
-type SlidesPreviewProps = {
-	slides: Array<Slide>
-	selection: Selection
-}
-
-function SlidesPreview(props: SlidesPreviewProps) {
+function SlidesPreview() {
 	const presentation = useAppSelector((state) => state.presentation)
+	const selection = useAppSelector((state) => state.selection)
+	const { createChangeOrderAction } = useAppActions()
 	const slides = presentation.slides
-	const { selection } = props
-	const { editor, setEditor } = useContext(EditorContext)
 	const ref = useRef<HTMLDivElement>(null)
 
 	const getSlideIndex = (id: string) => {
@@ -29,17 +22,7 @@ function SlidesPreview(props: SlidesPreviewProps) {
 
 	const { registerDndItem } = useDndSlides({
 		onOrderChange: (from, to) => {
-			const newSlides = [...slides]
-			const removed = newSlides.splice(from, 1)
-			newSlides.splice(to, 0, removed[0])
-			const newEditor = {
-				...editor,
-				presentation: {
-					...editor.presentation,
-					slides: newSlides,
-				},
-			}
-			setEditor(newEditor)
+			createChangeOrderAction(from, to)
 		},
 	})
 
@@ -56,7 +39,6 @@ function SlidesPreview(props: SlidesPreviewProps) {
 						index={getSlideIndex(slide.id)}
 						slide={slide}
 						state={'preview'}
-						selectedObjectId={editor.selection.objectId}
 						registerDndItem={registerDndItem}
 					/>
 				</div>

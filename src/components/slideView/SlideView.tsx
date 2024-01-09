@@ -1,27 +1,29 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Color, ObjectType, Slide } from '../../model/types'
 import styles from './SlideView.module.css'
 import { TextObjectView } from '../textObjectView/TextObjectView'
 import { PrimitiveObjectView } from '../primitiveObjectView/PrimitiveObjectView'
 import { ImageObjectView } from '../imageObjectView/ImageObjectView'
-import { useSlides } from '../../hooks/useSlides'
 import { RegisterDndItemFn } from '../../hooks/useDndSlides'
-import { useSlideObjects } from '../../hooks/useSlideObjects'
 import { SelectionFrame } from '../selectionFrame/SelectionFrame'
-import { EditorContext } from '../../model/EditorContext'
+import { useAppActions, useAppSelector } from '../../redux/hooks'
 
 type SlideViewProps = {
 	index: number
 	slide: Slide
 	state: 'preview' | 'selected'
 	registerDndItem?: RegisterDndItemFn
-	selectedObjectId?: string
 }
 
 function SlideView(props: SlideViewProps) {
-	const { index, slide, state, selectedObjectId, registerDndItem } = props
-	const { selectObject, unselectObject, removeObject } = useSlideObjects()
-	const { editor } = useContext(EditorContext)
+	const { index, slide, state, registerDndItem } = props
+	const selection = useAppSelector((state) => state.selection)
+	const {
+		createSelectSlideAction,
+		createSelectObjectAction,
+		createUnselectObjectAction,
+		createRemoveObjectAction,
+	} = useAppActions()
 	const slideRef = useRef<HTMLDivElement>(null)
 	const [slideWidth, setSlideWidth] = useState(0)
 	const [slideHeight, setSlideHeight] = useState(0)
@@ -40,7 +42,7 @@ function SlideView(props: SlideViewProps) {
 
 	function getSelectedObject() {
 		for (const object of slide.slideObjects) {
-			if (object.id === selectedObjectId) {
+			if (object.id === selection.objectId) {
 				return object
 			}
 		}
@@ -56,14 +58,15 @@ function SlideView(props: SlideViewProps) {
 
 	useEffect(() => {
 		const handleKeyPress = (e: KeyboardEvent) => {
-			if (editor.selection.objectId && e.key === 'Enter') {
-				removeObject(editor.selection.objectId)
+			if (selection.objectId && e.key === 'Delete') {
+				createUnselectObjectAction()
+				createRemoveObjectAction(selection.slideId, selection.objectId)
 			}
 		}
 
 		document.addEventListener('keypress', handleKeyPress)
 		return () => document.removeEventListener('keypress', handleKeyPress)
-	}, [editor.selection])
+	}, [selection])
 
 	const listSlideObjects = slide.slideObjects.map((slideObject) => {
 		let object
@@ -74,7 +77,11 @@ function SlideView(props: SlideViewProps) {
 					key={slideObject.id}
 					textObject={slideObject}
 					slideWidth={slideWidth}
-					onClick={state === 'selected' ? () => selectObject(slideObject.id) : () => {}}
+					onClick={
+						state === 'selected'
+							? () => createSelectObjectAction(slideObject.id)
+							: () => {}
+					}
 				/>
 			)
 		} else if (slideObject.objectType === ObjectType.IMAGE) {
@@ -84,7 +91,11 @@ function SlideView(props: SlideViewProps) {
 					image={slideObject}
 					slideWidth={slideWidth}
 					slideHeight={slideHeight}
-					onClick={state === 'selected' ? () => selectObject(slideObject.id) : () => {}}
+					onClick={
+						state === 'selected'
+							? () => createSelectObjectAction(slideObject.id)
+							: () => {}
+					}
 				/>
 			)
 		} else if (slideObject.objectType === ObjectType.PRIMITIVE) {
@@ -93,7 +104,11 @@ function SlideView(props: SlideViewProps) {
 					key={slideObject.id}
 					primitive={slideObject}
 					slideWidth={slideWidth}
-					onClick={state === 'selected' ? () => selectObject(slideObject.id) : () => {}}
+					onClick={
+						state === 'selected'
+							? () => createSelectObjectAction(slideObject.id)
+							: () => {}
+					}
 				/>
 			)
 		}
@@ -102,8 +117,6 @@ function SlideView(props: SlideViewProps) {
 	})
 
 	const selectedObject = getSelectedObject()
-
-	const { selectSlide } = useSlides()
 
 	if (registerDndItem) {
 		useEffect(() => {
@@ -146,8 +159,10 @@ function SlideView(props: SlideViewProps) {
 			}}
 			onClick={
 				state === 'preview'
-					? () => selectSlide(slide.id)
-					: (event: React.MouseEvent) => unselectObject(event)
+					? () => {
+							createSelectSlideAction(slide.id)
+					  }
+					: (event: React.MouseEvent) => createUnselectObjectAction(event)
 			}
 			ref={slideRef}
 		>
