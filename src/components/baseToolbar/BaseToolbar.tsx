@@ -1,7 +1,7 @@
 import React, { useRef, useState } from 'react'
 import { Button } from '../button/Button'
 import styles from './BaseToolbar.module.css'
-import { newSlideBtn, deleteSlideBtn, undoBtn, redoBtn } from '../button/icons'
+import { newSlideBtn, deleteSlideBtn } from '../button/icons'
 import { FigurePicker, FigurePickerItem } from '../figurePicker/FigurePicker'
 import { BackgroundPicker, BackgroundPickerItem } from '../backgroundPicker/BackgroundPicker'
 import { RectIcon } from './res/RectIcon'
@@ -103,10 +103,6 @@ export function BaseToolbar() {
 						}
 					}}
 				/>
-			</div>
-			<div className={styles.undoRedoBtn}>
-				<Button typeButton="icon" icon={undoBtn} />
-				<Button typeButton="icon" icon={redoBtn} />
 			</div>
 			<div className={styles.redactorBtn}>
 				<Button

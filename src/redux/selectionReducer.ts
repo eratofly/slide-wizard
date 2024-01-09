@@ -1,6 +1,6 @@
 import { Action, SelectionActions } from './actions'
 import { Selection } from '../model/types'
-import { startEditor } from '../data/testDataMax'
+import { startEditor } from '../data/testDataMin'
 import React from 'react'
 
 const initState = startEditor

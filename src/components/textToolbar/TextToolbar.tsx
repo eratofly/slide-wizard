@@ -11,10 +11,6 @@ import {
 	textColorBtn,
 	boldTextBtn,
 	italicTextBtn,
-	backgroundTextBtn,
-	topAlignTextBtn,
-	middleAlignTextBtn,
-	bottomAlignTextBtn,
 } from '../button/icons'
 import { Image, ObjectType, Primitive, TextObject } from '../../model/types'
 import { useAppActions, useAppSelector } from '../../redux/hooks'
@@ -135,16 +131,12 @@ export function TextToolbar() {
 			</div>
 			<div className={styles.textColorBtn}>
 				<Button typeButton="icon" icon={textColorBtn} onClick={setColor} />
-				<Button typeButton="icon" icon={backgroundTextBtn} />
 			</div>
 			<div className={styles.alignmentBtn}>
 				<Button typeButton="icon" icon={leftAlignTextBtn} />
 				<Button typeButton="icon" icon={centerAlignTextBtn} />
 				<Button typeButton="icon" icon={rightAlignTextBtn} />
 				<Button typeButton="icon" icon={justifyAlignTextBtn} />
-				<Button typeButton="icon" icon={topAlignTextBtn} />
-				<Button typeButton="icon" icon={middleAlignTextBtn} />
-				<Button typeButton="icon" icon={bottomAlignTextBtn} />
 			</div>
 		</div>
 	)
