@@ -5,7 +5,6 @@ import {
 	cropImageBtn,
 	borderColorBtn,
 	borderThicknessBtn,
-	changeSizeBtn,
 	upperAlignBtn,
 	centerAlignBtn,
 	bottomAlignBtn,
@@ -20,9 +19,6 @@ export function ImageToolbar() {
 			<div className={styles.colorThicknessBtn}>
 				<Button typeButton="icon" icon={borderColorBtn} />
 				<Button typeButton="icon" icon={borderThicknessBtn} />
-			</div>
-			<div className={styles.changingSizeBtn}>
-				<Button typeButton="icon" icon={changeSizeBtn} />
 			</div>
 			<div className={styles.alignmentBtn}>
 				<Button typeButton="icon" icon={upperAlignBtn} />

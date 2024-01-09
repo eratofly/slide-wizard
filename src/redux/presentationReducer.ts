@@ -1,6 +1,6 @@
 import { Action, PresentationActions } from './actions'
 import { Image, Presentation, Primitive, Slide, TextObject } from '../model/types'
-import { startEditor } from '../data/testDataMax'
+import { startEditor } from '../data/testDataMin'
 import { jsPDF } from 'jspdf'
 import { addSlides } from '../model/export'
 import { getDefaultSlide } from '../model/utils'

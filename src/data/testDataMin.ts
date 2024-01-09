@@ -9,7 +9,7 @@ import {
 } from '../model/types'
 
 const bgcSlide1: Color = {
-	hex: '#000000',
+	hex: '#ffffff',
 	opacity: 0,
 }
 
