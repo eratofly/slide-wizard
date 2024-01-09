@@ -1,6 +1,15 @@
 import { PresentationActions, SelectionActions } from './actions'
-import { Image, Primitive, TextObject } from '../model/types'
+import { Image, Presentation, Primitive, TextObject } from '../model/types'
 import React from 'react'
+
+function createImportFromJsonAction(presentation: Presentation) {
+	return {
+		type: PresentationActions.IMPORT_FROM_JSON,
+		payload: {
+			presentation,
+		},
+	}
+}
 
 function createChangeTitleAction(title: string) {
 	return {
@@ -121,6 +130,7 @@ function createUnselectObjectAction(event?: React.MouseEvent) {
 }
 
 export {
+	createImportFromJsonAction,
 	createChangeTitleAction,
 	createChangeOrderAction,
 	createAddSlideAction,

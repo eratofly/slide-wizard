@@ -12,7 +12,7 @@ import { playerBtn } from '../button/icons'
 
 function Topbar() {
 	const title = useAppSelector((state) => state.presentation.title)
-	const { /*exportToJson,*/ importFromJson } = useEditorImportExport()
+	const { exportToJson, importFromJson } = useEditorImportExport()
 	const { createExportToPdfAction } = useAppActions()
 	const [savePickerOpened, setSavePickerOpened] = useState(false)
 	const savePickerRef = useRef(null)
@@ -22,7 +22,7 @@ function Topbar() {
 			id: 'JSON',
 			text: 'JSON',
 			onClick: () => {
-				importFromJson()
+				exportToJson()
 			},
 		},
 		{
@@ -56,7 +56,7 @@ function Topbar() {
 						{savePickerOpened && <SavePicker items={savePickerItems} />}
 					</div>
 				</div>
-				<PresentationTitle presentationName={title} />
+				<PresentationTitle presentationName={title!} />
 				<Button typeButton="icon" icon={playerBtn} />
 				<img className={styles.logo} src={logo} alt="Logo" />
 			</div>

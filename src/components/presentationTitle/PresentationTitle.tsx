@@ -3,17 +3,17 @@ import styles from './PresentationTitle.module.css'
 import { useAppActions } from '../../redux/hooks'
 
 type PresentationTitleProps = {
-	presentationName?: string
+	presentationName: string
 }
 
 export function PresentationTitle(props: PresentationTitleProps) {
 	const { createChangeTitleAction } = useAppActions()
-	const { presentationName = 'New Presentation' } = props
+	const { presentationName } = props
 	return (
 		<input
 			type="text"
 			className={`${styles.title} ${styles.title_default}`}
-			defaultValue={presentationName}
+			value={presentationName}
 			onChange={(e) => createChangeTitleAction(e.target.value)}
 		/>
 	)

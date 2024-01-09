@@ -7,7 +7,12 @@ import { getDefaultSlide } from '../model/utils'
 
 const initState = startEditor
 
+function importFromJson(presentation: Presentation): Presentation {
+	return presentation
+}
+
 function changeTitle(state: Presentation, title: string): Presentation {
+	title = title !== '' ? title : 'New Presentation'
 	return {
 		...state,
 		title,
@@ -182,6 +187,8 @@ async function exportSlides(state: Presentation) {
 
 const presentationReducer = (state: Presentation = initState.presentation, action: Action) => {
 	switch (action.type) {
+		case PresentationActions.IMPORT_FROM_JSON:
+			return importFromJson(action.payload.presentation)
 		case PresentationActions.CHANGE_TITLE:
 			return changeTitle(state, action.payload.title)
 		case PresentationActions.CHANGE_ORDER:

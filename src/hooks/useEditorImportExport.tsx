@@ -1,11 +1,13 @@
-import { useContext, useCallback } from 'react'
-import { EditorContext } from '../model/EditorContext'
+import { useCallback } from 'react'
+import { useAppActions, useAppSelector } from '../redux/hooks'
 
 function useEditorImportExport(): {
 	exportToJson: () => void
 	importFromJson: () => void
 } {
-	const { editor, setEditor } = useContext(EditorContext)
+	const presentation = useAppSelector((state) => state.presentation)
+	const { createImportFromJsonAction, createSelectSlideAction } = useAppActions()
+
 	const importFromJson = useCallback(() => {
 		const input = document.createElement('input')
 		input.type = 'file'
@@ -22,7 +24,9 @@ function useEditorImportExport(): {
 				}
 				if (typeof event.target.result === 'string') {
 					try {
-						setEditor(JSON.parse(event.target.result))
+						const newPresentation = JSON.parse(event.target.result)
+						createImportFromJsonAction(newPresentation)
+						createSelectSlideAction(newPresentation.slides[0].id)
 					} catch {
 						alert('Presentation is not valid')
 					}
@@ -32,11 +36,11 @@ function useEditorImportExport(): {
 		document.body.appendChild(input)
 		input.click()
 		input.remove()
-	}, [setEditor])
+	}, [createImportFromJsonAction])
 
 	const exportToJson = useCallback(() => {
-		const text = JSON.stringify(editor, null, 2)
-		const name = `${editor.presentation.title}.sw`
+		const text = JSON.stringify(presentation, null, 2)
+		const name = `${presentation.title}.sw`
 		const type = 'text/json'
 
 		const a = document.createElement('a')
@@ -46,7 +50,7 @@ function useEditorImportExport(): {
 		document.body.appendChild(a)
 		a.click()
 		a.remove()
-	}, [editor])
+	}, [presentation])
 
 	return {
 		exportToJson,

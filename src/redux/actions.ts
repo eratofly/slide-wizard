@@ -1,7 +1,8 @@
-import { Image, Primitive, Slide, TextObject } from '../model/types'
+import { Image, Presentation, Primitive, Slide, TextObject } from '../model/types'
 import React from 'react'
 
 enum PresentationActions {
+	IMPORT_FROM_JSON = 'IMPORT_FROM_JSON',
 	CHANGE_TITLE = 'CHANGE_TITLE',
 	CHANGE_ORDER = 'CHANGE_ORDER',
 	ADD_SLIDE = 'ADD_SLIDE',
@@ -18,6 +19,13 @@ enum SelectionActions {
 	SELECT_SLIDE = 'SELECT_SLIDE',
 	SELECT_OBJECT = 'SELECT_OBJECT',
 	UNSELECT_OBJECT = 'UNSELECT_OBJECT',
+}
+
+type ImportFromJsonAction = {
+	type: PresentationActions.IMPORT_FROM_JSON
+	payload: {
+		presentation: Presentation
+	}
 }
 
 type ChangeTitleAction = {
@@ -116,6 +124,7 @@ type UnselectObjectAction = {
 }
 
 type Action =
+	| ImportFromJsonAction
 	| ChangeTitleAction
 	| ChangeOrderAction
 	| AddSlideAction
