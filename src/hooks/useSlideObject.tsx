@@ -36,6 +36,7 @@ function useSlideObject(): {
 						hex: input.value,
 						opacity: 1,
 					},
+					width: 10,
 				},
 			})
 			input.remove()
