@@ -7,6 +7,12 @@
 	background-size: 100% 100%;
 }
 
+.slidePlayer {
+	width: 1600px;
+	height: 900px;
+	background-size: 100% 100%;
+}
+
 .slidePreview {
 	position: relative;
 	width: 160px;

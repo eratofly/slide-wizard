@@ -54,6 +54,8 @@ function SlideView(props: SlideViewProps) {
 		slideStateStyle = styles.slidePreview
 	} else if (state === 'selected') {
 		slideStateStyle = styles.slideSelected
+	} else if (state === 'player') {
+		slideStateStyle = styles.slidePlayer
 	}
 
 	useEffect(() => {

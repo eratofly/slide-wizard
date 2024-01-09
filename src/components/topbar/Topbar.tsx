@@ -13,7 +13,7 @@ import { playerBtn } from '../button/icons'
 function Topbar() {
 	const title = useAppSelector((state) => state.presentation.title)
 	const { exportToJson, importFromJson } = useEditorImportExport()
-	const { createExportToPdfAction } = useAppActions()
+	const { createExportToPdfAction, createStartPreviewAction } = useAppActions()
 	const [savePickerOpened, setSavePickerOpened] = useState(false)
 	const savePickerRef = useRef(null)
 	useClickOutside(savePickerRef, () => setSavePickerOpened(false))
@@ -57,7 +57,14 @@ function Topbar() {
 					</div>
 				</div>
 				<PresentationTitle presentationName={title!} />
-				<Button typeButton="icon" icon={playerBtn} />
+				<Button
+					typeButton="icon"
+					icon={playerBtn}
+					onClick={() => {
+						document.body.requestFullscreen().then()
+						createStartPreviewAction()
+					}}
+				/>
 				<img className={styles.logo} src={logo} alt="Logo" />
 			</div>
 			<Toolbar />

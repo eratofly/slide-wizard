@@ -18,7 +18,7 @@ import {
 } from '../button/icons'
 import { Image, ObjectType, Primitive, TextObject } from '../../model/types'
 import { useAppActions, useAppSelector } from '../../redux/hooks'
-import { useTextObject } from '../../hooks/useTextObject'
+import { useSlideObject } from '../../hooks/useSlideObject'
 
 export function TextToolbar() {
 	const presentation = useAppSelector((state) => state.presentation)
@@ -56,7 +56,7 @@ export function TextToolbar() {
 	const fontSize = (selectedObject! as TextObject).size
 	const fontFamily = (selectedObject! as TextObject).fontFamily
 
-	const { setColor } = useTextObject()
+	const { setColor } = useSlideObject()
 
 	return (
 		<div className={styles.toolbar}>

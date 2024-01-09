@@ -23,6 +23,13 @@ function getDefaultRectangle(): Primitive {
 			hex: '#ff00ff',
 			opacity: 1,
 		},
+		border: {
+			width: 10,
+			color: {
+				hex: '#000000',
+				opacity: 0,
+			},
+		},
 	}
 }
 
@@ -40,6 +47,13 @@ function getDefaultEllipse(): Primitive {
 			hex: '#ff00ff',
 			opacity: 1,
 		},
+		border: {
+			width: 10,
+			color: {
+				hex: '#000000',
+				opacity: 0,
+			},
+		},
 	}
 }
 
@@ -56,6 +70,13 @@ function getDefaultTriangle(): Primitive {
 		color: {
 			hex: '#ff00ff',
 			opacity: 1,
+		},
+		border: {
+			width: 10,
+			color: {
+				hex: '#000000',
+				opacity: 0,
+			},
 		},
 	}
 }
@@ -78,6 +99,13 @@ function getDefaultText(): TextObject {
 		size: 14,
 		bold: false,
 		italic: false,
+		border: {
+			width: 10,
+			color: {
+				hex: '#000000',
+				opacity: 0,
+			},
+		},
 	}
 }
 
@@ -91,6 +119,13 @@ function getDefaultImage(path: string): Image {
 		height: 500,
 		rotateAngle: 0,
 		path: path,
+		border: {
+			width: 10,
+			color: {
+				hex: '#000000',
+				opacity: 0,
+			},
+		},
 	}
 }
 

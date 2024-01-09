@@ -21,7 +21,7 @@ function Player() {
 				break
 			case 'Escape':
 				createEndPreviewAction()
-				//document.exitFullscreen().then()
+				document.exitFullscreen().then()
 				break
 			default:
 				break
@@ -37,9 +37,9 @@ function Player() {
 	function handleFullscreen() {
 		createEndPreviewAction()
 
-		// if (!document.fullscreenElement) {
-		// 	createEndPreviewAction()
-		// }
+		if (!document.fullscreenElement) {
+			createEndPreviewAction()
+		}
 	}
 
 	useEffect(() => {
