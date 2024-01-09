@@ -64,6 +64,7 @@ function TextObjectView(props: TextObjectViewProps) {
 					fontStyle: `${textObject.italic ? 'italic' : 'normal'}`,
 					color: `${getRgbaFromColor(textObject.color)}`,
 				}}
+				value={textObject.value}
 				className={styles.textObject}
 				onChange={(e) =>
 					createChangeObjectAction(selection.slideId, selection.objectId!, {
