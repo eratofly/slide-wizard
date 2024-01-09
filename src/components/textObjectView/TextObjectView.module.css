@@ -12,7 +12,7 @@
 	flex-flow: row wrap;
 	align-items: baseline;
 	border: none;
-	overflow: visible;
+	overflow: hidden;
 	outline: none;
 	box-shadow: none;
 	resize: none;
